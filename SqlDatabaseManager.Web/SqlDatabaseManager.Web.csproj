@@ -7,8 +7,16 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\SqlDatabaseManager.Base\SqlDatabaseManager.Base.csproj" />
+    <ProjectReference Include="..\SqlDatabaseManager.Configuration\SqlDatabaseManager.Configuration.csproj" />
   </ItemGroup>
 
 </Project>

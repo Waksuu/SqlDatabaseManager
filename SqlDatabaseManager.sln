@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlDataBaseManager", "SqlDataBaseManager\SqlDataBaseManager.csproj", "{A9B4C7EF-A7FB-4E9C-B253-D5872FD6D400}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Logic", "SqlDatabaseManager.Model\SqlDatabaseManager.Logic.csproj", "{B4B8C3C5-240D-4FF5-A6B9-EED472A17B86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Base", "SqlDatabaseManager.Base\SqlDatabaseManager.Base.csproj", "{968B6189-D29C-40EF-AA28-DB8120E5C7C3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Configuration", "SqlDatabaseManager.Configuration\SqlDatabaseManager.Configuration.csproj", "{6284E3A1-2077-492C-98F7-2F6F76A94E74}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Test", "SqlDatabaseManager.Test\SqlDatabaseManager.Test.csproj", "{75940EDA-3C49-4397-A5E4-7F787806D444}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Repository", "SqlDatabaseManager.Repository\SqlDatabaseManager.Repository.csproj", "{C486436A-ED53-4845-86A3-E097FCB9D79F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlDatabaseManager.Web", "SqlDatabaseManager.Web\SqlDatabaseManager.Web.csproj", "{E0BDEA61-82FB-405A-8366-B69B8CA36489}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +21,30 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A9B4C7EF-A7FB-4E9C-B253-D5872FD6D400}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9B4C7EF-A7FB-4E9C-B253-D5872FD6D400}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9B4C7EF-A7FB-4E9C-B253-D5872FD6D400}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9B4C7EF-A7FB-4E9C-B253-D5872FD6D400}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4B8C3C5-240D-4FF5-A6B9-EED472A17B86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4B8C3C5-240D-4FF5-A6B9-EED472A17B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4B8C3C5-240D-4FF5-A6B9-EED472A17B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4B8C3C5-240D-4FF5-A6B9-EED472A17B86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{968B6189-D29C-40EF-AA28-DB8120E5C7C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{968B6189-D29C-40EF-AA28-DB8120E5C7C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{968B6189-D29C-40EF-AA28-DB8120E5C7C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{968B6189-D29C-40EF-AA28-DB8120E5C7C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6284E3A1-2077-492C-98F7-2F6F76A94E74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6284E3A1-2077-492C-98F7-2F6F76A94E74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6284E3A1-2077-492C-98F7-2F6F76A94E74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6284E3A1-2077-492C-98F7-2F6F76A94E74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75940EDA-3C49-4397-A5E4-7F787806D444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75940EDA-3C49-4397-A5E4-7F787806D444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75940EDA-3C49-4397-A5E4-7F787806D444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75940EDA-3C49-4397-A5E4-7F787806D444}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C486436A-ED53-4845-86A3-E097FCB9D79F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C486436A-ED53-4845-86A3-E097FCB9D79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C486436A-ED53-4845-86A3-E097FCB9D79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C486436A-ED53-4845-86A3-E097FCB9D79F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0BDEA61-82FB-405A-8366-B69B8CA36489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0BDEA61-82FB-405A-8366-B69B8CA36489}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0BDEA61-82FB-405A-8366-B69B8CA36489}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0BDEA61-82FB-405A-8366-B69B8CA36489}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,8 +9,11 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SqlDatabaseManager.Configuration;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
-namespace SqlDataBaseManager
+namespace SqlDatabaseManager.Web
 {
     public class Startup
     {
@@ -22,7 +25,7 @@ namespace SqlDataBaseManager
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -33,6 +36,11 @@ namespace SqlDataBaseManager
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            var containerBuilder = ServiceLocator.WebContainer;
+            containerBuilder.Populate(services);
+            var container = containerBuilder.Build();
+            return new AutofacServiceProvider(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

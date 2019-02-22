@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using SqlDatabaseManager.Web.Models;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using SqlDataBaseManager.Models;
 
-namespace SqlDataBaseManager.Controllers
+namespace SqlDatabaseManager.Web.Controllers
 {
     public class HomeController : Controller
     {
