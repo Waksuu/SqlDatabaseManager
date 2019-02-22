@@ -26,7 +26,7 @@ namespace SqlDatabaseManager.Logic
             using (DbConnection connection = DatabaseFactory.DbConnectionFactory(connectionInformation.DatabaseType, builder.ConnectionString))
             {
                 DbCommand command = connection.CreateCommand();
-                command.CommandText = "SELECT name from sys.databases";
+                command.CommandText = QueryFactory.ShowDatabases(connectionInformation.DatabaseType);
                 command.CommandType = CommandType.Text;
 
                 connection.Open();
