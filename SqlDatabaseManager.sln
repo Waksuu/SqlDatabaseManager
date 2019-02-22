@@ -3,17 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Logic", "SqlDatabaseManager.Model\SqlDatabaseManager.Logic.csproj", "{B4B8C3C5-240D-4FF5-A6B9-EED472A17B86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Logic", "SqlDatabaseManager.Logic\SqlDatabaseManager.Logic.csproj", "{B4B8C3C5-240D-4FF5-A6B9-EED472A17B86}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Base", "SqlDatabaseManager.Base\SqlDatabaseManager.Base.csproj", "{968B6189-D29C-40EF-AA28-DB8120E5C7C3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Configuration", "SqlDatabaseManager.Configuration\SqlDatabaseManager.Configuration.csproj", "{6284E3A1-2077-492C-98F7-2F6F76A94E74}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B4B8C3C5-240D-4FF5-A6B9-EED472A17B86} = {B4B8C3C5-240D-4FF5-A6B9-EED472A17B86}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Test", "SqlDatabaseManager.Test\SqlDatabaseManager.Test.csproj", "{75940EDA-3C49-4397-A5E4-7F787806D444}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Repository", "SqlDatabaseManager.Repository\SqlDatabaseManager.Repository.csproj", "{C486436A-ED53-4845-86A3-E097FCB9D79F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlDatabaseManager.Web", "SqlDatabaseManager.Web\SqlDatabaseManager.Web.csproj", "{E0BDEA61-82FB-405A-8366-B69B8CA36489}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Web", "SqlDatabaseManager.Web\SqlDatabaseManager.Web.csproj", "{E0BDEA61-82FB-405A-8366-B69B8CA36489}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

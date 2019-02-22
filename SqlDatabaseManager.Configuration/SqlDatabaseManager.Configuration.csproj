@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SqlDatabaseManager.Base\SqlDatabaseManager.Base.csproj" />
-    <ProjectReference Include="..\SqlDatabaseManager.Model\SqlDatabaseManager.Logic.csproj" />
+    <ProjectReference Include="..\SqlDatabaseManager.Logic\SqlDatabaseManager.Logic.csproj" />
     <ProjectReference Include="..\SqlDatabaseManager.Repository\SqlDatabaseManager.Repository.csproj" />
   </ItemGroup>
 
