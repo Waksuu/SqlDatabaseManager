@@ -1,26 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SqlDatabaseManager.Base.Logics;
 using SqlDatabaseManager.Base.Models;
-using SqlDatabaseManager.Base.Repositories;
+using System.Collections.Generic;
 
 namespace SqlDatabaseManager.Web.Controllers
 {
     public class DatabaseController : Controller
     {
-        private readonly ILoginLogic _loginLogic;
+        private readonly IDatabaseLogic _databaseLogic;
 
-        public DatabaseController(ILoginLogic loginLogic)
+        public DatabaseController(IDatabaseLogic databaseLogic)
         {
-            _loginLogic = loginLogic;
+            _databaseLogic = databaseLogic;
         }
 
-        [HttpPost]
         public IActionResult Index([Bind(
             nameof(ConnectionInformation.ServerAddress), nameof(ConnectionInformation.Login),
             nameof(ConnectionInformation.Password), nameof(ConnectionInformation.DatabaseType))]
         ConnectionInformation connection)
         {
-            var databases = _loginLogic.GetDatabasesName(connection);
+            var databases = _databaseLogic.GetDatabases(connection);
             return View(databases);
         }
     }

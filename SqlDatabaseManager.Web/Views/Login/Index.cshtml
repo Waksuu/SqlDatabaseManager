@@ -1,4 +1,5 @@
 ﻿@model SqlDatabaseManager.Base.Models.ConnectionInformation
+@Html.AntiForgeryToken()
 @{
 	ViewData["Title"] = "Login";
 }
@@ -26,7 +27,7 @@
 				<div class="panel-title text-center">Connect to Server</div>
 			</div>
 			<div class="panel-body">
-				<form asp-controller="Database" asp-action="Index" method="POST">
+				<form asp-controller="Login" asp-action="Index" method="POST">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-tasks"></i></span>
 						<input asp-for="ServerAddress" id="ServerAddress" type="text" class="form-control" name="ServerAddress" placeholder="Database address">

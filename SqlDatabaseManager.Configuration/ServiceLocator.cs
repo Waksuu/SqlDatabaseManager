@@ -37,6 +37,7 @@ namespace SqlDatabaseManager.Configuration
         private static void RegisterLogic(ContainerBuilder container)
         {
             container.RegisterType<LoginLogic>().As<ILoginLogic>();
+            container.RegisterType<DatabaseLogic>().As<IDatabaseLogic>();
         }
 
         private static void RegisterRepository(ContainerBuilder container)
