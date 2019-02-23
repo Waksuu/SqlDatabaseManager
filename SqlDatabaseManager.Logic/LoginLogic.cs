@@ -12,7 +12,10 @@ namespace SqlDatabaseManager.Logic
         {
             DbConnectionStringBuilder builder = DatabaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
 
-            using (DbConnection connection = DatabaseFactory.DbConnectionFactory(connectionInformation.DatabaseType, builder.ConnectionString))
+            if (!connectionInformation.DatabaseType.HasValue)
+                return false;
+
+            using (DbConnection connection = DatabaseFactory.DbConnectionFactory(connectionInformation.DatabaseType.Value, builder.ConnectionString))
             {
                 try
                 {

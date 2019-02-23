@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SqlDatabaseManager.Base.Logics;
 using SqlDatabaseManager.Base.Models;
 
@@ -11,7 +6,6 @@ namespace SqlDatabaseManager.Web.Controllers
 {
     public class LoginController : Controller
     {
-
         private readonly ILoginLogic _loginLogic;
 
         public LoginController(ILoginLogic loginLogic)
@@ -26,12 +20,15 @@ namespace SqlDatabaseManager.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]  
+        [ValidateAntiForgeryToken]
         public IActionResult Index([Bind(
             nameof(ConnectionInformation.ServerAddress), nameof(ConnectionInformation.Login),
             nameof(ConnectionInformation.Password), nameof(ConnectionInformation.DatabaseType))]
         ConnectionInformation connection)
         {
+            if (!ModelState.IsValid)
+                return View();
+
             var connectionSuccess = _loginLogic.ConnectToDatabase(connection);
 
             if (connectionSuccess)
