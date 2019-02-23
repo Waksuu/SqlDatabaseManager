@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SqlDatabaseManager.Base.Logics;
+using SqlDatabaseManager.Web.Models;
 using SqlDatabaseManager.Base.Models;
 
 namespace SqlDatabaseManager.Web.Controllers
@@ -22,12 +23,18 @@ namespace SqlDatabaseManager.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Index([Bind(
-            nameof(ConnectionInformation.ServerAddress), nameof(ConnectionInformation.Login),
-            nameof(ConnectionInformation.Password), nameof(ConnectionInformation.DatabaseType))]
-        ConnectionInformation connection)
+            nameof(ConnectionInformationViewModel.ServerAddress), nameof(ConnectionInformationViewModel.Login),
+            nameof(ConnectionInformationViewModel.Password), nameof(ConnectionInformationViewModel.DatabaseType))]
+        ConnectionInformationViewModel connectionViewModel)
         {
             if (!ModelState.IsValid)
                 return View();
+
+            ConnectionInformation connection = new ConnectionInformation();
+            connection.ServerAddress = connectionViewModel.ServerAddress;
+            connection.Login = connectionViewModel.Login;
+            connection.Password = connectionViewModel.Password;
+            connection.DatabaseType = connectionViewModel.DatabaseType.Value;
 
             var connectionSuccess = _loginLogic.ConnectToDatabase(connection);
 

@@ -11,16 +11,13 @@ namespace SqlDatabaseManager.Logic
     {
         public IEnumerable<string> GetDatabases(ConnectionInformation connectionInformation)
         {
-            if (!connectionInformation.DatabaseType.HasValue)
-                return null; //TODO: Throw exception
-
             List<string> databases = new List<string>();
             DbConnectionStringBuilder builder = DatabaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
 
-            using (DbConnection connection = DatabaseFactory.DbConnectionFactory(connectionInformation.DatabaseType.Value, builder.ConnectionString))
+            using (DbConnection connection = DatabaseFactory.DbConnectionFactory(connectionInformation.DatabaseType, builder.ConnectionString))
             {
                 DbCommand command = connection.CreateCommand();
-                command.CommandText = QueryFactory.ShowDatabases(connectionInformation.DatabaseType.Value);
+                command.CommandText = QueryFactory.ShowDatabases(connectionInformation.DatabaseType);
                 command.CommandType = CommandType.Text;
 
                 connection.Open();

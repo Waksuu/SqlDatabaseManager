@@ -12,10 +12,8 @@ namespace SqlDatabaseManager.Logic
         {
             DbConnectionStringBuilder builder = DatabaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
 
-            if (!connectionInformation.DatabaseType.HasValue)
-                return false;
 
-            using (DbConnection connection = DatabaseFactory.DbConnectionFactory(connectionInformation.DatabaseType.Value, builder.ConnectionString))
+            using (DbConnection connection = DatabaseFactory.DbConnectionFactory(connectionInformation.DatabaseType, builder.ConnectionString))
             {
                 try
                 {
