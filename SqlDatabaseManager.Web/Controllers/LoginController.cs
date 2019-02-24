@@ -30,11 +30,7 @@ namespace SqlDatabaseManager.Web.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            ConnectionInformation connection = new ConnectionInformation();
-            connection.ServerAddress = connectionViewModel.ServerAddress;
-            connection.Login = connectionViewModel.Login;
-            connection.Password = connectionViewModel.Password;
-            connection.DatabaseType = connectionViewModel.DatabaseType.Value;
+            ConnectionInformation connection = Mapper.Mapper.ConnectionInformationMapper(connectionViewModel);
 
             var connectionSuccess = _loginLogic.ConnectToDatabase(connection);
 
