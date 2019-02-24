@@ -1,19 +1,24 @@
 ﻿using SqlDatabaseManager.Base.Factories;
 using SqlDatabaseManager.Base.Logics;
 using SqlDatabaseManager.Base.Models;
-using System.Collections.Generic;
 using System.Data.Common;
 
 namespace SqlDatabaseManager.Logic
 {
     public class LoginLogic : ILoginLogic
     {
+        private readonly IDatabaseFactory _databaseFactory;
+
+        public LoginLogic(IDatabaseFactory databaseFactory)
+        {
+            _databaseFactory = databaseFactory;
+        }
+
         public bool ConnectToDatabase(ConnectionInformation connectionInformation)
         {
-            DbConnectionStringBuilder builder = DatabaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
+            DbConnectionStringBuilder builder = _databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
 
-
-            using (DbConnection connection = DatabaseFactory.DbConnectionFactory(connectionInformation.DatabaseType, builder.ConnectionString))
+            using (DbConnection connection = _databaseFactory.DbConnectionFactory(connectionInformation.DatabaseType, builder.ConnectionString))
             {
                 try
                 {

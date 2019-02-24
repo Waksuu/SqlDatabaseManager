@@ -9,15 +9,24 @@ namespace SqlDatabaseManager.Logic
 {
     public class DatabaseLogic : IDatabaseLogic
     {
+        private readonly IDatabaseFactory _databaseFactory;
+        private readonly IQueryFactory _queryFactory;
+
+        public DatabaseLogic(IDatabaseFactory databaseFactory, IQueryFactory queryFactory)
+        {
+            _databaseFactory = databaseFactory;
+            _queryFactory = queryFactory;
+        }
+
         public IEnumerable<string> GetDatabases(ConnectionInformation connectionInformation)
         {
             List<string> databases = new List<string>();
-            DbConnectionStringBuilder builder = DatabaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
+            DbConnectionStringBuilder builder = _databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
 
-            using (DbConnection connection = DatabaseFactory.DbConnectionFactory(connectionInformation.DatabaseType, builder.ConnectionString))
+            using (DbConnection connection = _databaseFactory.DbConnectionFactory(connectionInformation.DatabaseType, builder.ConnectionString))
             {
                 DbCommand command = connection.CreateCommand();
-                command.CommandText = QueryFactory.ShowDatabases(connectionInformation.DatabaseType);
+                command.CommandText = _queryFactory.ShowDatabases(connectionInformation.DatabaseType);
                 command.CommandType = CommandType.Text;
 
                 connection.Open();

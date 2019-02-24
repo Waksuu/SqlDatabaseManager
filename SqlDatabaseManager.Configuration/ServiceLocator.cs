@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Autofac;
+﻿using Autofac;
+using SqlDatabaseManager.Base.Factories;
 using SqlDatabaseManager.Base.Logics;
-using SqlDatabaseManager.Base.Repositories;
 using SqlDatabaseManager.Logic;
-using SqlDatabaseManager.Repository;
+using SqlDatabaseManager.Logic.Factories;
+using System;
 
 namespace SqlDatabaseManager.Configuration
 {
@@ -28,7 +26,7 @@ namespace SqlDatabaseManager.Configuration
                 ContainerBuilder container = new ContainerBuilder();
 
                 RegisterLogic(container);
-                RegisterRepository(container);
+                RegisterFactories(container);
 
                 return container;
             });
@@ -40,9 +38,10 @@ namespace SqlDatabaseManager.Configuration
             container.RegisterType<DatabaseLogic>().As<IDatabaseLogic>();
         }
 
-        private static void RegisterRepository(ContainerBuilder container)
+        private static void RegisterFactories(ContainerBuilder container)
         {
-            container.RegisterType<MsSqlRepository>().As<IDatabaseRepository>();
+            container.RegisterType<DatabaseFactory>().As<IDatabaseFactory>();
+            container.RegisterType<QueryFactory>().As<IQueryFactory>();
         }
     }
 }

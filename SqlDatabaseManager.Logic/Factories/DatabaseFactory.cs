@@ -1,15 +1,16 @@
 ﻿using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 using SqlDatabaseManager.Base.Enums;
+using SqlDatabaseManager.Base.Factories;
 using SqlDatabaseManager.Base.Models;
 using System.Data.Common;
 using System.Data.SqlClient;
 
-namespace SqlDatabaseManager.Base.Factories
+namespace SqlDatabaseManager.Logic.Factories
 {
-    public class DatabaseFactory
+    public class DatabaseFactory : IDatabaseFactory
     {
-        static public DbConnectionStringBuilder DbConnectionStringBuilderFactory(ConnectionInformation connectionInformation)
+        public DbConnectionStringBuilder DbConnectionStringBuilderFactory(ConnectionInformation connectionInformation)
         {
             switch (connectionInformation.DatabaseType)
             {
@@ -35,7 +36,7 @@ namespace SqlDatabaseManager.Base.Factories
             }
         }
 
-        static public DbConnection DbConnectionFactory(DatabaseType databaseType, string connectionString)
+        public DbConnection DbConnectionFactory(DatabaseType databaseType, string connectionString)
         {
             switch (databaseType)
             {
