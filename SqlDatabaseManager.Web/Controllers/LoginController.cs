@@ -22,10 +22,7 @@ namespace SqlDatabaseManager.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index([Bind(
-            nameof(ConnectionInformationViewModel.ServerAddress), nameof(ConnectionInformationViewModel.Login),
-            nameof(ConnectionInformationViewModel.Password), nameof(ConnectionInformationViewModel.DatabaseType))]
-        ConnectionInformationViewModel connectionViewModel)
+        public IActionResult Index(ConnectionInformationViewModel connectionViewModel)
         {
             if (!ModelState.IsValid)
                 return View();

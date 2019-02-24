@@ -14,10 +14,7 @@ namespace SqlDatabaseManager.Web.Controllers
             _databaseLogic = databaseLogic;
         }
 
-        public IActionResult Index([Bind(
-            nameof(ConnectionInformation.ServerAddress), nameof(ConnectionInformation.Login),
-            nameof(ConnectionInformation.Password), nameof(ConnectionInformation.DatabaseType))]
-        ConnectionInformation connection)
+        public IActionResult Index(ConnectionInformation connection)
         {
             var databases = _databaseLogic.GetDatabases(connection);
             return View(databases);
