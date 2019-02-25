@@ -28,7 +28,7 @@ namespace SqlDatabaseManager.Logic.Factories
                         Server = connectionInformation.ServerAddress,
                         UserID = connectionInformation.Login,
                         Password = connectionInformation.Password,
-                        SslMode = MySqlSslMode.None, // TODO: Check what sslmode - none does.
+                        SslMode = MySqlSslMode.Preferred,
                     };
 
                 default:

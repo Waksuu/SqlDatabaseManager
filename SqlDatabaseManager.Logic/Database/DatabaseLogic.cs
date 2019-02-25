@@ -25,8 +25,10 @@ namespace SqlDatabaseManager.Logic
 
             using (DbConnection connection = _databaseFactory.DbConnectionFactory(connectionInformation.DatabaseType, builder.ConnectionString))
             {
+                var query = _queryFactory.GetQuery(connectionInformation.DatabaseType);
+
                 DbCommand command = connection.CreateCommand();
-                command.CommandText = _queryFactory.ShowDatabases(connectionInformation.DatabaseType);
+                command.CommandText = query.ShowDatabases();
                 command.CommandType = CommandType.Text;
 
                 connection.Open();

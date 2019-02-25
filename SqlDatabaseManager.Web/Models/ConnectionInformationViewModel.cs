@@ -15,7 +15,6 @@ namespace SqlDatabaseManager.Web.Models
         [Required]
         public string Login { get; set; }
 
-        [Required]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Please select Database Type")]

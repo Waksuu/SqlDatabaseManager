@@ -1,6 +1,7 @@
 ﻿using SqlDatabaseManager.Base.Factories;
 using SqlDatabaseManager.Base.Logics;
 using SqlDatabaseManager.Base.Models;
+using System;
 using System.Data.Common;
 
 namespace SqlDatabaseManager.Logic
@@ -24,7 +25,7 @@ namespace SqlDatabaseManager.Logic
                 {
                     connection.Open();
                 }
-                catch
+                catch(Exception ex)
                 {
                     return false;
                 }

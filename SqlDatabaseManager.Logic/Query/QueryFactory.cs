@@ -1,19 +1,21 @@
 ﻿using SqlDatabaseManager.Base.Enums;
 using SqlDatabaseManager.Base.Factories;
+using SqlDatabaseManager.Base.Query;
+using SqlDatabaseManager.Logic.Query;
 
 namespace SqlDatabaseManager.Logic.Factories
 {
     public class QueryFactory : IQueryFactory
     {
-        public string ShowDatabases(DatabaseType databaseType)
+        public IQuery GetQuery(DatabaseType databaseType)
         {
             switch (databaseType)
             {
                 case DatabaseType.MsSql:
-                    return "SELECT name from sys.databases";
+                    return new MsSQLQuery();
 
                 case DatabaseType.MySql:
-                    return "show databases";
+                    return new MySQLQuery();
 
                 default:
                     return null;
