@@ -1,10 +1,10 @@
-﻿using SqlDatabaseManager.Base.Factories;
-using SqlDatabaseManager.Base.Logics;
-using SqlDatabaseManager.Base.Models;
+﻿using SqlDatabaseManager.Base.Database;
+using SqlDatabaseManager.Base.Login;
+using SSqlDatabaseManager.Base.Connection;
 using System;
 using System.Data.Common;
 
-namespace SqlDatabaseManager.Logic
+namespace SqlDatabaseManager.Logic.Login
 {
     public class LoginLogic : ILoginLogic
     {
@@ -17,20 +17,24 @@ namespace SqlDatabaseManager.Logic
 
         public bool ConnectToDatabase(ConnectionInformation connectionInformation)
         {
-            DbConnectionStringBuilder builder = _databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
+            DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
 
-            using (DbConnection connection = _databaseFactory.DbConnectionFactory(connectionInformation.DatabaseType, builder.ConnectionString))
+            using (DbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
             {
                 try
                 {
                     connection.Open();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     return false;
                 }
             }
             return true;
         }
+
+        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformation connectionInformation) => _databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
+
+        private DbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => _databaseFactory.DbConnectionFactory(databaseType, connectionString);
     }
 }

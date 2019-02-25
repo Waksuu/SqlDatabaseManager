@@ -1,7 +1,7 @@
-﻿using SqlDatabaseManager.Base.Models;
+﻿using SSqlDatabaseManager.Base.Connection;
 using System.Collections.Generic;
 
-namespace SqlDatabaseManager.Base.Logics
+namespace SqlDatabaseManager.Base.Database
 {
     public interface IDatabaseLogic
     {

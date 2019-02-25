@@ -1,9 +1,5 @@
-﻿using SqlDatabaseManager.Base.Enums;
-using System;
-using System.Collections.Generic;
+﻿using SqlDatabaseManager.Base.Database;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Web.Models
 {

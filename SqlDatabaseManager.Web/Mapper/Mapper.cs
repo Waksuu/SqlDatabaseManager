@@ -1,5 +1,5 @@
-﻿using SqlDatabaseManager.Base.Models;
-using SqlDatabaseManager.Web.Models;
+﻿using SqlDatabaseManager.Web.Models;
+using SSqlDatabaseManager.Base.Connection;
 using System;
 
 namespace SqlDatabaseManager.Web.Mapper
@@ -10,13 +10,7 @@ namespace SqlDatabaseManager.Web.Mapper
         {
             ValidateState(connectionViewModel);
 
-            ConnectionInformation connection = new ConnectionInformation();
-            connection.ServerAddress = connectionViewModel.ServerAddress;
-            connection.Login = connectionViewModel.Login;
-            connection.Password = connectionViewModel.Password;
-            connection.DatabaseType = connectionViewModel.DatabaseType.Value;
-
-            return connection;
+            return MapModel(connectionViewModel);
         }
 
         private static void ValidateState(ConnectionInformationViewModel connectionViewModel)
@@ -24,8 +18,18 @@ namespace SqlDatabaseManager.Web.Mapper
             if (connectionViewModel == null)
                 throw new InvalidOperationException(string.Format(Base.Properties.Resources.MappingError, nameof(connectionViewModel)));
 
-            if (connectionViewModel.DatabaseType == null)
+            if (!connectionViewModel.DatabaseType.HasValue)
                 throw new InvalidOperationException(string.Format(Base.Properties.Resources.MappingError, nameof(connectionViewModel.DatabaseType)));
+        }
+
+        private static ConnectionInformation MapModel(ConnectionInformationViewModel connectionViewModel)
+        {
+            ConnectionInformation connection = new ConnectionInformation();
+            connection.ServerAddress = connectionViewModel.ServerAddress;
+            connection.Login = connectionViewModel.Login;
+            connection.Password = connectionViewModel.Password;
+            connection.DatabaseType = connectionViewModel.DatabaseType.Value;
+            return connection;
         }
     }
 }

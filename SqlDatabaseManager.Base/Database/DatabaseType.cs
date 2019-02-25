@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SqlDatabaseManager.Base.Enums
+﻿namespace SqlDatabaseManager.Base.Database
 {
     public enum DatabaseType
     {

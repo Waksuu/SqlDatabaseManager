@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SqlDatabaseManager.Base.Logics;
-using SqlDatabaseManager.Base.Models;
-using System.Collections.Generic;
+using SqlDatabaseManager.Base.Database;
+using SqlDatabaseManager.Service.Database;
+using System;
 
 namespace SqlDatabaseManager.Web.Controllers
 {
@@ -14,8 +14,10 @@ namespace SqlDatabaseManager.Web.Controllers
             _databaseLogic = databaseLogic;
         }
 
-        public IActionResult Index(ConnectionInformation connection)
+        public IActionResult Index(Guid sessionId)
         {
+            var connection = DatabaseConnection._instance.GetSession(sessionId);
+
             var databases = _databaseLogic.GetDatabases(connection);
             return View(databases);
         }

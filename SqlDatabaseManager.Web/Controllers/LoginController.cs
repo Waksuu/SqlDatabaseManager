@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SqlDatabaseManager.Base.Logics;
+using SqlDatabaseManager.Base.Login;
+using SqlDatabaseManager.Service.Database;
 using SqlDatabaseManager.Web.Models;
-using SqlDatabaseManager.Base.Models;
+using SSqlDatabaseManager.Base.Connection;
+using System;
 
 namespace SqlDatabaseManager.Web.Controllers
 {
@@ -24,17 +26,42 @@ namespace SqlDatabaseManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(ConnectionInformationViewModel connectionViewModel)
         {
-            if (!ModelState.IsValid)
+            if (ModelIsIncomplete())
+            {
                 return View();
+            }
 
-            ConnectionInformation connection = Mapper.Mapper.ConnectionInformationMapper(connectionViewModel);
+            ConnectionInformation connection = Map(connectionViewModel);
 
-            var connectionSuccess = _loginLogic.ConnectToDatabase(connection);
+            bool connectionResult = CheckIfConnectionIsValid(connection);
 
-            if (connectionSuccess)
-                return RedirectToAction("Index", "Database", connection);
-            else
+            if (ConnectionFailed(connectionResult))
+            {
                 return View(); // TODO: Return view with error or handle it in js
+            }
+
+            Guid sessionId = GenerateNewSession(connection);
+
+            return RedirectToAction("Index", "Database", new { sessionId });
         }
+
+        #region Private Methods
+
+        private bool ModelIsIncomplete() => !ModelState.IsValid;
+
+        private ConnectionInformation Map(ConnectionInformationViewModel connectionViewModel) => Mapper.Mapper.ConnectionInformationMapper(connectionViewModel);
+
+        private bool CheckIfConnectionIsValid(ConnectionInformation connection) => _loginLogic.ConnectToDatabase(connection);
+
+        private bool ConnectionFailed(bool connectionSuccess) => !connectionSuccess;
+
+        private Guid GenerateNewSession(ConnectionInformation connection)
+        {
+            Guid sessionId = Guid.NewGuid();
+            DatabaseConnection._instance.SetSession(sessionId, connection);
+            return sessionId;
+        }
+
+        #endregion Private Methods
     }
 }

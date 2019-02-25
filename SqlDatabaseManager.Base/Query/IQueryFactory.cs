@@ -1,7 +1,6 @@
-﻿using SqlDatabaseManager.Base.Enums;
-using SqlDatabaseManager.Base.Query;
+﻿using SqlDatabaseManager.Base.Database;
 
-namespace SqlDatabaseManager.Base.Factories
+namespace SqlDatabaseManager.Base.Query
 {
     public interface IQueryFactory
     {

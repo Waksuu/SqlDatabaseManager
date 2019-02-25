@@ -1,6 +1,6 @@
-﻿using SqlDatabaseManager.Base.Enums;
+﻿using SqlDatabaseManager.Base.Database;
 
-namespace SqlDatabaseManager.Base.Models
+namespace SSqlDatabaseManager.Base.Connection
 {
     public class ConnectionInformation
     {

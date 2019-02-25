@@ -1,12 +1,11 @@
 ﻿using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
-using SqlDatabaseManager.Base.Enums;
-using SqlDatabaseManager.Base.Factories;
-using SqlDatabaseManager.Base.Models;
+using SqlDatabaseManager.Base.Database;
+using SSqlDatabaseManager.Base.Connection;
 using System.Data.Common;
 using System.Data.SqlClient;
 
-namespace SqlDatabaseManager.Logic.Factories
+namespace SqlDatabaseManager.Logic.Database
 {
     public class DatabaseFactory : IDatabaseFactory
     {

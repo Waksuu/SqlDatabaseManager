@@ -1,11 +1,11 @@
-﻿using SqlDatabaseManager.Base.Factories;
-using SqlDatabaseManager.Base.Logics;
-using SqlDatabaseManager.Base.Models;
+﻿using SqlDatabaseManager.Base.Database;
+using SqlDatabaseManager.Base.Query;
+using SSqlDatabaseManager.Base.Connection;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 
-namespace SqlDatabaseManager.Logic
+namespace SqlDatabaseManager.Logic.Database
 {
     public class DatabaseLogic : IDatabaseLogic
     {
@@ -21,28 +21,48 @@ namespace SqlDatabaseManager.Logic
         public IEnumerable<string> GetDatabases(ConnectionInformation connectionInformation)
         {
             List<string> databases = new List<string>();
-            DbConnectionStringBuilder builder = _databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
 
-            using (DbConnection connection = _databaseFactory.DbConnectionFactory(connectionInformation.DatabaseType, builder.ConnectionString))
+            DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
+
+            using (DbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
             {
-                var query = _queryFactory.GetQuery(connectionInformation.DatabaseType);
-
-                DbCommand command = connection.CreateCommand();
-                command.CommandText = query.ShowDatabases();
-                command.CommandType = CommandType.Text;
+                DbCommand command = GenerateQuery(connectionInformation.DatabaseType, connection);
 
                 connection.Open();
 
-                using (IDataReader dr = command.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        databases.Add(dr[0].ToString());
-                    }
-                }
+                WriteQueryResults(databases, command);
             }
 
             return databases;
         }
+
+        #region Private Methods
+
+        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformation connectionInformation) => _databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
+
+        private DbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => _databaseFactory.DbConnectionFactory(databaseType, connectionString);
+
+        private DbCommand GenerateQuery(DatabaseType databaseType, DbConnection connection)
+        {
+            var query = _queryFactory.GetQuery(databaseType);
+
+            DbCommand command = connection.CreateCommand();
+            command.CommandText = query.ShowDatabases();
+            command.CommandType = CommandType.Text;
+            return command;
+        }
+
+        private void WriteQueryResults(List<string> databases, DbCommand command)
+        {
+            using (IDataReader dr = command.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    databases.Add(dr[0].ToString());
+                }
+            }
+        }
+
+        #endregion Private Methods
     }
 }

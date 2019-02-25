@@ -1,8 +1,10 @@
 ﻿using Autofac;
-using SqlDatabaseManager.Base.Factories;
-using SqlDatabaseManager.Base.Logics;
-using SqlDatabaseManager.Logic;
-using SqlDatabaseManager.Logic.Factories;
+using SqlDatabaseManager.Base.Database;
+using SqlDatabaseManager.Base.Login;
+using SqlDatabaseManager.Base.Query;
+using SqlDatabaseManager.Logic.Database;
+using SqlDatabaseManager.Logic.Login;
+using SqlDatabaseManager.Logic.Query;
 using System;
 
 namespace SqlDatabaseManager.Configuration

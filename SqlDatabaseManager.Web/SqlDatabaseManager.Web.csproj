@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SqlDatabaseManager.Base\SqlDatabaseManager.Base.csproj" />
     <ProjectReference Include="..\SqlDatabaseManager.Configuration\SqlDatabaseManager.Configuration.csproj" />
+    <ProjectReference Include="..\SqlDatabaseManager.Service\SqlDatabaseManager.Service.csproj" />
   </ItemGroup>
 
 
