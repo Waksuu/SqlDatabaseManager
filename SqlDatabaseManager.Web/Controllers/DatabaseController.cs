@@ -28,6 +28,8 @@ namespace SqlDatabaseManager.Web.Controllers
             return View(databases);
         }
 
+        #region Private Methods
+
         private void ValidateSessionCookie()
         {
             if (!Request.Cookies.ContainsKey(connection))
@@ -45,5 +47,7 @@ namespace SqlDatabaseManager.Web.Controllers
 
             return sessionId;
         }
+
+        #endregion Private Methods
     }
 }

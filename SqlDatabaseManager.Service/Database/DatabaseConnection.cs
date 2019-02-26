@@ -17,7 +17,7 @@ namespace SqlDatabaseManager.Service.Database
         public ConnectionInformation GetConnection(Guid sessionId)
         {
             if (!sessions.ContainsKey(sessionId))
-                return null;
+                throw new InvalidOperationException(Base.Properties.Resources.SessionError);
 
             return sessions[sessionId];
         }

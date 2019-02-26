@@ -41,7 +41,6 @@ namespace SqlDatabaseManager.Web.Controllers
             }
 
             Guid sessionId = GenerateNewSession(connection);
-
             Response.Cookies.Append("connection", sessionId.ToString());
 
             return RedirectToAction("Index", "Database");
