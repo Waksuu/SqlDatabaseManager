@@ -14,7 +14,7 @@ namespace SqlDatabaseManager.Service.Database
 
         private Dictionary<Guid, ConnectionInformation> sessions = new Dictionary<Guid, ConnectionInformation>();
 
-        public ConnectionInformation GetSession(Guid sessionId)
+        public ConnectionInformation GetConnection(Guid sessionId)
         {
             if (!sessions.ContainsKey(sessionId))
                 return null;
@@ -22,7 +22,7 @@ namespace SqlDatabaseManager.Service.Database
             return sessions[sessionId];
         }
 
-        public void SetSession(Guid sessionId, ConnectionInformation connection)
+        public void SetConnection(Guid sessionId, ConnectionInformation connection)
         {
             if (sessions.ContainsKey(sessionId))
                 return;

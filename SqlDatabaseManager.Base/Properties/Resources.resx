@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidSessionCast" xml:space="preserve">
+    <value>Could not cast sessionId to Guid</value>
+  </data>
   <data name="MappingError" xml:space="preserve">
     <value>Could not map {0} because it's value is null</value>
+  </data>
+  <data name="SessionError" xml:space="preserve">
+    <value>Session doesn't exist</value>
   </data>
 </root>

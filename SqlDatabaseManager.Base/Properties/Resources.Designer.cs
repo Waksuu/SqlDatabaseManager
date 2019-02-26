@@ -61,11 +61,29 @@ namespace SqlDatabaseManager.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not cast sessionId to Guid.
+        /// </summary>
+        public static string InvalidSessionCast {
+            get {
+                return ResourceManager.GetString("InvalidSessionCast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not map {0} because it&apos;s value is null.
         /// </summary>
         public static string MappingError {
             get {
                 return ResourceManager.GetString("MappingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Session doesn&apos;t exist.
+        /// </summary>
+        public static string SessionError {
+            get {
+                return ResourceManager.GetString("SessionError", resourceCulture);
             }
         }
     }

@@ -42,7 +42,9 @@ namespace SqlDatabaseManager.Web.Controllers
 
             Guid sessionId = GenerateNewSession(connection);
 
-            return RedirectToAction("Index", "Database", new { sessionId });
+            Response.Cookies.Append("connection", sessionId.ToString());
+
+            return RedirectToAction("Index", "Database");
         }
 
         #region Private Methods
@@ -58,7 +60,7 @@ namespace SqlDatabaseManager.Web.Controllers
         private Guid GenerateNewSession(ConnectionInformation connection)
         {
             Guid sessionId = Guid.NewGuid();
-            DatabaseConnection._instance.SetSession(sessionId, connection);
+            DatabaseConnection._instance.SetConnection(sessionId, connection);
             return sessionId;
         }
 
