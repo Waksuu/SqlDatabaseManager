@@ -16,6 +16,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Web", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlDatabaseManager.Service", "SqlDatabaseManager.Service\SqlDatabaseManager.Service.csproj", "{9AB191C6-7980-490A-A5B9-65AA12764E53}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{879FFA5F-7F29-41AB-AA33-0378C3CA2EFA}"
+	ProjectSection(SolutionItems) = preProject
+		Libraries\System.Data.SqlClient.dll = Libraries\System.Data.SqlClient.dll
+		Libraries\System.Data.SqlClient.xml = Libraries\System.Data.SqlClient.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
