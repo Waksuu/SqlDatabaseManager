@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SqlDatabaseManager.Base.Query
+namespace SqlDatabaseManager.Domain.Query
 {
     public interface IQuery
     {

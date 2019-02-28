@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SqlDatabaseManager.Base.Login;
-using SqlDatabaseManager.Service.Database;
+using SqlDatabaseManager.Domain.Connection;
+using SqlDatabaseManager.Domain.Database;
+using SqlDatabaseManager.Domain.Login;
 using SqlDatabaseManager.Web.Models;
-using SSqlDatabaseManager.Base.Connection;
 using System;
 
 namespace SqlDatabaseManager.Web.Controllers

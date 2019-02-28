@@ -1,6 +1,6 @@
-﻿using SSqlDatabaseManager.Base.Connection;
+﻿using SqlDatabaseManager.Domain.Connection;
 
-namespace SqlDatabaseManager.Base.Login
+namespace SqlDatabaseManager.Domain.Login
 {
     public interface ILoginLogic
     {

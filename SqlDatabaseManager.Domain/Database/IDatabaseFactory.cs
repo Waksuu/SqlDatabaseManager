@@ -1,7 +1,7 @@
-﻿using SSqlDatabaseManager.Base.Connection;
+﻿using SqlDatabaseManager.Domain.Connection;
 using System.Data.Common;
 
-namespace SqlDatabaseManager.Base.Database
+namespace SqlDatabaseManager.Domain.Database
 {
     public interface IDatabaseFactory
     {

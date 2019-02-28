@@ -1,10 +1,9 @@
-﻿using SqlDatabaseManager.Base.Database;
-using SqlDatabaseManager.Base.Login;
-using SSqlDatabaseManager.Base.Connection;
+﻿using SqlDatabaseManager.Domain.Connection;
+using SqlDatabaseManager.Domain.Database;
 using System;
 using System.Data.Common;
 
-namespace SqlDatabaseManager.Logic.Login
+namespace SqlDatabaseManager.Domain.Login
 {
     public class LoginLogic : ILoginLogic
     {

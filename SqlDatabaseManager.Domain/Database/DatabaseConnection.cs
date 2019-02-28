@@ -1,8 +1,8 @@
-﻿using SSqlDatabaseManager.Base.Connection;
+﻿using SqlDatabaseManager.Domain.Connection;
 using System;
 using System.Collections.Generic;
 
-namespace SqlDatabaseManager.Service.Database
+namespace SqlDatabaseManager.Domain.Database
 {
     public class DatabaseConnection
     {
@@ -17,7 +17,7 @@ namespace SqlDatabaseManager.Service.Database
         public ConnectionInformation GetConnection(Guid sessionId)
         {
             if (!sessions.ContainsKey(sessionId))
-                throw new InvalidOperationException(Base.Properties.Resources.SessionError);
+                throw new InvalidOperationException(Properties.Resources.SessionError);
 
             return sessions[sessionId];
         }

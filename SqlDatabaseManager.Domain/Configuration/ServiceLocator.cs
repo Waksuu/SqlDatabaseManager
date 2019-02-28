@@ -1,13 +1,10 @@
 ﻿using Autofac;
-using SqlDatabaseManager.Base.Database;
-using SqlDatabaseManager.Base.Login;
-using SqlDatabaseManager.Base.Query;
-using SqlDatabaseManager.Logic.Database;
-using SqlDatabaseManager.Logic.Login;
-using SqlDatabaseManager.Logic.Query;
+using SqlDatabaseManager.Domain.Database;
+using SqlDatabaseManager.Domain.Login;
+using SqlDatabaseManager.Domain.Query;
 using System;
 
-namespace SqlDatabaseManager.Configuration
+namespace SqlDatabaseManager.Domain.Configuration
 {
     public static class ServiceLocator
     {

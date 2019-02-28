@@ -1,4 +1,4 @@
-﻿using SqlDatabaseManager.Base.Database;
+﻿using SqlDatabaseManager.Domain.Database;
 using System.ComponentModel.DataAnnotations;
 
 namespace SqlDatabaseManager.Web.Models

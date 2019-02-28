@@ -1,11 +1,10 @@
 ﻿using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
-using SqlDatabaseManager.Base.Database;
-using SSqlDatabaseManager.Base.Connection;
+using SqlDatabaseManager.Domain.Connection;
 using System.Data.Common;
 using System.Data.SqlClient;
 
-namespace SqlDatabaseManager.Logic.Database
+namespace SqlDatabaseManager.Domain.Database
 {
     public class DatabaseFactory : IDatabaseFactory
     {

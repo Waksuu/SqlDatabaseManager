@@ -1,4 +1,4 @@
-﻿namespace SqlDatabaseManager.Base.Database
+﻿namespace SqlDatabaseManager.Domain.Database
 {
     public enum DatabaseType
     {

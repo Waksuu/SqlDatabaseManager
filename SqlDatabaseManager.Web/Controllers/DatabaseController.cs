@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SqlDatabaseManager.Base.Database;
-using SqlDatabaseManager.Service.Database;
+using SqlDatabaseManager.Domain.Database;
 using System;
 
 namespace SqlDatabaseManager.Web.Controllers
@@ -34,7 +33,7 @@ namespace SqlDatabaseManager.Web.Controllers
         {
             if (!Request.Cookies.ContainsKey(connection))
             {
-                throw new InvalidOperationException(Base.Properties.Resources.SessionError);
+                throw new InvalidOperationException(Domain.Properties.Resources.SessionError);
             }
         }
 
@@ -42,7 +41,7 @@ namespace SqlDatabaseManager.Web.Controllers
         {
             if (!Guid.TryParse(Request.Cookies[connection], out Guid sessionId) || sessionId == Guid.Empty)
             {
-                throw new InvalidCastException(Base.Properties.Resources.InvalidSessionCast);
+                throw new InvalidCastException(Domain.Properties.Resources.InvalidSessionCast);
             }
 
             return sessionId;

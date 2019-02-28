@@ -1,6 +1,6 @@
-﻿using SqlDatabaseManager.Base.Database;
+﻿using SqlDatabaseManager.Domain.Database;
 
-namespace SqlDatabaseManager.Base.Query
+namespace SqlDatabaseManager.Domain.Query
 {
     public interface IQueryFactory
     {

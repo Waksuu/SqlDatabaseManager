@@ -1,11 +1,10 @@
-﻿using SqlDatabaseManager.Base.Database;
-using SqlDatabaseManager.Base.Query;
-using SSqlDatabaseManager.Base.Connection;
+﻿using SqlDatabaseManager.Domain.Connection;
+using SqlDatabaseManager.Domain.Query;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 
-namespace SqlDatabaseManager.Logic.Database
+namespace SqlDatabaseManager.Domain.Database
 {
     public class DatabaseLogic : IDatabaseLogic
     {
