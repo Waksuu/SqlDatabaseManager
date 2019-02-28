@@ -2,6 +2,7 @@
 using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Domain.Login;
+using SqlDatabaseManager.Domain.Security;
 using SqlDatabaseManager.Web.Models;
 using System;
 
@@ -12,12 +13,12 @@ namespace SqlDatabaseManager.Web.Controllers
         private const string connection = "connection";
 
         private readonly IDatabaseLogic databaseLogic;
-        private readonly ILoginLogic loginLogic;
+        private readonly IDatabaseConnectionService databaseConnectionService;
 
-        public DatabaseController(IDatabaseLogic databaseLogic, ILoginLogic loginLogic)
+        public DatabaseController(IDatabaseLogic databaseLogic, IDatabaseConnectionService databaseConnectionService)
         {
             this.databaseLogic = databaseLogic;
-            this.loginLogic = loginLogic;
+            this.databaseConnectionService = databaseConnectionService;
         }
 
         [HttpGet]
@@ -35,17 +36,18 @@ namespace SqlDatabaseManager.Web.Controllers
                 return View();
             }
 
-            ConnectionInformation connection = Map(connectionViewModel);
+            ConnectionInformation connectionInformation = Map(connectionViewModel);
 
-            bool connectionResult = CheckIfConnectionIsValid(connection);
+            var loginResult = databaseConnectionService.CreateDatabaseConnection(connectionInformation);
 
-            if (ConnectionFailed(connectionResult))
+            if (ErrorOccured(loginResult))
             {
-                return View(); // TODO: Return view with error or handle it in js
+                ViewBag.LoginError = loginResult.ErrorMessage;
+
+                return View(); //TODO: Somehow display the error on the same page???!?!!
             }
 
-            Guid sessionId = GenerateNewSession(connection);
-            Response.Cookies.Append("connection", sessionId.ToString());
+            Response.Cookies.Append("connection", loginResult.SessionId.ToString());
 
             return RedirectToAction("Index");
         }
@@ -56,16 +58,7 @@ namespace SqlDatabaseManager.Web.Controllers
 
         private ConnectionInformation Map(ConnectionInformationViewModel connectionViewModel) => Mapper.Mapper.ConnectionInformationMapper(connectionViewModel);
 
-        private bool CheckIfConnectionIsValid(ConnectionInformation connection) => loginLogic.ConnectToDatabase(connection);
-
-        private bool ConnectionFailed(bool connectionSuccess) => !connectionSuccess;
-
-        private Guid GenerateNewSession(ConnectionInformation connection)
-        {
-            Guid sessionId = Guid.NewGuid();
-            DatabaseConnection.instance.SetConnection(sessionId, connection);
-            return sessionId;
-        }
+        private bool ErrorOccured(LoginResult loginResult) => !string.IsNullOrWhiteSpace(loginResult.ErrorMessage);
 
         #endregion Login Methods
 
@@ -75,7 +68,7 @@ namespace SqlDatabaseManager.Web.Controllers
             ValidateSessionCookie();
             sessionId = GetSessionCookie();
 
-            var connectionInformation = DatabaseConnection.instance.GetConnection(sessionId);
+            ConnectionInformation connectionInformation = Session.GetSession(sessionId);
 
             var databases = databaseLogic.GetDatabases(connectionInformation);
 

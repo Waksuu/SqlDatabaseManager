@@ -13,6 +13,8 @@ namespace SqlDatabaseManager.Web.Mapper
             return MapModel(connectionViewModel);
         }
 
+        #region ConnectionInformation
+
         private static void ValidateState(ConnectionInformationViewModel connectionViewModel)
         {
             if (connectionViewModel == null)
@@ -24,12 +26,15 @@ namespace SqlDatabaseManager.Web.Mapper
 
         private static ConnectionInformation MapModel(ConnectionInformationViewModel connectionViewModel)
         {
-            ConnectionInformation connection = new ConnectionInformation();
-            connection.ServerAddress = connectionViewModel.ServerAddress;
-            connection.Login = connectionViewModel.Login;
-            connection.Password = connectionViewModel.Password;
-            connection.DatabaseType = connectionViewModel.DatabaseType.Value;
-            return connection;
+            return new ConnectionInformation
+            {
+                ServerAddress = connectionViewModel.ServerAddress,
+                Login = connectionViewModel.Login,
+                Password = connectionViewModel.Password,
+                DatabaseType = connectionViewModel.DatabaseType.Value,
+            };
         }
+
+        #endregion ConnectionInformation
     }
 }

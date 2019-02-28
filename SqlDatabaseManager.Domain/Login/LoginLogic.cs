@@ -1,6 +1,5 @@
 ﻿using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Database;
-using System;
 using System.Data.Common;
 
 namespace SqlDatabaseManager.Domain.Login
@@ -14,22 +13,14 @@ namespace SqlDatabaseManager.Domain.Login
             _databaseFactory = databaseFactory;
         }
 
-        public bool ConnectToDatabase(ConnectionInformation connectionInformation)
+        public void ConnectToDatabase(ConnectionInformation connectionInformation)
         {
             DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
 
             using (DbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
             {
-                try
-                {
-                    connection.Open();
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
+                connection.Open();
             }
-            return true;
         }
 
         private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformation connectionInformation) => _databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);

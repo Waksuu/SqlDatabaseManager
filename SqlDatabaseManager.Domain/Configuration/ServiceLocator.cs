@@ -35,6 +35,7 @@ namespace SqlDatabaseManager.Domain.Configuration
         {
             container.RegisterType<LoginLogic>().As<ILoginLogic>();
             container.RegisterType<DatabaseLogic>().As<IDatabaseLogic>();
+            container.RegisterType<DatabaseConnectionService>().As<IDatabaseConnectionService>();
         }
 
         private static void RegisterFactories(ContainerBuilder container)
