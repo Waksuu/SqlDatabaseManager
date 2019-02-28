@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Database;
+using SqlDatabaseManager.Domain.Login;
+using SqlDatabaseManager.Web.Models;
 using System;
 
 namespace SqlDatabaseManager.Web.Controllers
@@ -7,12 +10,64 @@ namespace SqlDatabaseManager.Web.Controllers
     public class DatabaseController : Controller
     {
         private const string connection = "connection";
-        private readonly IDatabaseLogic _databaseLogic;
 
-        public DatabaseController(IDatabaseLogic databaseLogic)
+        private readonly IDatabaseLogic databaseLogic;
+        private readonly ILoginLogic loginLogic;
+
+        public DatabaseController(IDatabaseLogic databaseLogic, ILoginLogic loginLogic)
         {
-            _databaseLogic = databaseLogic;
+            this.databaseLogic = databaseLogic;
+            this.loginLogic = loginLogic;
         }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(ConnectionInformationViewModel connectionViewModel)
+        {
+            if (ModelIsIncomplete())
+            {
+                return View();
+            }
+
+            ConnectionInformation connection = Map(connectionViewModel);
+
+            bool connectionResult = CheckIfConnectionIsValid(connection);
+
+            if (ConnectionFailed(connectionResult))
+            {
+                return View(); // TODO: Return view with error or handle it in js
+            }
+
+            Guid sessionId = GenerateNewSession(connection);
+            Response.Cookies.Append("connection", sessionId.ToString());
+
+            return RedirectToAction("Index");
+        }
+
+        #region Login Methods
+
+        private bool ModelIsIncomplete() => !ModelState.IsValid;
+
+        private ConnectionInformation Map(ConnectionInformationViewModel connectionViewModel) => Mapper.Mapper.ConnectionInformationMapper(connectionViewModel);
+
+        private bool CheckIfConnectionIsValid(ConnectionInformation connection) => loginLogic.ConnectToDatabase(connection);
+
+        private bool ConnectionFailed(bool connectionSuccess) => !connectionSuccess;
+
+        private Guid GenerateNewSession(ConnectionInformation connection)
+        {
+            Guid sessionId = Guid.NewGuid();
+            DatabaseConnection.instance.SetConnection(sessionId, connection);
+            return sessionId;
+        }
+
+        #endregion Login Methods
 
         public IActionResult Index()
         {
@@ -20,14 +75,14 @@ namespace SqlDatabaseManager.Web.Controllers
             ValidateSessionCookie();
             sessionId = GetSessionCookie();
 
-            var connectionInformation = DatabaseConnection._instance.GetConnection(sessionId);
+            var connectionInformation = DatabaseConnection.instance.GetConnection(sessionId);
 
-            var databases = _databaseLogic.GetDatabases(connectionInformation);
+            var databases = databaseLogic.GetDatabases(connectionInformation);
 
             return View(databases);
         }
 
-        #region Private Methods
+        #region Index Methods
 
         private void ValidateSessionCookie()
         {
@@ -47,6 +102,6 @@ namespace SqlDatabaseManager.Web.Controllers
             return sessionId;
         }
 
-        #endregion Private Methods
+        #endregion Index Methods
     }
 }

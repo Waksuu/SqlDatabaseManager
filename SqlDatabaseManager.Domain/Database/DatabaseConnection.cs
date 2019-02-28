@@ -6,7 +6,7 @@ namespace SqlDatabaseManager.Domain.Database
 {
     public class DatabaseConnection
     {
-        public static readonly DatabaseConnection _instance = new DatabaseConnection();
+        public static readonly DatabaseConnection instance = new DatabaseConnection();
 
         private DatabaseConnection()
         {
