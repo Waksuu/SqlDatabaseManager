@@ -44,7 +44,7 @@ namespace SqlDatabaseManager.Web.Controllers
             {
                 ViewBag.LoginError = loginResult.ErrorMessage;
 
-                return View(); //TODO: Somehow display the error on the same page???!?!!
+                return View();
             }
 
             Response.Cookies.Append("connection", loginResult.SessionId.ToString());
