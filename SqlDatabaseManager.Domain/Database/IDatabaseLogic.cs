@@ -5,6 +5,6 @@ namespace SqlDatabaseManager.Domain.Database
 {
     public interface IDatabaseLogic
     {
-        IEnumerable<string> GetDatabases(ConnectionInformation connectionInformation);
+        IEnumerable<DatabaseDefinition> GetDatabases(ConnectionInformation connectionInformation);
     }
 }

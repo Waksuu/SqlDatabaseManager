@@ -17,9 +17,9 @@ namespace SqlDatabaseManager.Domain.Database
             _queryFactory = queryFactory;
         }
 
-        public IEnumerable<string> GetDatabases(ConnectionInformation connectionInformation)
+        public IEnumerable<DatabaseDefinition> GetDatabases(ConnectionInformation connectionInformation)
         {
-            List<string> databases = new List<string>();
+            List<DatabaseDefinition> databases = new List<DatabaseDefinition>();
 
             DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
 
@@ -51,13 +51,13 @@ namespace SqlDatabaseManager.Domain.Database
             return command;
         }
 
-        private void WriteQueryResults(List<string> databases, DbCommand command)
+        private void WriteQueryResults(List<DatabaseDefinition> databases, DbCommand command)
         {
             using (IDataReader dr = command.ExecuteReader())
             {
                 while (dr.Read())
                 {
-                    databases.Add(dr[0].ToString());
+                    databases.Add(new DatabaseDefinition { DatabaseName = dr[0].ToString() });
                 }
             }
         }
