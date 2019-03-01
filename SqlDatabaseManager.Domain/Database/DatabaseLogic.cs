@@ -35,7 +35,7 @@ namespace SqlDatabaseManager.Domain.Database
             return databases;
         }
 
-        #region Private Methods
+        #region GetDatabases Methods
 
         private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformation connectionInformation) => databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
 
@@ -62,6 +62,6 @@ namespace SqlDatabaseManager.Domain.Database
             }
         }
 
-        #endregion Private Methods
+        #endregion GetDatabases Methods
     }
 }

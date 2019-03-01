@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Domain.Database
 {
-    public interface IDatabaseStartupService
+    public interface IDatabaseService
     {
-        Task<IEnumerable<DatabaseDefinition>> GetDatabaseDefinitionsAsync(Guid sessionId);
+        Task<IEnumerable<DatabaseDefinition>> GetObjectExplorerDataAsync(Guid sessionId);
     }
 }

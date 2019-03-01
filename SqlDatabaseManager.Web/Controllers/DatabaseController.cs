@@ -2,7 +2,6 @@
 using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Domain.Login;
-using SqlDatabaseManager.Domain.Security;
 using SqlDatabaseManager.Web.Models;
 using System;
 using System.Threading.Tasks;
@@ -13,12 +12,12 @@ namespace SqlDatabaseManager.Web.Controllers
     {
         private const string connection = "connection";
 
-        private readonly IDatabaseStartupService databaseStartupService;
+        private readonly IDatabaseService databaseService;
         private readonly IDatabaseConnectionService databaseConnectionService;
 
-        public DatabaseController(IDatabaseStartupService databaseStartupService, IDatabaseConnectionService databaseConnectionService)
+        public DatabaseController(IDatabaseService databaseService, IDatabaseConnectionService databaseConnectionService)
         {
-            this.databaseStartupService = databaseStartupService;
+            this.databaseService = databaseService;
             this.databaseConnectionService = databaseConnectionService;
         }
 
@@ -67,7 +66,7 @@ namespace SqlDatabaseManager.Web.Controllers
         {
             Guid sessionId = GetSessionId();
 
-            var databases = await databaseStartupService.GetDatabaseDefinitionsAsync(sessionId);
+            var databases = await databaseService.GetObjectExplorerDataAsync(sessionId);
 
             return View(databases);
         }

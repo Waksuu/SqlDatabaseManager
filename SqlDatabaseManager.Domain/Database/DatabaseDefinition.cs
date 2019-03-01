@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SqlDatabaseManager.Domain.Database
+﻿namespace SqlDatabaseManager.Domain.Database
 {
     public class DatabaseDefinition
     {

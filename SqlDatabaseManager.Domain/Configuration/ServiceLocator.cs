@@ -49,7 +49,7 @@ namespace SqlDatabaseManager.Domain.Configuration
         private static void RegisterServices(ContainerBuilder container)
         {
             container.RegisterType<DatabaseConnectionService>().As<IDatabaseConnectionService>();
-            container.RegisterType<DatabaseStartupService>().As<IDatabaseStartupService>();
+            container.RegisterType<DatabaseService>().As<IDatabaseService>();
         }
 
         private static void RegisterInfrastructure(ContainerBuilder container)

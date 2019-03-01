@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Domain.Database
 {
-    public class DatabaseStartupService : IDatabaseStartupService
+    public class DatabaseService : IDatabaseService
     {
         private readonly ISession session;
         private readonly IDatabaseLogic databaseLogic;
 
-        public DatabaseStartupService(ISession session, IDatabaseLogic databaseLogic)
+        public DatabaseService(ISession session, IDatabaseLogic databaseLogic)
         {
             this.session = session;
             this.databaseLogic = databaseLogic;
         }
 
 
-        public Task<IEnumerable<DatabaseDefinition>> GetDatabaseDefinitionsAsync(Guid sessionId) => Task.Run(() => GetDatabaseDefinitions(sessionId));
+        public Task<IEnumerable<DatabaseDefinition>> GetObjectExplorerDataAsync(Guid sessionId) => Task.Run(() => GetObjectExplorerData(sessionId));
 
-        private IEnumerable<DatabaseDefinition> GetDatabaseDefinitions(Guid sessionId)
+        private IEnumerable<DatabaseDefinition> GetObjectExplorerData(Guid sessionId)
         {
             ConnectionInformation connectionInformation = session.GetSession(sessionId);
 
