@@ -8,13 +8,13 @@ namespace SqlDatabaseManager.Domain.Database
 {
     public class DatabaseLogic : IDatabaseLogic
     {
-        private readonly IDatabaseFactory _databaseFactory;
-        private readonly IQueryFactory _queryFactory;
+        private readonly IDatabaseFactory databaseFactory;
+        private readonly IQueryFactory queryFactory;
 
         public DatabaseLogic(IDatabaseFactory databaseFactory, IQueryFactory queryFactory)
         {
-            _databaseFactory = databaseFactory;
-            _queryFactory = queryFactory;
+            this.databaseFactory = databaseFactory;
+            this.queryFactory = queryFactory;
         }
 
         public IEnumerable<DatabaseDefinition> GetDatabases(ConnectionInformation connectionInformation)
@@ -37,13 +37,13 @@ namespace SqlDatabaseManager.Domain.Database
 
         #region Private Methods
 
-        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformation connectionInformation) => _databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
+        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformation connectionInformation) => databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
 
-        private DbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => _databaseFactory.DbConnectionFactory(databaseType, connectionString);
+        private DbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => databaseFactory.DbConnectionFactory(databaseType, connectionString);
 
         private DbCommand GenerateQuery(DatabaseType databaseType, DbConnection connection)
         {
-            var query = _queryFactory.GetQuery(databaseType);
+            var query = queryFactory.GetQuery(databaseType);
 
             DbCommand command = connection.CreateCommand();
             command.CommandText = query.ShowDatabases();
