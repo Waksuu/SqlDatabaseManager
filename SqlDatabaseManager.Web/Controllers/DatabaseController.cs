@@ -13,13 +13,13 @@ namespace SqlDatabaseManager.Web.Controllers
     {
         private const string connection = "connection";
 
-        private readonly IDatabaseLogic databaseLogic;
+        private readonly IDatabaseStartupService databaseStartupService;
         private readonly IDatabaseConnectionService databaseConnectionService;
         private readonly ISession session;
 
-        public DatabaseController(IDatabaseLogic databaseLogic, IDatabaseConnectionService databaseConnectionService, ISession session)
+        public DatabaseController(IDatabaseStartupService databaseStartupService, IDatabaseConnectionService databaseConnectionService, ISession session)
         {
-            this.databaseLogic = databaseLogic;
+            this.databaseStartupService = databaseStartupService;
             this.databaseConnectionService = databaseConnectionService;
             this.session = session;
         }
@@ -41,7 +41,7 @@ namespace SqlDatabaseManager.Web.Controllers
 
             ConnectionInformation connectionInformation = Map(connectionViewModel);
 
-            var loginResult =  await databaseConnectionService.CreateDatabaseConnectionAsync(connectionInformation);
+            var loginResult = await databaseConnectionService.CreateDatabaseConnectionAsync(connectionInformation);
 
             if (ErrorOccured(loginResult))
             {
@@ -67,18 +67,22 @@ namespace SqlDatabaseManager.Web.Controllers
 
         public IActionResult Index()
         {
-            Guid sessionId = Guid.Empty;
-            ValidateSessionCookie();
-            sessionId = GetSessionCookie();
+            Guid sessionId = GetSessionId();
 
-            ConnectionInformation connectionInformation = session.GetSession(sessionId);
-
-            var databases = databaseLogic.GetDatabases(connectionInformation);
+            var databases = databaseStartupService.GetDatabaseDefinitions(sessionId);
 
             return View(databases);
         }
 
         #region Index Methods
+
+        private Guid GetSessionId()
+        {
+            Guid sessionId = Guid.Empty;
+            ValidateSessionCookie();
+            sessionId = GetSessionCookie();
+            return sessionId;
+        }
 
         private void ValidateSessionCookie()
         {
