@@ -5,6 +5,7 @@ using SqlDatabaseManager.Domain.Login;
 using SqlDatabaseManager.Domain.Security;
 using SqlDatabaseManager.Web.Models;
 using System;
+using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Web.Controllers
 {
@@ -31,7 +32,7 @@ namespace SqlDatabaseManager.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(ConnectionInformationViewModel connectionViewModel)
+        public async Task<IActionResult> Login(ConnectionInformationViewModel connectionViewModel)
         {
             if (ModelIsIncomplete())
             {
@@ -40,7 +41,7 @@ namespace SqlDatabaseManager.Web.Controllers
 
             ConnectionInformation connectionInformation = Map(connectionViewModel);
 
-            var loginResult = databaseConnectionService.CreateDatabaseConnection(connectionInformation);
+            var loginResult =  await databaseConnectionService.CreateDatabaseConnectionAsync(connectionInformation);
 
             if (ErrorOccured(loginResult))
             {

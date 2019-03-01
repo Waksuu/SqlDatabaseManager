@@ -1,6 +1,7 @@
 ﻿using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Security;
 using System;
+using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Domain.Login
 {
@@ -15,7 +16,9 @@ namespace SqlDatabaseManager.Domain.Login
             this.session = session;
         }
 
-        public LoginResult CreateDatabaseConnection(ConnectionInformation connectionInformation)
+        public Task<LoginResult> CreateDatabaseConnectionAsync(ConnectionInformation connectionInformation) => Task.Run(() => CreateDatabaseConnection(connectionInformation));
+
+        private LoginResult CreateDatabaseConnection(ConnectionInformation connectionInformation)
         {
             LoginResult loginResult = new LoginResult();
 

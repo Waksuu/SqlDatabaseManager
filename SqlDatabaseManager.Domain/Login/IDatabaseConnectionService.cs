@@ -1,10 +1,11 @@
 ﻿using SqlDatabaseManager.Domain.Connection;
 using System;
+using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Domain.Login
 {
     public interface IDatabaseConnectionService
     {
-        LoginResult CreateDatabaseConnection(ConnectionInformation connectionInformation);
+        Task<LoginResult> CreateDatabaseConnectionAsync(ConnectionInformation connectionInformation);
     }
 }
