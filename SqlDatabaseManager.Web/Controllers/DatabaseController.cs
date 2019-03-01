@@ -15,13 +15,11 @@ namespace SqlDatabaseManager.Web.Controllers
 
         private readonly IDatabaseStartupService databaseStartupService;
         private readonly IDatabaseConnectionService databaseConnectionService;
-        private readonly ISession session;
 
-        public DatabaseController(IDatabaseStartupService databaseStartupService, IDatabaseConnectionService databaseConnectionService, ISession session)
+        public DatabaseController(IDatabaseStartupService databaseStartupService, IDatabaseConnectionService databaseConnectionService)
         {
             this.databaseStartupService = databaseStartupService;
             this.databaseConnectionService = databaseConnectionService;
-            this.session = session;
         }
 
         [HttpGet]
