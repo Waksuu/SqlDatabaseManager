@@ -65,11 +65,11 @@ namespace SqlDatabaseManager.Web.Controllers
 
         #endregion Login Methods
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             Guid sessionId = GetSessionId();
 
-            var databases = databaseStartupService.GetDatabaseDefinitions(sessionId);
+            var databases = await databaseStartupService.GetDatabaseDefinitionsAsync(sessionId);
 
             return View(databases);
         }

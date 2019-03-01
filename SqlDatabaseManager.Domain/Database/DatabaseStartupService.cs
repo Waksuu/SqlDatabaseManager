@@ -2,6 +2,7 @@
 using SqlDatabaseManager.Domain.Security;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Domain.Database
 {
@@ -16,7 +17,10 @@ namespace SqlDatabaseManager.Domain.Database
             this.databaseLogic = databaseLogic;
         }
 
-        public IEnumerable<DatabaseDefinition> GetDatabaseDefinitions(Guid sessionId)
+
+        public Task<IEnumerable<DatabaseDefinition>> GetDatabaseDefinitionsAsync(Guid sessionId) => Task.Run(() => GetDatabaseDefinitions(sessionId));
+
+        private IEnumerable<DatabaseDefinition> GetDatabaseDefinitions(Guid sessionId)
         {
             ConnectionInformation connectionInformation = session.GetSession(sessionId);
 

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Domain.Database
 {
     public interface IDatabaseStartupService
     {
-        IEnumerable<DatabaseDefinition> GetDatabaseDefinitions(Guid sessionId);
+        Task<IEnumerable<DatabaseDefinition>> GetDatabaseDefinitionsAsync(Guid sessionId);
     }
 }
