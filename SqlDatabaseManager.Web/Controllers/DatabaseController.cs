@@ -14,11 +14,13 @@ namespace SqlDatabaseManager.Web.Controllers
 
         private readonly IDatabaseLogic databaseLogic;
         private readonly IDatabaseConnectionService databaseConnectionService;
+        private readonly ISession session;
 
-        public DatabaseController(IDatabaseLogic databaseLogic, IDatabaseConnectionService databaseConnectionService)
+        public DatabaseController(IDatabaseLogic databaseLogic, IDatabaseConnectionService databaseConnectionService, ISession session)
         {
             this.databaseLogic = databaseLogic;
             this.databaseConnectionService = databaseConnectionService;
+            this.session = session;
         }
 
         [HttpGet]
@@ -68,7 +70,7 @@ namespace SqlDatabaseManager.Web.Controllers
             ValidateSessionCookie();
             sessionId = GetSessionCookie();
 
-            ConnectionInformation connectionInformation = Session.GetSession(sessionId);
+            ConnectionInformation connectionInformation = session.GetSession(sessionId);
 
             var databases = databaseLogic.GetDatabases(connectionInformation);
 

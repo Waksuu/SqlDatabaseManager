@@ -2,6 +2,7 @@
 using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Domain.Login;
 using SqlDatabaseManager.Domain.Query;
+using SqlDatabaseManager.Domain.Security;
 using System;
 
 namespace SqlDatabaseManager.Domain.Configuration
@@ -26,6 +27,8 @@ namespace SqlDatabaseManager.Domain.Configuration
 
                 RegisterLogic(container);
                 RegisterFactories(container);
+                RegisterServices(container);
+                RegisterInfrastructure(container);
 
                 return container;
             });
@@ -35,13 +38,22 @@ namespace SqlDatabaseManager.Domain.Configuration
         {
             container.RegisterType<LoginLogic>().As<ILoginLogic>();
             container.RegisterType<DatabaseLogic>().As<IDatabaseLogic>();
-            container.RegisterType<DatabaseConnectionService>().As<IDatabaseConnectionService>();
         }
 
         private static void RegisterFactories(ContainerBuilder container)
         {
             container.RegisterType<DatabaseFactory>().As<IDatabaseFactory>();
             container.RegisterType<QueryFactory>().As<IQueryFactory>();
+        }
+
+        private static void RegisterServices(ContainerBuilder container)
+        {
+            container.RegisterType<DatabaseConnectionService>().As<IDatabaseConnectionService>();
+        }
+
+        private static void RegisterInfrastructure(ContainerBuilder container)
+        {
+            container.RegisterType<SessionMemory>().As<ISession>().SingleInstance();
         }
     }
 }

@@ -7,10 +7,12 @@ namespace SqlDatabaseManager.Domain.Login
     public class DatabaseConnectionService : IDatabaseConnectionService
     {
         private readonly ILoginLogic loginLogic;
+        private readonly ISession session;
 
-        public DatabaseConnectionService(ILoginLogic loginLogic)
+        public DatabaseConnectionService(ILoginLogic loginLogic, ISession session)
         {
             this.loginLogic = loginLogic;
+            this.session = session;
         }
 
         public LoginResult CreateDatabaseConnection(ConnectionInformation connectionInformation)
@@ -27,7 +29,7 @@ namespace SqlDatabaseManager.Domain.Login
                 return loginResult;
             }
 
-            var sessionId = Session.CreateSession(connectionInformation);
+            var sessionId = session.CreateSession(connectionInformation);
             loginResult.SessionId = sessionId;
 
             return loginResult;
