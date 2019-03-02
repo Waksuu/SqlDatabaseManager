@@ -1,4 +1,5 @@
 ﻿using SqlDatabaseManager.Domain.Connection;
+using SqlDatabaseManager.Domain.ObjectExplorerData;
 using SqlDatabaseManager.Domain.Query;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +12,8 @@ namespace SqlDatabaseManager.Domain.Database
         private readonly IDatabaseFactory databaseFactory;
         private readonly IQueryFactory queryFactory;
 
-        public DatabaseLogic(IDatabaseFactory databaseFactory, IQueryFactory queryFactory)
+        public DatabaseLogic(IDatabaseFactory databaseFactory, IQueryFactory queryFactory) //TODO: Constructor should take connection string
+                                                                                           // and IQuery implementation, instead of this
         {
             this.databaseFactory = databaseFactory;
             this.queryFactory = queryFactory;
@@ -25,11 +27,18 @@ namespace SqlDatabaseManager.Domain.Database
 
             using (DbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
             {
-                DbCommand command = GenerateQuery(connectionInformation.DatabaseType, connection);
+                var query = queryFactory.GetQuery(connectionInformation.DatabaseType);
+                DbCommand command = GenerateQuery(connection, query.ShowDatabases());
 
                 connection.Open();
 
-                WriteQueryResults(databases, command);
+                using (IDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        databases.Add(new DatabaseDefinition { Name = dr[0].ToString() });
+                    }
+                }
             }
 
             return databases;
@@ -41,27 +50,40 @@ namespace SqlDatabaseManager.Domain.Database
 
         private DbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => databaseFactory.DbConnectionFactory(databaseType, connectionString);
 
-        private DbCommand GenerateQuery(DatabaseType databaseType, DbConnection connection)
+        private DbCommand GenerateQuery(DbConnection connection, string query)
         {
-            var query = queryFactory.GetQuery(databaseType);
-
             DbCommand command = connection.CreateCommand();
-            command.CommandText = query.ShowDatabases();
+            command.CommandText = query;
             command.CommandType = CommandType.Text;
             return command;
         }
 
-        private void WriteQueryResults(List<DatabaseDefinition> databases, DbCommand command)
-        {
-            using (IDataReader dr = command.ExecuteReader())
-            {
-                while (dr.Read())
-                {
-                    databases.Add(new DatabaseDefinition { DatabaseName = dr[0].ToString() });
-                }
-            }
-        }
-
         #endregion GetDatabases Methods
+
+        public IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, DatabaseDefinition databaseDefinition) //TODO: Check if the user has privileges to view given database
+        {
+            List<TableDefinition> tables = new List<TableDefinition>();
+
+            DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
+
+            using (DbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
+            {
+                var query = queryFactory.GetQuery(connectionInformation.DatabaseType);
+                DbCommand command = GenerateQuery(connection, query.ShowTables(databaseDefinition.Name));
+
+                connection.Open();
+
+                using (IDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        tables.Add(new TableDefinition { Name = $"{dr[1].ToString()}.{dr[2].ToString()}" });
+                    }
+                }
+
+            }
+
+            return tables;
+        }
     }
 }

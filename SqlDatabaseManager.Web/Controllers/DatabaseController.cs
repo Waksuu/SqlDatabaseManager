@@ -66,7 +66,7 @@ namespace SqlDatabaseManager.Web.Controllers
         {
             Guid sessionId = GetSessionId();
 
-            ObjectExplorer objectExplorer = await databaseService.GetObjectExplorerDataAsync(sessionId);
+            var objectExplorer = await databaseService.GetObjectExplorerDataAsync(sessionId);
 
             return View(objectExplorer);
         }

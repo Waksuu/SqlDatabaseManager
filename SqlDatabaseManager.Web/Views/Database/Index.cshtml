@@ -1,4 +1,4 @@
-﻿@model ObjectExplorer
+﻿@model ObjectExplorerDefinition
 
 @{
 	ViewData["Title"] = "Database";
@@ -6,5 +6,9 @@
 
 @foreach (var database in Model.DatabaseDefinitions)
 {
-	<div>@database.DatabaseName</div>
+	<div>@database.Name</div>
+	@foreach (var table in database.Tables)
+	{
+		<div class="pl-5">@table.Name</div>
+	}
 }
