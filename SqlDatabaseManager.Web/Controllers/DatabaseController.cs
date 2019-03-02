@@ -66,9 +66,9 @@ namespace SqlDatabaseManager.Web.Controllers
         {
             Guid sessionId = GetSessionId();
 
-            var databases = await databaseService.GetObjectExplorerDataAsync(sessionId);
+            ObjectExplorer objectExplorer = await databaseService.GetObjectExplorerDataAsync(sessionId);
 
-            return View(databases);
+            return View(objectExplorer);
         }
 
         #region Index Methods

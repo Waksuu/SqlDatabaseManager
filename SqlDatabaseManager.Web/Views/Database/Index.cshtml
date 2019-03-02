@@ -1,10 +1,10 @@
-﻿@model IEnumerable<DatabaseDefinition>
+﻿@model ObjectExplorer
 
 @{
 	ViewData["Title"] = "Database";
 }
 
-@foreach (var item in Model)
+@foreach (var database in Model.DatabaseDefinitions)
 {
-	<div>@item.DatabaseName</div>
+	<div>@database.DatabaseName</div>
 }

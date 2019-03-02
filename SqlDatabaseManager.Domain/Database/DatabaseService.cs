@@ -18,13 +18,15 @@ namespace SqlDatabaseManager.Domain.Database
         }
 
 
-        public Task<IEnumerable<DatabaseDefinition>> GetObjectExplorerDataAsync(Guid sessionId) => Task.Run(() => GetObjectExplorerData(sessionId));
+        public Task<ObjectExplorer> GetObjectExplorerDataAsync(Guid sessionId) => Task.Run(() => GetObjectExplorerData(sessionId));
 
-        private IEnumerable<DatabaseDefinition> GetObjectExplorerData(Guid sessionId)
+        private ObjectExplorer GetObjectExplorerData(Guid sessionId)
         {
             ConnectionInformation connectionInformation = session.GetSession(sessionId);
 
-            return databaseLogic.GetDatabases(connectionInformation);
+            ObjectExplorer objectExplorer = new ObjectExplorer();
+            objectExplorer.DatabaseDefinitions = databaseLogic.GetDatabases(connectionInformation);
+            return objectExplorer;
         }
     }
 }

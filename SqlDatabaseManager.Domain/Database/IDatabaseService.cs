@@ -6,6 +6,6 @@ namespace SqlDatabaseManager.Domain.Database
 {
     public interface IDatabaseService
     {
-        Task<IEnumerable<DatabaseDefinition>> GetObjectExplorerDataAsync(Guid sessionId);
+        Task<ObjectExplorer> GetObjectExplorerDataAsync(Guid sessionId);
     }
 }
