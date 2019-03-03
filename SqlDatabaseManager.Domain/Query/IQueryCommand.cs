@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SqlDatabaseManager.Domain.Query
 {
-    public interface IQuery
+    public interface IQueryCommand
     {
         string ShowDatabases();
         string ShowTables(string databaseName);

@@ -27,8 +27,8 @@ namespace SqlDatabaseManager.Domain.Database
 
             using (DbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
             {
-                var query = queryFactory.GetQuery(connectionInformation.DatabaseType);
-                DbCommand command = GenerateQuery(connection, query.ShowDatabases());
+                var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
+                DbCommand command = GenerateCommand(connection, queryCommand.ShowDatabases());
 
                 connection.Open();
 
@@ -50,7 +50,7 @@ namespace SqlDatabaseManager.Domain.Database
 
         private DbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => databaseFactory.DbConnectionFactory(databaseType, connectionString);
 
-        private DbCommand GenerateQuery(DbConnection connection, string query)
+        private DbCommand GenerateCommand(DbConnection connection, string query)
         {
             DbCommand command = connection.CreateCommand();
             command.CommandText = query;
@@ -60,7 +60,7 @@ namespace SqlDatabaseManager.Domain.Database
 
         #endregion GetDatabases Methods
 
-        public IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, DatabaseDefinition databaseDefinition) //TODO: Check if the user has privileges to view given database
+        public IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, DatabaseDefinition databaseDefinition) //TODO: Check if the user has privileges to view for given database
         {
             List<TableDefinition> tables = new List<TableDefinition>();
 
@@ -68,8 +68,8 @@ namespace SqlDatabaseManager.Domain.Database
 
             using (DbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
             {
-                var query = queryFactory.GetQuery(connectionInformation.DatabaseType);
-                DbCommand command = GenerateQuery(connection, query.ShowTables(databaseDefinition.Name));
+                var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
+                DbCommand command = GenerateCommand(connection, queryCommand.ShowTables(databaseDefinition.Name));
 
                 connection.Open();
 

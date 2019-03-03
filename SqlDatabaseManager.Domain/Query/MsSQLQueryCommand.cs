@@ -1,6 +1,6 @@
 ﻿namespace SqlDatabaseManager.Domain.Query
 {
-    public class MsSQLQuery : IQuery
+    public class MsSQLQueryCommand : IQueryCommand
     {
         public string ShowDatabases() => "SELECT name from sys.databases;";
 

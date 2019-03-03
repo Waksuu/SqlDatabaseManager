@@ -1,6 +1,6 @@
 ﻿namespace SqlDatabaseManager.Domain.Query
 {
-    public class MySQLQuery : IQuery
+    public class MySQLQueryCommand : IQueryCommand
     {
         public string ShowDatabases() => "show databases;";
 
