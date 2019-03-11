@@ -44,21 +44,31 @@ namespace SqlDatabaseManager.Domain.Database
             return databases;
         }
 
-        #region GetDatabases Methods
 
-        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformation connectionInformation) => databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
-
-        private DbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => databaseFactory.DbConnectionFactory(databaseType, connectionString);
-
-        private DbCommand GenerateCommand(DbConnection connection, string query)
+        public IEnumerable<DatabaseDefinition> GetDatabasesWithAccess(ConnectionInformation connectionInformation)
         {
-            DbCommand command = connection.CreateCommand();
-            command.CommandText = query;
-            command.CommandType = CommandType.Text;
-            return command;
-        }
+            List<DatabaseDefinition> databases = new List<DatabaseDefinition>();
 
-        #endregion GetDatabases Methods
+            DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
+
+            using (DbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
+            {
+                var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
+                DbCommand command = GenerateCommand(connection, queryCommand.ShowDatabasesWithAccess());
+
+                connection.Open();
+
+                using (IDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        databases.Add(new DatabaseDefinition { Name = dr[0].ToString() });
+                    }
+                }
+            }
+
+            return databases;
+        }
 
         public IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, DatabaseDefinition databaseDefinition) //TODO: Check if the user has privileges to view for given database
         {
@@ -85,5 +95,22 @@ namespace SqlDatabaseManager.Domain.Database
 
             return tables;
         }
+
+        #region Shared Methods
+
+        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformation connectionInformation) => databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
+
+        private DbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => databaseFactory.DbConnectionFactory(databaseType, connectionString);
+
+        private DbCommand GenerateCommand(DbConnection connection, string query)
+        {
+            DbCommand command = connection.CreateCommand();
+            command.CommandText = query;
+            command.CommandType = CommandType.Text;
+            return command;
+        }
+
+        #endregion GetDatabases Methods
+
     }
 }

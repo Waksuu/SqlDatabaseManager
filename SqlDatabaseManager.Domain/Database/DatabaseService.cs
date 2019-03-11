@@ -26,24 +26,25 @@ namespace SqlDatabaseManager.Domain.Database
             ConnectionInformation connectionInformation = session.GetSession(sessionId);
 
             ObjectExplorerDefinition objectExplorer = new ObjectExplorerDefinition();
+
             var databases = databaseLogic.GetDatabases(connectionInformation);
+            var databasesWithAccess = databaseLogic.GetDatabasesWithAccess(connectionInformation).ToList();
+            var databasesWithoutAccess = databases.Except(databasesWithAccess);
 
-            foreach (var database in databases)
-            {
-                List<TableDefinition> tables = new List<TableDefinition>();
-                if (database.Name == "model")
-                {
-                    database.Tables = tables;
-                    continue;
-                }
+            GetTablesForDatabasesWithUserAccess(connectionInformation, databasesWithAccess);
 
-                tables = databaseLogic.GetTables(connectionInformation, database).ToList();
-                database.Tables = tables;
-            }
-
+            databases = databasesWithAccess.Concat(databasesWithoutAccess).OrderBy(x => x.Name);
             objectExplorer.DatabaseDefinitions = databases;
 
             return objectExplorer;
+        }
+
+        private void GetTablesForDatabasesWithUserAccess(ConnectionInformation connectionInformation, List<DatabaseDefinition> databasesWithAccess)
+        {
+            foreach (var database in databasesWithAccess)
+            {
+                database.Tables = databaseLogic.GetTables(connectionInformation, database).ToList();
+            }
         }
     }
 }

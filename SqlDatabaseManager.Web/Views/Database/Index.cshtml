@@ -6,8 +6,8 @@
 
 @foreach (var database in Model.DatabaseDefinitions)
 {
-	<div>@database.Name</div>
-	@foreach (var table in database.Tables)
+	<div>@database?.Name</div>
+	@foreach (var table in database.Tables ?? Enumerable.Empty<TableDefinition>())
 	{
 		<div class="pl-5">@table.Name</div>
 	}

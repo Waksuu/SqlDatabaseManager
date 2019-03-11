@@ -7,6 +7,7 @@ namespace SqlDatabaseManager.Domain.Query
     public interface IQueryCommand
     {
         string ShowDatabases();
+        string ShowDatabasesWithAccess();
         string ShowTables(string databaseName);
     }
 }

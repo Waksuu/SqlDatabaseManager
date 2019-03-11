@@ -7,6 +7,7 @@ namespace SqlDatabaseManager.Domain.Database
     public interface IDatabaseLogic
     {
         IEnumerable<DatabaseDefinition> GetDatabases(ConnectionInformation connectionInformation);
+        IEnumerable<DatabaseDefinition> GetDatabasesWithAccess(ConnectionInformation connectionInformation);
         IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, DatabaseDefinition databaseDefinition);
     }
 }
