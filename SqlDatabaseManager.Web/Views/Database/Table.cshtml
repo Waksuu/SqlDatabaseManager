@@ -1,0 +1,29 @@
+﻿@model TableDefinition
+
+@{
+	ViewData["Title"] = "Table";
+}
+
+<h2 class="navbar, text-center">Table: @Model.Name</h2>
+
+<table class="table">
+	<thead>
+		<tr>
+			@foreach (DataColumn col in Model.TableContents.Tables[0].Columns)
+			{
+				<th scope="col">@col.ColumnName</th>
+			}
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (DataRow row in Model.TableContents.Tables[0].Rows)
+		{
+			<tr>
+				@foreach (DataColumn col in Model.TableContents.Tables[0].Columns)
+				{
+					<td>@row[col.ColumnName]</td>
+				}
+			</tr>
+		}
+	</tbody>
+</table>

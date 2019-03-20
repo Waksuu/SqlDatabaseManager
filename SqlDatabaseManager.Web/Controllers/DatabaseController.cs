@@ -2,6 +2,7 @@
 using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Domain.Login;
+using SqlDatabaseManager.Domain.ObjectExplorerData;
 using SqlDatabaseManager.Web.Models;
 using System;
 using System.Threading.Tasks;
@@ -69,6 +70,13 @@ namespace SqlDatabaseManager.Web.Controllers
             var objectExplorer = await databaseService.GetObjectExplorerDataAsync(sessionId);
 
             return View(objectExplorer);
+        }
+
+        public IActionResult Table(string tableName)
+        {
+            Guid sessionId = GetSessionId();
+            var tableDefinition = databaseService.GetTableContents(sessionId, tableName);
+            return View(tableDefinition);
         }
 
         #region Index Methods

@@ -1,4 +1,5 @@
 ﻿using SqlDatabaseManager.Domain.Connection;
+using System.Data;
 using System.Data.Common;
 
 namespace SqlDatabaseManager.Domain.Database
@@ -7,6 +8,8 @@ namespace SqlDatabaseManager.Domain.Database
     {
         DbConnectionStringBuilder DbConnectionStringBuilderFactory(ConnectionInformation connectionInformation);
 
-        DbConnection DbConnectionFactory(DatabaseType databaseType, string connectionString);
+        IDbConnection DbConnectionFactory(DatabaseType databaseType, string connectionString);
+
+        IDbDataAdapter DataAdapterFactory(DatabaseType databaseType);
     }
 }

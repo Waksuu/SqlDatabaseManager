@@ -46,5 +46,13 @@ namespace SqlDatabaseManager.Domain.Database
                 database.Tables = databaseLogic.GetTables(connectionInformation, database.Name).ToList();
             }
         }
+
+        public TableDefinition GetTableContents(Guid sessionId, string tableName)
+        {
+            ConnectionInformation connectionInformation = session.GetSession(sessionId);
+            var table = databaseLogic.GetTableContents(connectionInformation, tableName);
+            table.Name = tableName;
+            return table;
+        }
     }
 }

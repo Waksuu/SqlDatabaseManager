@@ -10,7 +10,11 @@
 		<summary>@database?.Name</summary>
 		@foreach (var table in database.Tables ?? Enumerable.Empty<TableDefinition>())
 		{
-			<div class="pl-5">@table.Name</div>
+		<a href="@Url.Action("Table", "Database", new { tableName = table.Name })">
+			<div class="pl-5">
+				@table.Name
+			</div>
+		</a>
 		}
 	</details>
 }

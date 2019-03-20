@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 using SqlDatabaseManager.Domain.Connection;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 
@@ -34,7 +35,7 @@ namespace SqlDatabaseManager.Domain.Database
             }
         }
 
-        public DbConnection DbConnectionFactory(DatabaseType databaseType, string connectionString)
+        public IDbConnection DbConnectionFactory(DatabaseType databaseType, string connectionString)
         {
             switch (databaseType)
             {
@@ -43,6 +44,21 @@ namespace SqlDatabaseManager.Domain.Database
 
                 case DatabaseType.MySql:
                     return new MySqlConnection(connectionString);
+
+                default:
+                    return null;
+            }
+        }
+
+        public IDbDataAdapter DataAdapterFactory(DatabaseType databaseType)
+        {
+            switch (databaseType)
+            {
+                case DatabaseType.MsSql:
+                    return new SqlDataAdapter();
+
+                case DatabaseType.MySql:
+                    return new MySqlDataAdapter();
 
                 default:
                     return null;

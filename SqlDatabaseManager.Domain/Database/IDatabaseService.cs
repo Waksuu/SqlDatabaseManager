@@ -7,5 +7,7 @@ namespace SqlDatabaseManager.Domain.Database
     public interface IDatabaseService
     {
         Task<ObjectExplorerDefinition> GetObjectExplorerDataAsync(Guid sessionId);
+
+        TableDefinition GetTableContents(Guid sessionId, string tableName);
     }
 }

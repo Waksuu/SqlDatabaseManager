@@ -9,5 +9,6 @@ namespace SqlDatabaseManager.Domain.Database
         IEnumerable<DatabaseDefinition> GetDatabases(ConnectionInformation connectionInformation);
         IEnumerable<DatabaseDefinition> GetDatabasesWithAccess(ConnectionInformation connectionInformation);
         IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, string databaseName);
+        TableDefinition GetTableContents(ConnectionInformation connectionInformation, string tableName);
     }
 }
