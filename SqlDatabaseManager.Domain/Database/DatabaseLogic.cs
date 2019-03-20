@@ -86,13 +86,13 @@ namespace SqlDatabaseManager.Domain.Database
                 {
                     while (reader.Read())
                     {
-                        List<string> nameParts = new List<string>();
+                        string name = string.Empty;
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
-                            nameParts.Add(reader[i].ToString());
+                            name += reader[i].ToString() + ".";
                         }
 
-                        string name = string.Join(".", nameParts);
+                        name = name.TrimEnd('.');
                         tables.Add(new TableDefinition { Name = name });
                     }
                 }
@@ -100,6 +100,7 @@ namespace SqlDatabaseManager.Domain.Database
 
             return tables;
         }
+
 
         #region Shared Methods
 
