@@ -43,7 +43,7 @@ namespace SqlDatabaseManager.Domain.Database
         {
             foreach (var database in databasesWithAccess)
             {
-                database.Tables = databaseLogic.GetTables(connectionInformation, database).ToList();
+                database.Tables = databaseLogic.GetTables(connectionInformation, database.Name).ToList();
             }
         }
     }

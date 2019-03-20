@@ -70,7 +70,7 @@ namespace SqlDatabaseManager.Domain.Database
             return databases;
         }
 
-        public IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, DatabaseDefinition databaseDefinition) //TODO: Check if the user has privileges to view for given database
+        public IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, string databaseName) //TODO: Check if the user has privileges to view for given database
         {
             List<TableDefinition> tables = new List<TableDefinition>();
 
@@ -79,7 +79,7 @@ namespace SqlDatabaseManager.Domain.Database
             using (DbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
             {
                 var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
-                DbCommand command = GenerateCommand(connection, queryCommand.ShowTables(databaseDefinition.Name));
+                DbCommand command = GenerateCommand(connection, queryCommand.ShowTables(databaseName));
 
                 connection.Open();
 

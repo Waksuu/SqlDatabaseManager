@@ -8,6 +8,6 @@ namespace SqlDatabaseManager.Domain.Database
     {
         IEnumerable<DatabaseDefinition> GetDatabases(ConnectionInformation connectionInformation);
         IEnumerable<DatabaseDefinition> GetDatabasesWithAccess(ConnectionInformation connectionInformation);
-        IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, DatabaseDefinition databaseDefinition);
+        IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, string databaseName);
     }
 }
