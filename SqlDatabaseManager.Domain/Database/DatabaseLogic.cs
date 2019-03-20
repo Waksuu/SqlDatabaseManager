@@ -44,7 +44,6 @@ namespace SqlDatabaseManager.Domain.Database
             return databases;
         }
 
-
         public IEnumerable<DatabaseDefinition> GetDatabasesWithAccess(ConnectionInformation connectionInformation)
         {
             List<DatabaseDefinition> databases = new List<DatabaseDefinition>();
@@ -83,14 +82,20 @@ namespace SqlDatabaseManager.Domain.Database
 
                 connection.Open();
 
-                using (IDataReader dr = command.ExecuteReader())
+                using (IDataReader reader = command.ExecuteReader())
                 {
-                    while (dr.Read())
+                    while (reader.Read())
                     {
-                        tables.Add(new TableDefinition { Name = $"{dr[1].ToString()}.{dr[2].ToString()}" });
+                        List<string> nameParts = new List<string>();
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            nameParts.Add(reader[i].ToString());
+                        }
+
+                        string name = string.Join(".", nameParts);
+                        tables.Add(new TableDefinition { Name = name });
                     }
                 }
-
             }
 
             return tables;
@@ -110,7 +115,6 @@ namespace SqlDatabaseManager.Domain.Database
             return command;
         }
 
-        #endregion GetDatabases Methods
-
+        #endregion Shared Methods
     }
 }

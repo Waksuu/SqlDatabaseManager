@@ -4,10 +4,8 @@
     {
         public string ShowDatabases() => "show databases;";
 
-        public string ShowDatabasesWithAccess()
-        {
-            throw new System.NotImplementedException();
-        }
+        // In MySql you cannot view databases that you don't have access to
+        public string ShowDatabasesWithAccess() => "show databases;";
 
         public string ShowTables(string databaseName) => $"SHOW TABLES IN {databaseName};";
     }
