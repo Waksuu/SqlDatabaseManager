@@ -102,7 +102,7 @@ namespace SqlDatabaseManager.Domain.Database
             return tables;
         }
 
-        public TableDefinition GetTableContents(ConnectionInformation connectionInformation, string tableName)
+        public TableDefinition GetTableContents(ConnectionInformation connectionInformation, string tableName, string databaseName)
         {
 
             TableDefinition table = new TableDefinition
@@ -115,7 +115,7 @@ namespace SqlDatabaseManager.Domain.Database
             using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
             {
                 var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
-                IDbCommand command = GenerateCommand(connection, queryCommand.ShowTableContents(tableName));
+                IDbCommand command = GenerateCommand(connection, queryCommand.ShowTableContents(tableName, databaseName));
 
                 connection.Open();
 

@@ -8,6 +8,6 @@ namespace SqlDatabaseManager.Domain.Database
     {
         Task<ObjectExplorerDefinition> GetObjectExplorerDataAsync(Guid sessionId);
 
-        TableDefinition GetTableContents(Guid sessionId, string tableName);
+        TableDefinition GetTableContents(Guid sessionId, string tableName, string databaseName);
     }
 }

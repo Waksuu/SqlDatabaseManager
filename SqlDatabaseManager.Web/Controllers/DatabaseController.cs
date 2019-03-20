@@ -72,10 +72,10 @@ namespace SqlDatabaseManager.Web.Controllers
             return View(objectExplorer);
         }
 
-        public IActionResult Table(string tableName)
+        public IActionResult Table(string tableName, string databaseName)
         {
             Guid sessionId = GetSessionId();
-            var tableDefinition = databaseService.GetTableContents(sessionId, tableName);
+            var tableDefinition = databaseService.GetTableContents(sessionId, tableName, databaseName);
             return View(tableDefinition);
         }
 

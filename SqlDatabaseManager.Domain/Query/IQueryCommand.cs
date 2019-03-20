@@ -8,6 +8,6 @@
 
         string ShowTables(string databaseName);
 
-        string ShowTableContents(string tableName);
+        string ShowTableContents(string tableName, string databaseName);
     }
 }

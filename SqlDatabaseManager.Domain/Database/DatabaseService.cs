@@ -47,10 +47,10 @@ namespace SqlDatabaseManager.Domain.Database
             }
         }
 
-        public TableDefinition GetTableContents(Guid sessionId, string tableName)
+        public TableDefinition GetTableContents(Guid sessionId, string tableName, string databaseName)
         {
             ConnectionInformation connectionInformation = session.GetSession(sessionId);
-            var table = databaseLogic.GetTableContents(connectionInformation, tableName);
+            var table = databaseLogic.GetTableContents(connectionInformation, tableName, databaseName);
             table.Name = tableName;
             return table;
         }
