@@ -9,6 +9,6 @@
 
         public string ShowTables(string databaseName) => $"SHOW TABLES IN {databaseName};";
 
-        public string ShowTableContents(string tableName, string databaseName) => $"select * from {databaseName}.{tableName}";
+        public string ShowTableContents(string tableName, string databaseName) => $"select * from {databaseName}.{tableName};";
     }
 }
