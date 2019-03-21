@@ -14,6 +14,7 @@ namespace SqlDatabaseManager.Web.Controllers
     public class DatabaseController : Controller
     {
         private const string connection = "connection";
+        private const string logged = "logged";
 
         private readonly IDatabaseService databaseService;
         private readonly IDatabaseConnectionService databaseConnectionService;
@@ -50,10 +51,10 @@ namespace SqlDatabaseManager.Web.Controllers
                 return View();
             }
 
-            HttpContext.Session.Set("connection", loginResult.SessionId.ToByteArray());
-            HttpContext.Session.SetString("logged", "true");
+            HttpContext.Session.Set(connection, loginResult.SessionId.ToByteArray());
+            HttpContext.Session.SetString(logged, "true");
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         #region Login Methods
@@ -99,7 +100,7 @@ namespace SqlDatabaseManager.Web.Controllers
 
             HttpContext.Session.Clear();
 
-            return RedirectToAction("Login");
+            return RedirectToAction(nameof(Login));
         }
 
         #region Session Methods
@@ -114,7 +115,7 @@ namespace SqlDatabaseManager.Web.Controllers
         private Guid GetSessionCookie()
         {
             byte[] sessionId;
-            if (!HttpContext.Session.TryGetValue("connection", out sessionId))
+            if (!HttpContext.Session.TryGetValue(connection, out sessionId))
             {
                 throw new InvalidCastException(Domain.Properties.Resources.SessionError);
             }
