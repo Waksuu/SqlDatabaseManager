@@ -6,8 +6,8 @@
 
         public string ShowDatabasesWithAccess() => "SELECT name FROM sys.sysdatabases WHERE HAS_DBACCESS(name) = 1";
 
-        public string ShowTables(string databaseName) => $"USE [{databaseName}]; SELECT TABLE_SCHEMA, TABLE_NAME FROM information_schema.tables;";
+        public string ShowTables(string databaseName) => $"USE [{databaseName}]; SELECT TABLE_NAME FROM information_schema.tables;";
 
-        public string ShowTableContents(string tableName, string databaseName) => $"select * from [{databaseName}].{tableName}";
+        public string ShowTableContents(string tableName, string databaseName) => $"USE [{databaseName}]; select * from [{tableName}]";
     }
 }

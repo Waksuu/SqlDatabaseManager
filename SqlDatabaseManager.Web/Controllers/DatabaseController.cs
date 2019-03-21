@@ -79,7 +79,7 @@ namespace SqlDatabaseManager.Web.Controllers
             return View(tableDefinition);
         }
 
-        #region Index Methods
+        #region Session Methods
 
         private Guid GetSessionId()
         {
@@ -107,6 +107,6 @@ namespace SqlDatabaseManager.Web.Controllers
             return sessionId;
         }
 
-        #endregion Index Methods
+        #endregion Session Methods
     }
 }

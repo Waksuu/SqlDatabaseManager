@@ -4,7 +4,6 @@ using SqlDatabaseManager.Domain.Query;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 
 namespace SqlDatabaseManager.Domain.Database
 {
@@ -13,8 +12,7 @@ namespace SqlDatabaseManager.Domain.Database
         private readonly IDatabaseFactory databaseFactory;
         private readonly IQueryFactory queryFactory;
 
-        public DatabaseLogic(IDatabaseFactory databaseFactory, IQueryFactory queryFactory) //TODO: Constructor should take connection string
-                                                                                           // and IQuery implementation, instead of this
+        public DatabaseLogic(IDatabaseFactory databaseFactory, IQueryFactory queryFactory)
         {
             this.databaseFactory = databaseFactory;
             this.queryFactory = queryFactory;
@@ -70,7 +68,7 @@ namespace SqlDatabaseManager.Domain.Database
             return databases;
         }
 
-        public IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, string databaseName) //TODO: Check if the user has privileges to view for given database
+        public IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, string databaseName)
         {
             List<TableDefinition> tables = new List<TableDefinition>();
 
@@ -87,14 +85,11 @@ namespace SqlDatabaseManager.Domain.Database
                 {
                     while (reader.Read())
                     {
-                        string name = string.Empty;
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            name += reader[i].ToString() + ".";
-                        }
+                        string tableName = string.Empty;
+                        if (IsNotEmpty(reader))
+                            tableName = reader[0].ToString();
 
-                        name = name.TrimEnd('.');
-                        tables.Add(new TableDefinition { Name = name });
+                        tables.Add(new TableDefinition { Name = tableName });
                     }
                 }
             }
@@ -102,9 +97,10 @@ namespace SqlDatabaseManager.Domain.Database
             return tables;
         }
 
+        private bool IsNotEmpty(IDataReader reader) => reader.FieldCount > 0;
+
         public TableDefinition GetTableContents(ConnectionInformation connectionInformation, string tableName, string databaseName)
         {
-
             TableDefinition table = new TableDefinition
             {
                 TableContents = new DataSet()
@@ -122,7 +118,6 @@ namespace SqlDatabaseManager.Domain.Database
                 IDbDataAdapter dbDataAdapter = databaseFactory.DataAdapterFactory(connectionInformation.DatabaseType);
                 dbDataAdapter.SelectCommand = command;
                 dbDataAdapter.Fill(table.TableContents);
-            
             }
 
             return table;
