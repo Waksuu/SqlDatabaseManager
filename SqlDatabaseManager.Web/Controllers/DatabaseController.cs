@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Domain.Login;
-using SqlDatabaseManager.Domain.ObjectExplorerData;
 using SqlDatabaseManager.Web.Models;
 using System;
 using System.Threading.Tasks;
@@ -48,7 +48,8 @@ namespace SqlDatabaseManager.Web.Controllers
                 return View();
             }
 
-            Response.Cookies.Append("connection", loginResult.SessionId.ToString());
+            HttpContext.Session.Set("connection", loginResult.SessionId.ToByteArray());
+            HttpContext.Session.SetString("logged", "true");
 
             return RedirectToAction("Index");
         }
@@ -79,32 +80,34 @@ namespace SqlDatabaseManager.Web.Controllers
             return View(tableDefinition);
         }
 
+        public IActionResult Logout()
+        {
+            Guid sessionId = GetSessionId();
+            databaseConnectionService.LogoutFromDatabase(sessionId);
+
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Login");
+        }
+
         #region Session Methods
 
         private Guid GetSessionId()
         {
             Guid sessionId = Guid.Empty;
-            ValidateSessionCookie();
             sessionId = GetSessionCookie();
             return sessionId;
         }
 
-        private void ValidateSessionCookie()
-        {
-            if (!Request.Cookies.ContainsKey(connection))
-            {
-                throw new InvalidOperationException(Domain.Properties.Resources.SessionError);
-            }
-        }
-
         private Guid GetSessionCookie()
         {
-            if (!Guid.TryParse(Request.Cookies[connection], out Guid sessionId) || sessionId == Guid.Empty)
+            byte[] sessionId;
+            if (!HttpContext.Session.TryGetValue("connection", out sessionId))
             {
-                throw new InvalidCastException(Domain.Properties.Resources.InvalidSessionCast);
+                throw new InvalidCastException(Domain.Properties.Resources.SessionError);
             }
 
-            return sessionId;
+            return new Guid(sessionId);
         }
 
         #endregion Session Methods

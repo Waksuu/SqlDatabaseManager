@@ -28,5 +28,11 @@ namespace SqlDatabaseManager.Domain.Security
 
             return sessionId;
         }
+
+        public void DeleteSession(Guid sessionId)
+        {
+            ValideSessionExistance(sessionId);
+            sessions.Remove(sessionId);
+        }
     }
 }

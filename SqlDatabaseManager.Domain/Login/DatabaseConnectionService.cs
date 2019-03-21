@@ -37,5 +37,10 @@ namespace SqlDatabaseManager.Domain.Login
 
             return loginResult;
         }
+
+        public void LogoutFromDatabase(Guid sessionId)
+        {
+            session.DeleteSession(sessionId);
+        }
     }
 }

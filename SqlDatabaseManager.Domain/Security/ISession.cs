@@ -9,5 +9,6 @@ namespace SqlDatabaseManager.Domain.Security
     {
         ConnectionInformation GetSession(Guid sessionId);
         Guid CreateSession(ConnectionInformation connection);
+        void DeleteSession(Guid sessionId);
     }
 }

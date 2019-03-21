@@ -7,5 +7,6 @@ namespace SqlDatabaseManager.Domain.Login
     public interface IDatabaseConnectionService
     {
         Task<LoginResult> CreateDatabaseConnectionAsync(ConnectionInformation connectionInformation);
+        void LogoutFromDatabase(Guid sessionId);
     }
 }
