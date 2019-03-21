@@ -6,6 +6,8 @@ using SqlDatabaseManager.Domain.Login;
 using SqlDatabaseManager.Web.Models;
 using System;
 using System.Threading.Tasks;
+using SqlDatabaseManager.Domain.ObjectExplorerData;
+using System.Data.Common;
 
 namespace SqlDatabaseManager.Web.Controllers
 {
@@ -76,7 +78,17 @@ namespace SqlDatabaseManager.Web.Controllers
         public IActionResult Table(string tableName, string databaseName)
         {
             Guid sessionId = GetSessionId();
-            var tableDefinition = databaseService.GetTableContents(sessionId, tableName, databaseName);
+            TableDefinition tableDefinition = null;
+            
+            try
+            {
+                tableDefinition = databaseService.GetTableContents(sessionId, tableName, databaseName);
+            }
+            catch(DbException e)
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, e.Message);
+            }
+
             return View(tableDefinition);
         }
 
