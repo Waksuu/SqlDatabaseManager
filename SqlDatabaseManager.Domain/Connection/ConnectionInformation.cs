@@ -5,7 +5,7 @@ namespace SqlDatabaseManager.Domain.Connection
 {
     public class ConnectionInformation
     {
-        public string ServerAddress { get; set; }
+        public string ServerAddresss { get; set; }
 
         public string Login { get; set; }
 

@@ -28,7 +28,7 @@ namespace SqlDatabaseManager.Web.Mapper
         {
             return new ConnectionInformation
             {
-                ServerAddress = connectionViewModel.ServerAddress,
+                ServerAddresss = connectionViewModel.ServerAddress,
                 Login = connectionViewModel.Login,
                 Password = connectionViewModel.Password,
                 DatabaseType = connectionViewModel.DatabaseType.Value,

@@ -29,7 +29,7 @@
 				<div class="panel-title text-center">Connect to Server</div>
 			</div>
 			<div class="panel-body">
-				<form asp-controller="Login" asp-action="Index" method="POST">
+				<form asp-controller="@nameof(DatabaseController).Replace("Controller","")" asp-action="@nameof(DatabaseController.Login)" method="POST">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-tasks"></i></span>
 						<input asp-for="ServerAddress" id="ServerAddress" type="text" class="form-control" name="ServerAddress" placeholder="Database address">

@@ -10,7 +10,7 @@
 		<summary>@database?.Name</summary>
 		@foreach (var table in database.Tables ?? Enumerable.Empty<TableDefinition>())
 		{
-		<a href="@Url.Action("Table", "Database", new { tableName = table.Name, databaseName = database.Name })">
+		<a href="@Url.Action(nameof(DatabaseController.Table), nameof(DatabaseController).Replace("Controller",""), new { tableName = table.Name, databaseName = database.Name })">
 			<div class="pl-5">
 				@table.Name
 			</div>

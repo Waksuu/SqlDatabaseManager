@@ -16,7 +16,7 @@ namespace SqlDatabaseManager.Domain.Database
                 case DatabaseType.MsSql:
                     return new SqlConnectionStringBuilder
                     {
-                        DataSource = connectionInformation.ServerAddress,
+                        DataSource = connectionInformation.ServerAddresss,
                         UserID = connectionInformation.Login,
                         Password = connectionInformation.Password,
                     };
@@ -24,7 +24,7 @@ namespace SqlDatabaseManager.Domain.Database
                 case DatabaseType.MySql:
                     return new MySqlXConnectionStringBuilder
                     {
-                        Server = connectionInformation.ServerAddress,
+                        Server = connectionInformation.ServerAddresss,
                         UserID = connectionInformation.Login,
                         Password = connectionInformation.Password,
                         SslMode = MySqlSslMode.Preferred,
