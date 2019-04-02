@@ -1,7 +1,6 @@
 ﻿using SqlDatabaseManager.Application.Security;
 using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Database;
-using SqlDatabaseManager.Domain.ObjectExplorerData;
 using System;
 using System.Collections.Generic;
 using System.Linq;

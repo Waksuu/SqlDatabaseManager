@@ -1,5 +1,4 @@
 ﻿using SqlDatabaseManager.Domain.Connection;
-using SqlDatabaseManager.Domain.ObjectExplorerData;
 using SqlDatabaseManager.Domain.Query;
 using System.Collections.Generic;
 using System.Data;

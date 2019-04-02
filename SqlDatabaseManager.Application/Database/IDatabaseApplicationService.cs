@@ -1,4 +1,4 @@
-﻿using SqlDatabaseManager.Domain.ObjectExplorerData;
+﻿using SqlDatabaseManager.Domain.Database;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

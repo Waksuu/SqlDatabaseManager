@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SqlDatabaseManager.Domain.ObjectExplorerData
+namespace SqlDatabaseManager.Domain.Database
 {
     public class DatabaseDTO
     {
