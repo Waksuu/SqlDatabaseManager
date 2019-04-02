@@ -18,9 +18,9 @@ namespace SqlDatabaseManager.Domain.Database
             this.queryFactory = queryFactory;
         }
 
-        public IEnumerable<DatabaseDefinition> GetDatabases(ConnectionInformation connectionInformation)
+        public IEnumerable<DatabaseDTO> GetDatabases(ConnectionInformationDTO connectionInformation)
         {
-            List<DatabaseDefinition> databases = new List<DatabaseDefinition>();
+            List<DatabaseDTO> databases = new List<DatabaseDTO>();
 
             DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
 
@@ -35,7 +35,7 @@ namespace SqlDatabaseManager.Domain.Database
                 {
                     while (dr.Read())
                     {
-                        databases.Add(new DatabaseDefinition { Name = dr[0].ToString() });
+                        databases.Add(new DatabaseDTO { Name = dr[0].ToString() });
                     }
                 }
             }
@@ -43,9 +43,9 @@ namespace SqlDatabaseManager.Domain.Database
             return databases;
         }
 
-        public IEnumerable<DatabaseDefinition> GetDatabasesWithAccess(ConnectionInformation connectionInformation)
+        public IEnumerable<DatabaseDTO> GetDatabasesWithAccess(ConnectionInformationDTO connectionInformation)
         {
-            List<DatabaseDefinition> databases = new List<DatabaseDefinition>();
+            List<DatabaseDTO> databases = new List<DatabaseDTO>();
 
             DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
 
@@ -60,7 +60,7 @@ namespace SqlDatabaseManager.Domain.Database
                 {
                     while (dr.Read())
                     {
-                        databases.Add(new DatabaseDefinition { Name = dr[0].ToString() });
+                        databases.Add(new DatabaseDTO { Name = dr[0].ToString() });
                     }
                 }
             }
@@ -68,9 +68,9 @@ namespace SqlDatabaseManager.Domain.Database
             return databases;
         }
 
-        public IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, string databaseName)
+        public IEnumerable<TableDTO> GetTables(ConnectionInformationDTO connectionInformation, string databaseName)
         {
-            List<TableDefinition> tables = new List<TableDefinition>();
+            List<TableDTO> tables = new List<TableDTO>();
 
             DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
 
@@ -89,7 +89,7 @@ namespace SqlDatabaseManager.Domain.Database
                         if (IsNotEmpty(reader))
                             tableName = reader[0].ToString();
 
-                        tables.Add(new TableDefinition { Name = tableName });
+                        tables.Add(new TableDTO { Name = tableName });
                     }
                 }
             }
@@ -99,9 +99,9 @@ namespace SqlDatabaseManager.Domain.Database
 
         private bool IsNotEmpty(IDataReader reader) => reader.FieldCount > 0;
 
-        public TableDefinition GetTableContents(ConnectionInformation connectionInformation, string tableName, string databaseName)
+        public TableDTO GetTableContents(ConnectionInformationDTO connectionInformation, string tableName, string databaseName)
         {
-            TableDefinition table = new TableDefinition
+            TableDTO table = new TableDTO
             {
                 TableContents = new DataSet()
             };
@@ -119,13 +119,14 @@ namespace SqlDatabaseManager.Domain.Database
                 dbDataAdapter.SelectCommand = command;
                 dbDataAdapter.Fill(table.TableContents);
             }
+            table.Name = tableName;
 
             return table;
         }
 
         #region Shared Methods
 
-        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformation connectionInformation) => databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
+        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformationDTO connectionInformation) => databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
 
         private IDbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => databaseFactory.DbConnectionFactory(databaseType, connectionString);
 

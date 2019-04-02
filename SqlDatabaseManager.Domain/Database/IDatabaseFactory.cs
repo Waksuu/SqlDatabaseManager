@@ -6,7 +6,7 @@ namespace SqlDatabaseManager.Domain.Database
 {
     public interface IDatabaseFactory
     {
-        DbConnectionStringBuilder DbConnectionStringBuilderFactory(ConnectionInformation connectionInformation);
+        DbConnectionStringBuilder DbConnectionStringBuilderFactory(ConnectionInformationDTO connectionInformation);
 
         IDbConnection DbConnectionFactory(DatabaseType databaseType, string connectionString);
 

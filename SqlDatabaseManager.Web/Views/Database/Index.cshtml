@@ -1,14 +1,14 @@
-﻿@model ObjectExplorerDefinition
+﻿@model IEnumerable<DatabaseDTO>
 
 @{
 	ViewData["Title"] = "Database";
 }
 
-@foreach (var database in Model.DatabaseDefinitions)
+@foreach (var database in Model)
 {
 	<details>
 		<summary>@database?.Name</summary>
-		@foreach (var table in database.Tables ?? Enumerable.Empty<TableDefinition>())
+		@foreach (var table in database.Tables ?? Enumerable.Empty<TableDTO>())
 		{
 		<a href="@Url.Action(nameof(DatabaseController.Table), nameof(DatabaseController).Replace("Controller",""), new { tableName = table.Name, databaseName = database.Name })">
 			<div class="pl-5">

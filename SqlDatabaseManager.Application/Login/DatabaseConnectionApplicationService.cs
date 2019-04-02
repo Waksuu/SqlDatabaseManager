@@ -1,26 +1,27 @@
-﻿using SqlDatabaseManager.Domain.Connection;
-using SqlDatabaseManager.Domain.Security;
+﻿using SqlDatabaseManager.Application.Security;
+using SqlDatabaseManager.Domain.Connection;
+using SqlDatabaseManager.Domain.Login;
 using System;
 using System.Threading.Tasks;
 
-namespace SqlDatabaseManager.Domain.Login
+namespace SqlDatabaseManager.Application.Login
 {
-    public class DatabaseConnectionService : IDatabaseConnectionService
+    public class DatabaseConnectionApplicationService : IDatabaseConnectionApplicationService
     {
         private readonly ILoginLogic loginLogic;
         private readonly ISession session;
 
-        public DatabaseConnectionService(ILoginLogic loginLogic, ISession session)
+        public DatabaseConnectionApplicationService(ILoginLogic loginLogic, ISession session)
         {
             this.loginLogic = loginLogic;
             this.session = session;
         }
 
-        public Task<LoginResult> CreateDatabaseConnectionAsync(ConnectionInformation connectionInformation) => Task.Run(() => CreateDatabaseConnection(connectionInformation));
+        public Task<LoginResultDTO> CreateDatabaseConnectionAsync(ConnectionInformationDTO connectionInformation) => Task.Run(() => CreateDatabaseConnection(connectionInformation));
 
-        private LoginResult CreateDatabaseConnection(ConnectionInformation connectionInformation)
+        private LoginResultDTO CreateDatabaseConnection(ConnectionInformationDTO connectionInformation)
         {
-            LoginResult loginResult = new LoginResult();
+            LoginResultDTO loginResult = new LoginResultDTO();
 
             try
             {

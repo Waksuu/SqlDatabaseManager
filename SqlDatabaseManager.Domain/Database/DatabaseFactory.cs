@@ -9,7 +9,7 @@ namespace SqlDatabaseManager.Domain.Database
 {
     public class DatabaseFactory : IDatabaseFactory
     {
-        public DbConnectionStringBuilder DbConnectionStringBuilderFactory(ConnectionInformation connectionInformation)
+        public DbConnectionStringBuilder DbConnectionStringBuilderFactory(ConnectionInformationDTO connectionInformation)
         {
             switch (connectionInformation.DatabaseType)
             {

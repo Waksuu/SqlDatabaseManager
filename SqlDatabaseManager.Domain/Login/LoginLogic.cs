@@ -14,7 +14,7 @@ namespace SqlDatabaseManager.Domain.Login
             _databaseFactory = databaseFactory;
         }
 
-        public void ConnectToDatabase(ConnectionInformation connectionInformation)
+        public void ConnectToDatabase(ConnectionInformationDTO connectionInformation)
         {
             DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
 
@@ -24,7 +24,7 @@ namespace SqlDatabaseManager.Domain.Login
             }
         }
 
-        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformation connectionInformation) => _databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
+        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformationDTO connectionInformation) => _databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
 
         private IDbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => _databaseFactory.DbConnectionFactory(databaseType, connectionString);
     }

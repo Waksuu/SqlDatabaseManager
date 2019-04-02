@@ -1,11 +1,13 @@
 ﻿using Autofac;
+using SqlDatabaseManager.Application.Database;
+using SqlDatabaseManager.Application.Login;
+using SqlDatabaseManager.Application.Security;
 using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Domain.Login;
 using SqlDatabaseManager.Domain.Query;
-using SqlDatabaseManager.Domain.Security;
 using System;
 
-namespace SqlDatabaseManager.Domain.Configuration
+namespace SqlDatabaseManager.Application.Configuration
 {
     public static class ServiceLocator
     {
@@ -28,7 +30,7 @@ namespace SqlDatabaseManager.Domain.Configuration
                 RegisterLogic(container);
                 RegisterFactories(container);
                 RegisterServices(container);
-                RegisterInfrastructure(container);
+                RegisterSecurity(container);
 
                 return container;
             });
@@ -48,11 +50,11 @@ namespace SqlDatabaseManager.Domain.Configuration
 
         private static void RegisterServices(ContainerBuilder container)
         {
-            container.RegisterType<DatabaseConnectionService>().As<IDatabaseConnectionService>();
-            container.RegisterType<DatabaseService>().As<IDatabaseService>();
+            container.RegisterType<DatabaseConnectionApplicationService>().As<IDatabaseConnectionApplicationService>();
+            container.RegisterType<DatabaseApplicationService>().As<IDatabaseApplicationService>();
         }
 
-        private static void RegisterInfrastructure(ContainerBuilder container)
+        private static void RegisterSecurity(ContainerBuilder container)
         {
             container.RegisterType<SessionMemory>().As<ISession>().SingleInstance();
         }

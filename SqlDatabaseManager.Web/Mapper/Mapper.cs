@@ -6,7 +6,7 @@ namespace SqlDatabaseManager.Web.Mapper
 {
     public class Mapper
     {
-        public static ConnectionInformation ConnectionInformationMapper(ConnectionInformationViewModel connectionViewModel)
+        public static ConnectionInformationDTO ConnectionInformationMapper(ConnectionInformationViewModel connectionViewModel)
         {
             ValidateState(connectionViewModel);
 
@@ -24,9 +24,9 @@ namespace SqlDatabaseManager.Web.Mapper
                 throw new InvalidOperationException(string.Format(Domain.Properties.Resources.MappingError, nameof(connectionViewModel.DatabaseType)));
         }
 
-        private static ConnectionInformation MapModel(ConnectionInformationViewModel connectionViewModel)
+        private static ConnectionInformationDTO MapModel(ConnectionInformationViewModel connectionViewModel)
         {
-            return new ConnectionInformation
+            return new ConnectionInformationDTO
             {
                 ServerAddresss = connectionViewModel.ServerAddress,
                 Login = connectionViewModel.Login,

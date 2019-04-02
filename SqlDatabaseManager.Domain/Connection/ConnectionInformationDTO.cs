@@ -3,7 +3,7 @@ using SqlDatabaseManager.Domain.Database;
 
 namespace SqlDatabaseManager.Domain.Connection
 {
-    public class ConnectionInformation
+    public class ConnectionInformationDTO
     {
         public string ServerAddresss { get; set; }
 

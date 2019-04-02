@@ -23,6 +23,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\SqlDatabaseManager.Application\SqlDatabaseManager.Application.csproj" />
     <ProjectReference Include="..\SqlDatabaseManager.Domain\SqlDatabaseManager.Domain.csproj" />
   </ItemGroup>
 

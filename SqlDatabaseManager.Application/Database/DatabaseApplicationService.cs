@@ -1,31 +1,30 @@
-﻿using SqlDatabaseManager.Domain.Connection;
+﻿using SqlDatabaseManager.Application.Security;
+using SqlDatabaseManager.Domain.Connection;
+using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Domain.ObjectExplorerData;
-using SqlDatabaseManager.Domain.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SqlDatabaseManager.Domain.Database
+namespace SqlDatabaseManager.Application.Database
 {
-    public class DatabaseService : IDatabaseService
+    public class DatabaseApplicationService : IDatabaseApplicationService
     {
         private readonly ISession session;
         private readonly IDatabaseLogic databaseLogic;
 
-        public DatabaseService(ISession session, IDatabaseLogic databaseLogic)
+        public DatabaseApplicationService(ISession session, IDatabaseLogic databaseLogic)
         {
             this.session = session;
             this.databaseLogic = databaseLogic;
         }
 
-        public Task<ObjectExplorerDefinition> GetObjectExplorerDataAsync(Guid sessionId) => Task.Run(() => GetObjectExplorerData(sessionId));
+        public Task<IEnumerable<DatabaseDTO>> GetDatabasesFromServerAsync(Guid sessionId) => Task.Run(() => GetDatabasesFromServer(sessionId));
 
-        private ObjectExplorerDefinition GetObjectExplorerData(Guid sessionId)
+        private IEnumerable<DatabaseDTO> GetDatabasesFromServer(Guid sessionId)
         {
-            ConnectionInformation connectionInformation = session.GetSession(sessionId);
-
-            ObjectExplorerDefinition objectExplorer = new ObjectExplorerDefinition();
+            ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
 
             var databases = databaseLogic.GetDatabases(connectionInformation);
             var databasesWithAccess = databaseLogic.GetDatabasesWithAccess(connectionInformation).ToList();
@@ -34,12 +33,11 @@ namespace SqlDatabaseManager.Domain.Database
             GetTablesForDatabasesWithUserAccess(connectionInformation, databasesWithAccess);
 
             databases = databasesWithAccess.Concat(databasesWithoutAccess).OrderBy(x => x.Name);
-            objectExplorer.DatabaseDefinitions = databases;
 
-            return objectExplorer;
+            return databases;
         }
 
-        private void GetTablesForDatabasesWithUserAccess(ConnectionInformation connectionInformation, List<DatabaseDefinition> databasesWithAccess)
+        private void GetTablesForDatabasesWithUserAccess(ConnectionInformationDTO connectionInformation, List<DatabaseDTO> databasesWithAccess)
         {
             foreach (var database in databasesWithAccess)
             {
@@ -47,11 +45,10 @@ namespace SqlDatabaseManager.Domain.Database
             }
         }
 
-        public TableDefinition GetTableContents(Guid sessionId, string tableName, string databaseName)
+        public TableDTO GetTableContents(Guid sessionId, string tableName, string databaseName)
         {
-            ConnectionInformation connectionInformation = session.GetSession(sessionId);
+            ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
             var table = databaseLogic.GetTableContents(connectionInformation, tableName, databaseName);
-            table.Name = tableName;
             return table;
         }
     }

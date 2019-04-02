@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SqlDatabaseManager.Domain.Configuration;
+using SqlDatabaseManager.Application.Configuration;
 using System;
 
 namespace SqlDatabaseManager.Web

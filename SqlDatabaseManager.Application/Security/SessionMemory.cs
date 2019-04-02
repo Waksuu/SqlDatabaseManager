@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace SqlDatabaseManager.Domain.Security
+namespace SqlDatabaseManager.Application.Security
 {
     public class SessionMemory : ISession
     {
-        private Dictionary<Guid, ConnectionInformation> sessions = new Dictionary<Guid, ConnectionInformation>();
+        private Dictionary<Guid, ConnectionInformationDTO> sessions = new Dictionary<Guid, ConnectionInformationDTO>();
 
-        public ConnectionInformation GetSession(Guid sessionId)
+        public ConnectionInformationDTO GetSession(Guid sessionId)
         {
             ValideSessionExistance(sessionId);
 
@@ -18,10 +18,10 @@ namespace SqlDatabaseManager.Domain.Security
         private void ValideSessionExistance(Guid sessionId)
         {
             if (!sessions.ContainsKey(sessionId))
-                throw new InvalidOperationException(Properties.Resources.SessionError);
+                throw new InvalidOperationException(Domain.Properties.Resources.SessionError);
         }
 
-        public Guid CreateSession(ConnectionInformation connection)
+        public Guid CreateSession(ConnectionInformationDTO connection)
         {
             Guid sessionId = Guid.NewGuid();
             sessions.Add(sessionId, connection);

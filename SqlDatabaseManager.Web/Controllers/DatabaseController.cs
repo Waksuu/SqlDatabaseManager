@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using SqlDatabaseManager.Application.Database;
+using SqlDatabaseManager.Application.Login;
 using SqlDatabaseManager.Domain.Connection;
-using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Domain.Login;
+using SqlDatabaseManager.Domain.ObjectExplorerData;
 using SqlDatabaseManager.Web.Models;
 using System;
-using System.Threading.Tasks;
-using SqlDatabaseManager.Domain.ObjectExplorerData;
 using System.Data.Common;
+using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Web.Controllers
 {
@@ -16,13 +17,13 @@ namespace SqlDatabaseManager.Web.Controllers
         private const string connection = "connection";
         private const string logged = "logged";
 
-        private readonly IDatabaseService databaseService;
-        private readonly IDatabaseConnectionService databaseConnectionService;
+        private readonly IDatabaseApplicationService databaseApplicationService;
+        private readonly IDatabaseConnectionApplicationService databaseConnectionApplicationService;
 
-        public DatabaseController(IDatabaseService databaseService, IDatabaseConnectionService databaseConnectionService)
+        public DatabaseController(IDatabaseApplicationService databaseApplicationService, IDatabaseConnectionApplicationService databaseConnectionApplicationService)
         {
-            this.databaseService = databaseService;
-            this.databaseConnectionService = databaseConnectionService;
+            this.databaseApplicationService = databaseApplicationService;
+            this.databaseConnectionApplicationService = databaseConnectionApplicationService;
         }
 
         [HttpGet]
@@ -40,9 +41,9 @@ namespace SqlDatabaseManager.Web.Controllers
                 return View();
             }
 
-            ConnectionInformation connectionInformation = Map(connectionViewModel);
+            ConnectionInformationDTO connectionInformation = Map(connectionViewModel);
 
-            var loginResult = await databaseConnectionService.CreateDatabaseConnectionAsync(connectionInformation);
+            var loginResult = await databaseConnectionApplicationService.CreateDatabaseConnectionAsync(connectionInformation);
 
             if (ErrorOccured(loginResult))
             {
@@ -61,9 +62,9 @@ namespace SqlDatabaseManager.Web.Controllers
 
         private bool ModelIsIncomplete() => !ModelState.IsValid;
 
-        private ConnectionInformation Map(ConnectionInformationViewModel connectionViewModel) => Mapper.Mapper.ConnectionInformationMapper(connectionViewModel);
+        private ConnectionInformationDTO Map(ConnectionInformationViewModel connectionViewModel) => Mapper.Mapper.ConnectionInformationMapper(connectionViewModel);
 
-        private bool ErrorOccured(LoginResult loginResult) => !string.IsNullOrWhiteSpace(loginResult.ErrorMessage);
+        private bool ErrorOccured(LoginResultDTO loginResult) => !string.IsNullOrWhiteSpace(loginResult.ErrorMessage);
 
         #endregion Login Methods
 
@@ -71,7 +72,7 @@ namespace SqlDatabaseManager.Web.Controllers
         {
             Guid sessionId = GetSessionId();
 
-            var objectExplorer = await databaseService.GetObjectExplorerDataAsync(sessionId);
+            var objectExplorer = await databaseApplicationService.GetDatabasesFromServerAsync(sessionId);
 
             return View(objectExplorer);
         }
@@ -79,13 +80,13 @@ namespace SqlDatabaseManager.Web.Controllers
         public IActionResult Table(string tableName, string databaseName)
         {
             Guid sessionId = GetSessionId();
-            TableDefinition tableDefinition = null;
-            
+            TableDTO tableDefinition = null;
+
             try
             {
-                tableDefinition = databaseService.GetTableContents(sessionId, tableName, databaseName);
+                tableDefinition = databaseApplicationService.GetTableContents(sessionId, tableName, databaseName);
             }
-            catch(DbException e)
+            catch (DbException e)
             {
                 return StatusCode(StatusCodes.Status401Unauthorized, e.Message);
             }
@@ -96,7 +97,7 @@ namespace SqlDatabaseManager.Web.Controllers
         public IActionResult Logout()
         {
             Guid sessionId = GetSessionId();
-            databaseConnectionService.LogoutFromDatabase(sessionId);
+            databaseConnectionApplicationService.LogoutFromDatabase(sessionId);
 
             HttpContext.Session.Clear();
 
