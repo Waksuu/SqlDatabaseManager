@@ -4,7 +4,7 @@ using SqlDatabaseManager.Application.Database;
 using SqlDatabaseManager.Application.Login;
 using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Login;
-using SqlDatabaseManager.Domain.ObjectExplorerData;
+using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Web.Models;
 using System;
 using System.Data.Common;
