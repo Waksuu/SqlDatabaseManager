@@ -30,11 +30,12 @@ namespace SqlDatabaseManager.Domain.Database
 
                 connection.Open();
 
-                using (IDataReader dr = command.ExecuteReader())
+                using (IDataReader reader = command.ExecuteReader())
                 {
-                    while (dr.Read())
+                    ValidateAmountOfFieldsReturnedFromQuery(reader, 1);
+                    while (reader.Read())
                     {
-                        databases.Add(new DatabaseDTO { Name = dr[0].ToString() });
+                        databases.Add(new DatabaseDTO { Name = reader[0].ToString() });
                     }
                 }
             }
@@ -55,11 +56,12 @@ namespace SqlDatabaseManager.Domain.Database
 
                 connection.Open();
 
-                using (IDataReader dr = command.ExecuteReader())
+                using (IDataReader reader = command.ExecuteReader())
                 {
-                    while (dr.Read())
+                    ValidateAmountOfFieldsReturnedFromQuery(reader, 1);
+                    while (reader.Read())
                     {
-                        databases.Add(new DatabaseDTO { Name = dr[0].ToString() });
+                        databases.Add(new DatabaseDTO { Name = reader[0].ToString() });
                     }
                 }
             }
@@ -84,9 +86,8 @@ namespace SqlDatabaseManager.Domain.Database
                 {
                     while (reader.Read())
                     {
-                        string tableName = string.Empty;
-                        if (IsNotEmpty(reader))
-                            tableName = reader[0].ToString();
+                        ValidateAmountOfFieldsReturnedFromQuery(reader, 1);
+                        string tableName = reader[0].ToString();
 
                         tables.Add(new TableDTO { Name = tableName });
                     }
@@ -135,6 +136,12 @@ namespace SqlDatabaseManager.Domain.Database
             command.CommandText = query;
             command.CommandType = CommandType.Text;
             return command;
+        }
+
+        private void ValidateAmountOfFieldsReturnedFromQuery(IDataReader dr, int numberOfFields)
+        {
+            if (dr.FieldCount != numberOfFields)
+                throw new QueryException(string.Format(Domain.Properties.Resources.InvalidFieldCount, numberOfFields));
         }
 
         #endregion Shared Methods

@@ -61,6 +61,15 @@ namespace SqlDatabaseManager.Domain.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Query retuned inapplicable amout of fields. Required number of fields {0}.
+        /// </summary>
+        public static string InvalidFieldCount {
+            get {
+                return ResourceManager.GetString("InvalidFieldCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not cast sessionId to Guid.
         /// </summary>
         public static string InvalidSessionCast {
