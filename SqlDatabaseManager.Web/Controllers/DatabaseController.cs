@@ -9,6 +9,7 @@ using SqlDatabaseManager.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Web.Controllers
@@ -56,7 +57,7 @@ namespace SqlDatabaseManager.Web.Controllers
             HttpContext.Session.Set(connection, loginResult.SessionId.ToByteArray());
             HttpContext.Session.SetString(logged, "true");
 
-            return RedirectToAction(nameof(GetDatabases));
+            return RedirectToAction(nameof(GetDatabases)); // TODO: Redirect to angular page
         }
 
         #region Login Methods
@@ -80,13 +81,39 @@ namespace SqlDatabaseManager.Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<DatabaseDTO>> GetDatabases()
+        public async Task<ActionResult<IEnumerable<DatabaseDTO>>> GetDatabases()
         {
             Guid sessionId = GetSessionId();
+            IEnumerable<DatabaseDTO> databases = null;
 
-            var databaseList = await databaseApplicationService.GetDatabasesFromServerAsync(sessionId);
+            try
+            {
+                databases = await databaseApplicationService.GetDatabasesFromServerAsync(sessionId);
+            }
+            catch (DbException e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
 
-            return databaseList;
+            return databases.ToList();
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult<IEnumerable<TableDTO>> GetTables(string databaseName)
+        {
+            Guid sessionId = GetSessionId();
+            IEnumerable<TableDTO> tables = null;
+
+            try
+            {
+                tables = databaseApplicationService.GetTables(sessionId, databaseName);
+            }
+            catch (DbException e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+
+            return tables.ToList();
         }
 
         [HttpGet("[action]")]

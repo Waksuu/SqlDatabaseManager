@@ -27,12 +27,20 @@ namespace SqlDatabaseManager.Application.Database
 
             return databaseLogic.GetDatabases(connectionInformation);
         }
+        public IEnumerable<TableDTO> GetTables(Guid sessionId, string databaseName)
+        {
+            ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
+
+            return databaseLogic.GetTables(connectionInformation, databaseName);
+        }
 
         public TableDTO GetTableContents(Guid sessionId, string databaseName, string tableName)
         {
             ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
-            var table = databaseLogic.GetTableContents(connectionInformation, databaseName, tableName);
-            return table;
+
+            return databaseLogic.GetTableContents(connectionInformation, databaseName, tableName);
         }
+
+      
     }
 }
