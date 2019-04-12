@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using SqlDatabaseManager.Application.Database;
 using SqlDatabaseManager.Application.Login;
 using SqlDatabaseManager.Domain.Connection;
-using SqlDatabaseManager.Domain.Login;
 using SqlDatabaseManager.Domain.Database;
+using SqlDatabaseManager.Domain.Login;
 using SqlDatabaseManager.Web.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
 
@@ -55,7 +56,7 @@ namespace SqlDatabaseManager.Web.Controllers
             HttpContext.Session.Set(connection, loginResult.SessionId.ToByteArray());
             HttpContext.Session.SetString(logged, "true");
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(GetDatabases));
         }
 
         #region Login Methods
@@ -68,32 +69,6 @@ namespace SqlDatabaseManager.Web.Controllers
 
         #endregion Login Methods
 
-        public async Task<IActionResult> Index()
-        {
-            Guid sessionId = GetSessionId();
-
-            var objectExplorer = await databaseApplicationService.GetDatabasesFromServerAsync(sessionId);
-
-            return View(objectExplorer);
-        }
-
-        public IActionResult Table(string tableName, string databaseName)
-        {
-            Guid sessionId = GetSessionId();
-            TableDTO tableDefinition = null;
-
-            try
-            {
-                tableDefinition = databaseApplicationService.GetTableContents(sessionId, tableName, databaseName);
-            }
-            catch (DbException e)
-            {
-                return StatusCode(StatusCodes.Status401Unauthorized, e.Message);
-            }
-
-            return View(tableDefinition);
-        }
-
         public IActionResult Logout()
         {
             Guid sessionId = GetSessionId();
@@ -102,6 +77,34 @@ namespace SqlDatabaseManager.Web.Controllers
             HttpContext.Session.Clear();
 
             return RedirectToAction(nameof(Login));
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<DatabaseDTO>> GetDatabases()
+        {
+            Guid sessionId = GetSessionId();
+
+            var databaseList = await databaseApplicationService.GetDatabasesFromServerAsync(sessionId);
+
+            return databaseList;
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult<TableDTO> GetTableContents(string databaseName, string tableName)
+        {
+            Guid sessionId = GetSessionId();
+            TableDTO tableDefinition = null;
+
+            try
+            {
+                tableDefinition = databaseApplicationService.GetTableContents(sessionId, databaseName, tableName);
+            }
+            catch (DbException e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+
+            return tableDefinition;
         }
 
         #region Session Methods

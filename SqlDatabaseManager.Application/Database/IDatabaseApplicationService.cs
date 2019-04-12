@@ -9,6 +9,6 @@ namespace SqlDatabaseManager.Application.Database
     {
         Task<IEnumerable<DatabaseDTO>> GetDatabasesFromServerAsync(Guid sessionId);
 
-        TableDTO GetTableContents(Guid sessionId, string tableName, string databaseName);
+        TableDTO GetTableContents(Guid sessionId, string databaseName, string tableName);
     }
 }

@@ -99,7 +99,7 @@ namespace SqlDatabaseManager.Domain.Database
 
         private bool IsNotEmpty(IDataReader reader) => reader.FieldCount > 0;
 
-        public TableDTO GetTableContents(ConnectionInformationDTO connectionInformation, string tableName, string databaseName)
+        public TableDTO GetTableContents(ConnectionInformationDTO connectionInformation, string databaseName, string tableName)
         {
             TableDTO table = new TableDTO
             {
@@ -111,7 +111,7 @@ namespace SqlDatabaseManager.Domain.Database
             using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
             {
                 var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
-                IDbCommand command = GenerateCommand(connection, queryCommand.ShowTableContents(tableName, databaseName));
+                IDbCommand command = GenerateCommand(connection, queryCommand.ShowTableContents(databaseName, tableName));
 
                 connection.Open();
 

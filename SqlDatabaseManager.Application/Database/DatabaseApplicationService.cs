@@ -25,29 +25,13 @@ namespace SqlDatabaseManager.Application.Database
         {
             ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
 
-            var databases = databaseLogic.GetDatabases(connectionInformation);
-            var databasesWithAccess = databaseLogic.GetDatabasesWithAccess(connectionInformation).ToList();
-            var databasesWithoutAccess = databases.Except(databasesWithAccess);
-
-            GetTablesForDatabasesWithUserAccess(connectionInformation, databasesWithAccess);
-
-            databases = databasesWithAccess.Concat(databasesWithoutAccess).OrderBy(x => x.Name);
-
-            return databases;
+            return databaseLogic.GetDatabases(connectionInformation);
         }
 
-        private void GetTablesForDatabasesWithUserAccess(ConnectionInformationDTO connectionInformation, List<DatabaseDTO> databasesWithAccess)
-        {
-            foreach (var database in databasesWithAccess)
-            {
-                database.Tables = databaseLogic.GetTables(connectionInformation, database.Name).ToList();
-            }
-        }
-
-        public TableDTO GetTableContents(Guid sessionId, string tableName, string databaseName)
+        public TableDTO GetTableContents(Guid sessionId, string databaseName, string tableName)
         {
             ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
-            var table = databaseLogic.GetTableContents(connectionInformation, tableName, databaseName);
+            var table = databaseLogic.GetTableContents(connectionInformation, databaseName, tableName);
             return table;
         }
     }

@@ -8,6 +8,6 @@
 
         public string ShowTables(string databaseName) => $"USE [{databaseName}]; SELECT TABLE_NAME FROM information_schema.tables;";
 
-        public string ShowTableContents(string tableName, string databaseName) => $"USE [{databaseName}]; select * from [{tableName}];";
+        public string ShowTableContents(string databaseName, string tableName) => $"USE [{databaseName}]; select * from [{tableName}];";
     }
 }

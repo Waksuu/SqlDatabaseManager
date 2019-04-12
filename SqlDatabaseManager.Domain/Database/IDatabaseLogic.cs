@@ -11,6 +11,6 @@ namespace SqlDatabaseManager.Domain.Database
 
         IEnumerable<TableDTO> GetTables(ConnectionInformationDTO connectionInformation, string databaseName);
 
-        TableDTO GetTableContents(ConnectionInformationDTO connectionInformation, string tableName, string databaseName);
+        TableDTO GetTableContents(ConnectionInformationDTO connectionInformation, string databaseName, string tableName);
     }
 }
