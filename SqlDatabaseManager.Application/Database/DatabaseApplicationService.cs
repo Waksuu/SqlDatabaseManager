@@ -3,7 +3,6 @@ using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Database;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Application.Database
@@ -27,6 +26,7 @@ namespace SqlDatabaseManager.Application.Database
 
             return databaseLogic.GetDatabases(connectionInformation);
         }
+
         public IEnumerable<TableDTO> GetTables(Guid sessionId, string databaseName)
         {
             ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
@@ -40,7 +40,5 @@ namespace SqlDatabaseManager.Application.Database
 
             return databaseLogic.GetTableContents(connectionInformation, databaseName, tableName);
         }
-
-      
     }
 }

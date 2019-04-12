@@ -1,5 +1,4 @@
-﻿
-using SqlDatabaseManager.Domain.Database;
+﻿using SqlDatabaseManager.Domain.Database;
 
 namespace SqlDatabaseManager.Domain.Connection
 {
