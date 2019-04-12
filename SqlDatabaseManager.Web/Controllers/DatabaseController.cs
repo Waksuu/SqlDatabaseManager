@@ -81,6 +81,7 @@ namespace SqlDatabaseManager.Web.Controllers
         }
 
         [HttpGet("[action]")]
+        [Route("api/[controller]/[action]")]
         public async Task<ActionResult<IEnumerable<DatabaseDTO>>> GetDatabases()
         {
             Guid sessionId = GetSessionId();
@@ -99,6 +100,7 @@ namespace SqlDatabaseManager.Web.Controllers
         }
 
         [HttpGet("[action]")]
+        [Route("api/[controller]/[action]")]
         public ActionResult<IEnumerable<TableDTO>> GetTables(string databaseName)
         {
             Guid sessionId = GetSessionId();
@@ -117,6 +119,7 @@ namespace SqlDatabaseManager.Web.Controllers
         }
 
         [HttpGet("[action]")]
+        [Route("api/[controller]/[action]")]
         public ActionResult<TableDTO> GetTableContents(string databaseName, string tableName)
         {
             Guid sessionId = GetSessionId();
