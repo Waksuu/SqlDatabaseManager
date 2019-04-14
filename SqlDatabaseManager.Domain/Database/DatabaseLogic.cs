@@ -21,9 +21,9 @@ namespace SqlDatabaseManager.Domain.Database
         {
             List<DatabaseDTO> databases = new List<DatabaseDTO>();
 
-            DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
+            string connectionString = GenerateConnectionString(connectionInformation);
 
-            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
+            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
             {
                 var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
                 IDbCommand command = GenerateCommand(connection, queryCommand.ShowDatabases());
@@ -47,9 +47,9 @@ namespace SqlDatabaseManager.Domain.Database
         {
             List<DatabaseDTO> databases = new List<DatabaseDTO>();
 
-            DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
+            string connectionString = GenerateConnectionString(connectionInformation);
 
-            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
+            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
             {
                 var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
                 IDbCommand command = GenerateCommand(connection, queryCommand.ShowDatabasesWithAccess());
@@ -73,9 +73,9 @@ namespace SqlDatabaseManager.Domain.Database
         {
             List<TableDTO> tables = new List<TableDTO>();
 
-            DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
+            string connectionString = GenerateConnectionString(connectionInformation);
 
-            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
+            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
             {
                 var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
                 IDbCommand command = GenerateCommand(connection, queryCommand.ShowTables(databaseName));
@@ -106,9 +106,9 @@ namespace SqlDatabaseManager.Domain.Database
                 TableContents = new DataSet()
             };
 
-            DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
+            string connectionString = GenerateConnectionString(connectionInformation);
 
-            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
+            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
             {
                 var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
                 IDbCommand command = GenerateCommand(connection, queryCommand.ShowTableContents(databaseName, tableName));
@@ -126,7 +126,7 @@ namespace SqlDatabaseManager.Domain.Database
 
         #region Shared Methods
 
-        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformationDTO connectionInformation) => databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
+        private string GenerateConnectionString(ConnectionInformationDTO connectionInformation) => databaseFactory.DbConnectionStringBuilderFactory(connectionInformation).ConnectionString;
 
         private IDbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => databaseFactory.DbConnectionFactory(databaseType, connectionString);
 
