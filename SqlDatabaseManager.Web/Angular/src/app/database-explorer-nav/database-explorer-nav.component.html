@@ -1,0 +1,15 @@
+<h1>Databases!</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!databases"><em>Loading...</em></p>
+
+<mat-accordion *ngIf="databases">
+  <mat-expansion-panel *ngFor="let database of databases">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ database.name }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+</mat-accordion>

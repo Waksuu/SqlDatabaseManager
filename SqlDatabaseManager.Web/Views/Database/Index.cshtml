@@ -1,20 +1,5 @@
-﻿@model IEnumerable<DatabaseDTO>
-
-@{
+﻿@{
 	ViewData["Title"] = "Database";
+	Layout = "~/Views/Shared/_DatabaseLayout.cshtml";
 }
-
-@foreach (var database in Model)
-{
-	<details>
-		<summary>@database?.Name</summary>
-		@foreach (var table in database.Tables ?? Enumerable.Empty<TableDTO>())
-		{
-		<a href="@Url.Action(nameof(DatabaseController.GetTableContents), nameof(DatabaseController).Replace("Controller",""), new { databaseName = database.Name, tableName = table.Name })">
-			<div class="pl-5">
-				@table.Name
-			</div>
-		</a>
-		}
-	</details>
-}
+<app-root></app-root>

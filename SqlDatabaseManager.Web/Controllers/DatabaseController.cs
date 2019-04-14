@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SqlDatabaseManager.Application.Database;
 using SqlDatabaseManager.Application.Login;
+using SqlDatabaseManager.Application.Security;
 using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Domain.Login;
@@ -57,7 +58,12 @@ namespace SqlDatabaseManager.Web.Controllers
             HttpContext.Session.Set(connection, loginResult.SessionId.ToByteArray());
             HttpContext.Session.SetString(logged, "true");
 
-            return RedirectToAction(nameof(GetDatabases)); // TODO: Redirect to angular page
+            return RedirectToAction(nameof(Index)); // TODO: Redirect to angular page
+        }
+
+        public IActionResult Index()
+        {
+            return View();
         }
 
         #region Login Methods
@@ -96,7 +102,7 @@ namespace SqlDatabaseManager.Web.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
 
-            return databases.ToList();
+            return Ok(databases.ToList());
         }
 
         [HttpGet("[action]")]
@@ -115,7 +121,7 @@ namespace SqlDatabaseManager.Web.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
 
-            return tables.ToList();
+            return Ok(tables.ToList());
         }
 
         [HttpGet("[action]")]
@@ -134,7 +140,7 @@ namespace SqlDatabaseManager.Web.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
 
-            return tableDefinition;
+            return Ok(tableDefinition);
         }
 
         #region Session Methods
@@ -151,7 +157,7 @@ namespace SqlDatabaseManager.Web.Controllers
             byte[] sessionId;
             if (!HttpContext.Session.TryGetValue(connection, out sessionId))
             {
-                throw new InvalidCastException(Domain.Properties.Resources.SessionError);
+                throw new SessionException(Domain.Properties.Resources.SessionError);
             }
 
             return new Guid(sessionId);
