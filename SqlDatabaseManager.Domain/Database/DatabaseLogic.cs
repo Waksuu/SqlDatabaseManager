@@ -25,7 +25,7 @@ namespace SqlDatabaseManager.Domain.Database
 
             using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
             {
-                var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
+                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
                 IDbCommand command = GenerateCommand(connection, queryCommand.ShowDatabases());
 
                 connection.Open();
@@ -51,7 +51,7 @@ namespace SqlDatabaseManager.Domain.Database
 
             using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
             {
-                var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
+                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
                 IDbCommand command = GenerateCommand(connection, queryCommand.ShowDatabasesWithAccess());
 
                 connection.Open();
@@ -77,7 +77,7 @@ namespace SqlDatabaseManager.Domain.Database
 
             using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
             {
-                var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
+                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
                 IDbCommand command = GenerateCommand(connection, queryCommand.ShowTables(databaseName));
 
                 connection.Open();
@@ -110,7 +110,7 @@ namespace SqlDatabaseManager.Domain.Database
 
             using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
             {
-                var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
+                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
                 IDbCommand command = GenerateCommand(connection, queryCommand.ShowTableContents(databaseName, tableName));
 
                 connection.Open();
