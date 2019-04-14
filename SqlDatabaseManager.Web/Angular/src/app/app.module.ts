@@ -7,11 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { DatabaseExplorerNavComponent } from './database-explorer-nav/database-explorer-nav.component';
+import { TableExplorerNavComponent } from './table-explorer-nav/table-explorer-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DatabaseExplorerNavComponent,
+    TableExplorerNavComponent,
   ],
   imports: [
     BrowserModule,
