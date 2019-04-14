@@ -16,15 +16,15 @@ namespace SqlDatabaseManager.Domain.Login
 
         public void ConnectToDatabase(ConnectionInformationDTO connectionInformation)
         {
-            DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
+            string connectionString = GetConnectionStringBuilder(connectionInformation);
 
-            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
+            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
             {
                 connection.Open();
             }
         }
 
-        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformationDTO connectionInformation) => _databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
+        private string GetConnectionStringBuilder(ConnectionInformationDTO connectionInformation) => _databaseFactory.DbConnectionStringBuilderFactory(connectionInformation).ConnectionString;
 
         private IDbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => _databaseFactory.DbConnectionFactory(databaseType, connectionString);
     }
