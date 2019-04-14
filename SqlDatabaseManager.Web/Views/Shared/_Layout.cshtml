@@ -4,6 +4,8 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"] - SqlDatabaseManager</title>
+	<base href="~/" />
+
 
 	<environment include="Development">
 		<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -51,12 +53,20 @@
 			</div>
 		</nav>
 	</header>
-	<div class="container">
+	<div class="container-fluid">
 		<partial name="_CookieConsentPartial" />
 		<main role="main" class="pb-3">
 			@RenderBody()
 		</main>
 	</div>
+
+	<!-- Anuglar scripts -->
+	<script type="text/javascript" src="~/dist/es2015-polyfills.js"></script>
+	<script type="text/javascript" src="~/dist/runtime.js"></script>
+	<script type="text/javascript" src="~/dist/polyfills.js"></script>
+	<script type="text/javascript" src="~/dist/styles.js"></script>
+	<script type="text/javascript" src="~/dist/vendor.js"></script>
+	<script type="text/javascript" src="~/dist/main.js"></script>
 
 	<footer class="border-top footer text-muted">
 		<div class="container">
