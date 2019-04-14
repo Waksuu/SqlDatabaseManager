@@ -1,16 +1,4 @@
-﻿@model ObjectExplorerDefinition
-
-@{
+﻿@{
 	ViewData["Title"] = "Database";
 }
-
-@foreach (var database in Model.DatabaseDefinitions)
-{
-	<details>
-		<summary>@database?.Name</summary>
-		@foreach (var table in database.Tables ?? Enumerable.Empty<TableDefinition>())
-		{
-			<div class="pl-5">@table.Name</div>
-		}
-	</details>
-}
+<app-root></app-root>

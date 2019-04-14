@@ -4,6 +4,6 @@ namespace SqlDatabaseManager.Domain.Query
 {
     public interface IQueryFactory
     {
-        IQueryCommand GetQuery(DatabaseType databaseType);
+        IQueryCommand GetQueryCommand(DatabaseType databaseType);
     }
 }

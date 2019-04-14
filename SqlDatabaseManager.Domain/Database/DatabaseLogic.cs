@@ -1,5 +1,4 @@
 ﻿using SqlDatabaseManager.Domain.Connection;
-using SqlDatabaseManager.Domain.ObjectExplorerData;
 using SqlDatabaseManager.Domain.Query;
 using System.Collections.Generic;
 using System.Data;
@@ -12,31 +11,31 @@ namespace SqlDatabaseManager.Domain.Database
         private readonly IDatabaseFactory databaseFactory;
         private readonly IQueryFactory queryFactory;
 
-        public DatabaseLogic(IDatabaseFactory databaseFactory, IQueryFactory queryFactory) //TODO: Constructor should take connection string
-                                                                                           // and IQuery implementation, instead of this
+        public DatabaseLogic(IDatabaseFactory databaseFactory, IQueryFactory queryFactory)
         {
             this.databaseFactory = databaseFactory;
             this.queryFactory = queryFactory;
         }
 
-        public IEnumerable<DatabaseDefinition> GetDatabases(ConnectionInformation connectionInformation)
+        public IEnumerable<DatabaseDTO> GetDatabases(ConnectionInformationDTO connectionInformation)
         {
-            List<DatabaseDefinition> databases = new List<DatabaseDefinition>();
+            List<DatabaseDTO> databases = new List<DatabaseDTO>();
 
-            DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
+            string connectionString = GenerateConnectionString(connectionInformation);
 
-            using (DbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
+            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
             {
-                var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
-                DbCommand command = GenerateCommand(connection, queryCommand.ShowDatabases());
+                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
+                IDbCommand command = GenerateCommand(connection, queryCommand.ShowDatabases());
 
                 connection.Open();
 
-                using (IDataReader dr = command.ExecuteReader())
+                using (IDataReader reader = command.ExecuteReader())
                 {
-                    while (dr.Read())
+                    ValidateAmountOfFieldsReturnedFromQuery(reader, 1);
+                    while (reader.Read())
                     {
-                        databases.Add(new DatabaseDefinition { Name = dr[0].ToString() });
+                        databases.Add(new DatabaseDTO { Name = reader[0].ToString() });
                     }
                 }
             }
@@ -44,24 +43,25 @@ namespace SqlDatabaseManager.Domain.Database
             return databases;
         }
 
-        public IEnumerable<DatabaseDefinition> GetDatabasesWithAccess(ConnectionInformation connectionInformation)
+        public IEnumerable<DatabaseDTO> GetDatabasesWithAccess(ConnectionInformationDTO connectionInformation)
         {
-            List<DatabaseDefinition> databases = new List<DatabaseDefinition>();
+            List<DatabaseDTO> databases = new List<DatabaseDTO>();
 
-            DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
+            string connectionString = GenerateConnectionString(connectionInformation);
 
-            using (DbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
+            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
             {
-                var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
-                DbCommand command = GenerateCommand(connection, queryCommand.ShowDatabasesWithAccess());
+                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
+                IDbCommand command = GenerateCommand(connection, queryCommand.ShowDatabasesWithAccess());
 
                 connection.Open();
 
-                using (IDataReader dr = command.ExecuteReader())
+                using (IDataReader reader = command.ExecuteReader())
                 {
-                    while (dr.Read())
+                    ValidateAmountOfFieldsReturnedFromQuery(reader, 1);
+                    while (reader.Read())
                     {
-                        databases.Add(new DatabaseDefinition { Name = dr[0].ToString() });
+                        databases.Add(new DatabaseDTO { Name = reader[0].ToString() });
                     }
                 }
             }
@@ -69,16 +69,16 @@ namespace SqlDatabaseManager.Domain.Database
             return databases;
         }
 
-        public IEnumerable<TableDefinition> GetTables(ConnectionInformation connectionInformation, string databaseName) //TODO: Check if the user has privileges to view for given database
+        public IEnumerable<TableDTO> GetTables(ConnectionInformationDTO connectionInformation, string databaseName)
         {
-            List<TableDefinition> tables = new List<TableDefinition>();
+            List<TableDTO> tables = new List<TableDTO>();
 
-            DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
+            string connectionString = GenerateConnectionString(connectionInformation);
 
-            using (DbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
+            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
             {
-                var queryCommand = queryFactory.GetQuery(connectionInformation.DatabaseType);
-                DbCommand command = GenerateCommand(connection, queryCommand.ShowTables(databaseName));
+                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
+                IDbCommand command = GenerateCommand(connection, queryCommand.ShowTables(databaseName));
 
                 connection.Open();
 
@@ -86,14 +86,10 @@ namespace SqlDatabaseManager.Domain.Database
                 {
                     while (reader.Read())
                     {
-                        string name = string.Empty;
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            name += reader[i].ToString() + ".";
-                        }
+                        ValidateAmountOfFieldsReturnedFromQuery(reader, 1);
+                        string tableName = reader[0].ToString();
 
-                        name = name.TrimEnd('.');
-                        tables.Add(new TableDefinition { Name = name });
+                        tables.Add(new TableDTO { Name = tableName });
                     }
                 }
             }
@@ -101,19 +97,51 @@ namespace SqlDatabaseManager.Domain.Database
             return tables;
         }
 
+        private bool IsNotEmpty(IDataReader reader) => reader.FieldCount > 0;
+
+        public TableDTO GetTableContents(ConnectionInformationDTO connectionInformation, string databaseName, string tableName)
+        {
+            TableDTO table = new TableDTO
+            {
+                TableContents = new DataSet()
+            };
+
+            string connectionString = GenerateConnectionString(connectionInformation);
+
+            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
+            {
+                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
+                IDbCommand command = GenerateCommand(connection, queryCommand.ShowTableContents(databaseName, tableName));
+
+                connection.Open();
+
+                IDbDataAdapter dbDataAdapter = databaseFactory.DataAdapterFactory(connectionInformation.DatabaseType);
+                dbDataAdapter.SelectCommand = command;
+                dbDataAdapter.Fill(table.TableContents);
+            }
+            table.Name = tableName;
+
+            return table;
+        }
 
         #region Shared Methods
 
-        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformation connectionInformation) => databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
+        private string GenerateConnectionString(ConnectionInformationDTO connectionInformation) => databaseFactory.DbConnectionStringBuilderFactory(connectionInformation).ConnectionString;
 
-        private DbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => databaseFactory.DbConnectionFactory(databaseType, connectionString);
+        private IDbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => databaseFactory.DbConnectionFactory(databaseType, connectionString);
 
-        private DbCommand GenerateCommand(DbConnection connection, string query)
+        private IDbCommand GenerateCommand(IDbConnection connection, string query)
         {
-            DbCommand command = connection.CreateCommand();
+            IDbCommand command = connection.CreateCommand();
             command.CommandText = query;
             command.CommandType = CommandType.Text;
             return command;
+        }
+
+        private void ValidateAmountOfFieldsReturnedFromQuery(IDataReader dr, int numberOfFields)
+        {
+            if (dr.FieldCount != numberOfFields)
+                throw new QueryException(string.Format(Domain.Properties.Resources.InvalidFieldCount, numberOfFields));
         }
 
         #endregion Shared Methods

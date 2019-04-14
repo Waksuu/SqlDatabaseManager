@@ -4,7 +4,7 @@ namespace SqlDatabaseManager.Domain.Query
 {
     public class QueryFactory : IQueryFactory
     {
-        public IQueryCommand GetQuery(DatabaseType databaseType)
+        public IQueryCommand GetQueryCommand(DatabaseType databaseType)
         {
             switch (databaseType)
             {
