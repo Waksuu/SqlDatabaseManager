@@ -17,51 +17,133 @@ namespace SqlDatabaseManager.Domain.Database
             this.queryFactory = queryFactory;
         }
 
-        public IEnumerable<DatabaseDefinition> GetDatabases(ConnectionInformation connectionInformation)
+        public IEnumerable<DatabaseDTO> GetDatabases(ConnectionInformationDTO connectionInformation)
         {
-            List<DatabaseDefinition> databases = new List<DatabaseDefinition>();
+            List<DatabaseDTO> databases = new List<DatabaseDTO>();
 
-            DbConnectionStringBuilder builder = GetConnectionStringBuilder(connectionInformation);
+            string connectionString = GenerateConnectionString(connectionInformation);
 
-            using (DbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, builder.ConnectionString))
+            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
             {
-                DbCommand command = GenerateQuery(connectionInformation.DatabaseType, connection);
+                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
+                IDbCommand command = GenerateCommand(connection, queryCommand.ShowDatabases());
 
                 connection.Open();
 
-                WriteQueryResults(databases, command);
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    ValidateAmountOfFieldsReturnedFromQuery(reader, 1);
+                    while (reader.Read())
+                    {
+                        databases.Add(new DatabaseDTO { Name = reader[0].ToString() });
+                    }
+                }
             }
 
             return databases;
         }
 
-        #region GetDatabases Methods
-
-        private DbConnectionStringBuilder GetConnectionStringBuilder(ConnectionInformation connectionInformation) => databaseFactory.DbConnectionStringBuilderFactory(connectionInformation);
-
-        private DbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => databaseFactory.DbConnectionFactory(databaseType, connectionString);
-
-        private DbCommand GenerateQuery(DatabaseType databaseType, DbConnection connection)
+        public IEnumerable<DatabaseDTO> GetDatabasesWithAccess(ConnectionInformationDTO connectionInformation)
         {
-            var query = queryFactory.GetQuery(databaseType);
+            List<DatabaseDTO> databases = new List<DatabaseDTO>();
 
-            DbCommand command = connection.CreateCommand();
-            command.CommandText = query.ShowDatabases();
+            string connectionString = GenerateConnectionString(connectionInformation);
+
+            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
+            {
+                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
+                IDbCommand command = GenerateCommand(connection, queryCommand.ShowDatabasesWithAccess());
+
+                connection.Open();
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    ValidateAmountOfFieldsReturnedFromQuery(reader, 1);
+                    while (reader.Read())
+                    {
+                        databases.Add(new DatabaseDTO { Name = reader[0].ToString() });
+                    }
+                }
+            }
+
+            return databases;
+        }
+
+        public IEnumerable<TableDTO> GetTables(ConnectionInformationDTO connectionInformation, string databaseName)
+        {
+            List<TableDTO> tables = new List<TableDTO>();
+
+            string connectionString = GenerateConnectionString(connectionInformation);
+
+            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
+            {
+                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
+                IDbCommand command = GenerateCommand(connection, queryCommand.ShowTables(databaseName));
+
+                connection.Open();
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ValidateAmountOfFieldsReturnedFromQuery(reader, 1);
+                        string tableName = reader[0].ToString();
+
+                        tables.Add(new TableDTO { Name = tableName });
+                    }
+                }
+            }
+
+            return tables;
+        }
+
+        private bool IsNotEmpty(IDataReader reader) => reader.FieldCount > 0;
+
+        public TableDTO GetTableContents(ConnectionInformationDTO connectionInformation, string databaseName, string tableName)
+        {
+            TableDTO table = new TableDTO
+            {
+                TableContents = new DataSet()
+            };
+
+            string connectionString = GenerateConnectionString(connectionInformation);
+
+            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
+            {
+                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
+                IDbCommand command = GenerateCommand(connection, queryCommand.ShowTableContents(databaseName, tableName));
+
+                connection.Open();
+
+                IDbDataAdapter dbDataAdapter = databaseFactory.DataAdapterFactory(connectionInformation.DatabaseType);
+                dbDataAdapter.SelectCommand = command;
+                dbDataAdapter.Fill(table.TableContents);
+            }
+            table.Name = tableName;
+
+            return table;
+        }
+
+        #region Shared Methods
+
+        private string GenerateConnectionString(ConnectionInformationDTO connectionInformation) => databaseFactory.DbConnectionStringBuilderFactory(connectionInformation).ConnectionString;
+
+        private IDbConnection ConnectToDatabase(DatabaseType databaseType, string connectionString) => databaseFactory.DbConnectionFactory(databaseType, connectionString);
+
+        private IDbCommand GenerateCommand(IDbConnection connection, string query)
+        {
+            IDbCommand command = connection.CreateCommand();
+            command.CommandText = query;
             command.CommandType = CommandType.Text;
             return command;
         }
 
-        private void WriteQueryResults(List<DatabaseDefinition> databases, DbCommand command)
+        private void ValidateAmountOfFieldsReturnedFromQuery(IDataReader dr, int numberOfFields)
         {
-            using (IDataReader dr = command.ExecuteReader())
-            {
-                while (dr.Read())
-                {
-                    databases.Add(new DatabaseDefinition { DatabaseName = dr[0].ToString() });
-                }
-            }
+            if (dr.FieldCount != numberOfFields)
+                throw new QueryException(string.Format(Domain.Properties.Resources.InvalidFieldCount, numberOfFields));
         }
 
-        #endregion GetDatabases Methods
+        #endregion Shared Methods
     }
 }

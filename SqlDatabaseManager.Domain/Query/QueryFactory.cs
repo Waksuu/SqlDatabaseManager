@@ -4,15 +4,15 @@ namespace SqlDatabaseManager.Domain.Query
 {
     public class QueryFactory : IQueryFactory
     {
-        public IQuery GetQuery(DatabaseType databaseType)
+        public IQueryCommand GetQueryCommand(DatabaseType databaseType)
         {
             switch (databaseType)
             {
                 case DatabaseType.MsSql:
-                    return new MsSQLQuery();
+                    return new MsSQLQueryCommand();
 
                 case DatabaseType.MySql:
-                    return new MySQLQuery();
+                    return new MySQLQueryCommand();
 
                 default:
                     return null;

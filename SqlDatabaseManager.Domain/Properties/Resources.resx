@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidFieldCount" xml:space="preserve">
+    <value>Query retuned inapplicable amout of fields. Required number of fields {0}</value>
+  </data>
   <data name="InvalidSessionCast" xml:space="preserve">
     <value>Could not cast sessionId to Guid</value>
   </data>

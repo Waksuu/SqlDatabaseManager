@@ -5,6 +5,12 @@ namespace SqlDatabaseManager.Domain.Database
 {
     public interface IDatabaseLogic
     {
-        IEnumerable<DatabaseDefinition> GetDatabases(ConnectionInformation connectionInformation);
+        IEnumerable<DatabaseDTO> GetDatabases(ConnectionInformationDTO connectionInformation);
+
+        IEnumerable<DatabaseDTO> GetDatabasesWithAccess(ConnectionInformationDTO connectionInformation);
+
+        IEnumerable<TableDTO> GetTables(ConnectionInformationDTO connectionInformation, string databaseName);
+
+        TableDTO GetTableContents(ConnectionInformationDTO connectionInformation, string databaseName, string tableName);
     }
 }

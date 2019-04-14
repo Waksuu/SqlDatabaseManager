@@ -4,6 +4,6 @@ namespace SqlDatabaseManager.Domain.Login
 {
     public interface ILoginLogic
     {
-        void ConnectToDatabase(ConnectionInformation connectionInformation);
+        void ConnectToDatabase(ConnectionInformationDTO connectionInformation);
     }
 }
