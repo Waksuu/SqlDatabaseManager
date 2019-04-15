@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { DatabaseDTO } from "./shared/databaseDTO.model";
+import { DatabaseService } from './shared/database.service';
 
 @Component({
   selector: 'app-database-explorer-nav',
@@ -10,16 +11,9 @@ import { HttpClient } from '@angular/common/http';
 export class DatabaseExplorerNavComponent implements OnInit {
   public databases: DatabaseDTO[];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<DatabaseDTO[]>(baseUrl + 'api/Database/GetDatabases').subscribe(result => {
-      this.databases = result;
-    }, error => console.error(error));
-  }
+  constructor(private databaseService: DatabaseService) { }
 
   ngOnInit() {
+    this.databaseService.getDatabases().subscribe(databases => this.databases = databases);
   }
-}
-
-interface DatabaseDTO {
-  name: string;
 }

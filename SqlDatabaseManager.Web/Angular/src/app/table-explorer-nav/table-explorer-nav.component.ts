@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-table-explorer-nav',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table-explorer-nav.component.css']
 })
 export class TableExplorerNavComponent implements OnInit {
+
+  @Input() databaseName: string;
 
   constructor() { }
 
