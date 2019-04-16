@@ -95,9 +95,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_expansion__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/expansion */ "./node_modules/@angular/material/esm5/expansion.es5.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _database_explorer_nav_database_explorer_nav_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./database-explorer-nav/database-explorer-nav.component */ "./src/app/database-explorer-nav/database-explorer-nav.component.ts");
-/* harmony import */ var _table_explorer_nav_table_explorer_nav_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./table-explorer-nav/table-explorer-nav.component */ "./src/app/table-explorer-nav/table-explorer-nav.component.ts");
-/* harmony import */ var _security_security_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./security/security.module */ "./src/app/security/security.module.ts");
+/* harmony import */ var _database_database_explorer_nav_database_explorer_nav_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./database/database-explorer-nav/database-explorer-nav.component */ "./src/app/database/database-explorer-nav/database-explorer-nav.component.ts");
+/* harmony import */ var _security_security_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./security/security.module */ "./src/app/security/security.module.ts");
+/* harmony import */ var _database_table_explorer_nav_table_explorer_nav_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./database/table-explorer-nav/table-explorer-nav.component */ "./src/app/database/table-explorer-nav/table-explorer-nav.component.ts");
 
 
 
@@ -116,8 +116,8 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_6__["NgModule"])({
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
-                _database_explorer_nav_database_explorer_nav_component__WEBPACK_IMPORTED_MODULE_8__["DatabaseExplorerNavComponent"],
-                _table_explorer_nav_table_explorer_nav_component__WEBPACK_IMPORTED_MODULE_9__["TableExplorerNavComponent"],
+                _database_database_explorer_nav_database_explorer_nav_component__WEBPACK_IMPORTED_MODULE_8__["DatabaseExplorerNavComponent"],
+                _database_table_explorer_nav_table_explorer_nav_component__WEBPACK_IMPORTED_MODULE_10__["TableExplorerNavComponent"],
             ],
             imports: [
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_1__["BrowserAnimationsModule"],
@@ -125,7 +125,7 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
                 _angular_material_expansion__WEBPACK_IMPORTED_MODULE_5__["MatExpansionModule"],
-                _security_security_module__WEBPACK_IMPORTED_MODULE_10__["SecurityModule"]
+                _security_security_module__WEBPACK_IMPORTED_MODULE_9__["SecurityModule"]
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
@@ -138,21 +138,21 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/database-explorer-nav/database-explorer-nav.component.css":
-/*!***************************************************************************!*\
-  !*** ./src/app/database-explorer-nav/database-explorer-nav.component.css ***!
-  \***************************************************************************/
+/***/ "./src/app/database/database-explorer-nav/database-explorer-nav.component.css":
+/*!************************************************************************************!*\
+  !*** ./src/app/database/database-explorer-nav/database-explorer-nav.component.css ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2RhdGFiYXNlLWV4cGxvcmVyLW5hdi9kYXRhYmFzZS1leHBsb3Jlci1uYXYuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2RhdGFiYXNlL2RhdGFiYXNlLWV4cGxvcmVyLW5hdi9kYXRhYmFzZS1leHBsb3Jlci1uYXYuY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
-/***/ "./src/app/database-explorer-nav/database-explorer-nav.component.html":
-/*!****************************************************************************!*\
-  !*** ./src/app/database-explorer-nav/database-explorer-nav.component.html ***!
-  \****************************************************************************/
+/***/ "./src/app/database/database-explorer-nav/database-explorer-nav.component.html":
+/*!*************************************************************************************!*\
+  !*** ./src/app/database/database-explorer-nav/database-explorer-nav.component.html ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -160,10 +160,10 @@ module.exports = "<h1>Databases!</h1>\r\n\r\n<p>This component demonstrates fetc
 
 /***/ }),
 
-/***/ "./src/app/database-explorer-nav/database-explorer-nav.component.ts":
-/*!**************************************************************************!*\
-  !*** ./src/app/database-explorer-nav/database-explorer-nav.component.ts ***!
-  \**************************************************************************/
+/***/ "./src/app/database/database-explorer-nav/database-explorer-nav.component.ts":
+/*!***********************************************************************************!*\
+  !*** ./src/app/database/database-explorer-nav/database-explorer-nav.component.ts ***!
+  \***********************************************************************************/
 /*! exports provided: DatabaseExplorerNavComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -172,7 +172,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DatabaseExplorerNavComponent", function() { return DatabaseExplorerNavComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _database_database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../database/database.service */ "./src/app/database/database.service.ts");
+/* harmony import */ var _database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../database.service */ "./src/app/database/database.service.ts");
 
 
 
@@ -186,10 +186,10 @@ var DatabaseExplorerNavComponent = /** @class */ (function () {
     DatabaseExplorerNavComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-database-explorer-nav',
-            template: __webpack_require__(/*! ./database-explorer-nav.component.html */ "./src/app/database-explorer-nav/database-explorer-nav.component.html"),
-            styles: [__webpack_require__(/*! ./database-explorer-nav.component.css */ "./src/app/database-explorer-nav/database-explorer-nav.component.css")]
+            template: __webpack_require__(/*! ./database-explorer-nav.component.html */ "./src/app/database/database-explorer-nav/database-explorer-nav.component.html"),
+            styles: [__webpack_require__(/*! ./database-explorer-nav.component.css */ "./src/app/database/database-explorer-nav/database-explorer-nav.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_database_database_service__WEBPACK_IMPORTED_MODULE_2__["DatabaseService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_database_service__WEBPACK_IMPORTED_MODULE_2__["DatabaseService"]])
     ], DatabaseExplorerNavComponent);
     return DatabaseExplorerNavComponent;
 }());
@@ -234,6 +234,70 @@ var DatabaseService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], DatabaseService);
     return DatabaseService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/database/table-explorer-nav/table-explorer-nav.component.css":
+/*!******************************************************************************!*\
+  !*** ./src/app/database/table-explorer-nav/table-explorer-nav.component.css ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".table-explorer-nav {\r\n  text-indent: 30px;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZGF0YWJhc2UvdGFibGUtZXhwbG9yZXItbmF2L3RhYmxlLWV4cGxvcmVyLW5hdi5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsaUJBQWlCO0FBQ25CIiwiZmlsZSI6InNyYy9hcHAvZGF0YWJhc2UvdGFibGUtZXhwbG9yZXItbmF2L3RhYmxlLWV4cGxvcmVyLW5hdi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRhYmxlLWV4cGxvcmVyLW5hdiB7XHJcbiAgdGV4dC1pbmRlbnQ6IDMwcHg7XHJcbn1cclxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/database/table-explorer-nav/table-explorer-nav.component.html":
+/*!*******************************************************************************!*\
+  !*** ./src/app/database/table-explorer-nav/table-explorer-nav.component.html ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div *ngIf=\"tables$ | async as tables; else skeleton\">\r\n  <div *ngFor=\"let table of tables\">\r\n    <div class=\"table-explorer-nav\">\r\n      {{ table.name }}\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #skeleton>\r\n  <p><em>Loading...</em></p>\r\n</ng-template>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/database/table-explorer-nav/table-explorer-nav.component.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/app/database/table-explorer-nav/table-explorer-nav.component.ts ***!
+  \*****************************************************************************/
+/*! exports provided: TableExplorerNavComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TableExplorerNavComponent", function() { return TableExplorerNavComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../database.service */ "./src/app/database/database.service.ts");
+
+
+
+var TableExplorerNavComponent = /** @class */ (function () {
+    function TableExplorerNavComponent(databaseService) {
+        this.databaseService = databaseService;
+    }
+    TableExplorerNavComponent.prototype.ngOnInit = function () {
+        this.tables$ = this.databaseService.getTables(this.databaseName);
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], TableExplorerNavComponent.prototype, "databaseName", void 0);
+    TableExplorerNavComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-table-explorer-nav',
+            template: __webpack_require__(/*! ./table-explorer-nav.component.html */ "./src/app/database/table-explorer-nav/table-explorer-nav.component.html"),
+            styles: [__webpack_require__(/*! ./table-explorer-nav.component.css */ "./src/app/database/table-explorer-nav/table-explorer-nav.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_database_service__WEBPACK_IMPORTED_MODULE_2__["DatabaseService"]])
+    ], TableExplorerNavComponent);
+    return TableExplorerNavComponent;
 }());
 
 
@@ -324,70 +388,6 @@ function apiUrl() {
     }
     return "/api/" + url.join("/");
 }
-
-
-/***/ }),
-
-/***/ "./src/app/table-explorer-nav/table-explorer-nav.component.css":
-/*!*********************************************************************!*\
-  !*** ./src/app/table-explorer-nav/table-explorer-nav.component.css ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".table-explorer-nav {\r\n  text-indent: 30px;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGFibGUtZXhwbG9yZXItbmF2L3RhYmxlLWV4cGxvcmVyLW5hdi5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsaUJBQWlCO0FBQ25CIiwiZmlsZSI6InNyYy9hcHAvdGFibGUtZXhwbG9yZXItbmF2L3RhYmxlLWV4cGxvcmVyLW5hdi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRhYmxlLWV4cGxvcmVyLW5hdiB7XHJcbiAgdGV4dC1pbmRlbnQ6IDMwcHg7XHJcbn1cclxuIl19 */"
-
-/***/ }),
-
-/***/ "./src/app/table-explorer-nav/table-explorer-nav.component.html":
-/*!**********************************************************************!*\
-  !*** ./src/app/table-explorer-nav/table-explorer-nav.component.html ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\r\n\r\n<div *ngIf=\"tables$ | async as tables; else skeleton\">\r\n  <div *ngFor=\"let table of tables\">\r\n    <div class=\"table-explorer-nav\">\r\n      {{ table.name }}\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #skeleton>\r\n  <p><em>Loading...</em></p>\r\n</ng-template>\r\n"
-
-/***/ }),
-
-/***/ "./src/app/table-explorer-nav/table-explorer-nav.component.ts":
-/*!********************************************************************!*\
-  !*** ./src/app/table-explorer-nav/table-explorer-nav.component.ts ***!
-  \********************************************************************/
-/*! exports provided: TableExplorerNavComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TableExplorerNavComponent", function() { return TableExplorerNavComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _database_database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../database/database.service */ "./src/app/database/database.service.ts");
-
-
-
-var TableExplorerNavComponent = /** @class */ (function () {
-    function TableExplorerNavComponent(databaseService) {
-        this.databaseService = databaseService;
-    }
-    TableExplorerNavComponent.prototype.ngOnInit = function () {
-        this.tables$ = this.databaseService.getTables(this.databaseName);
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TableExplorerNavComponent.prototype, "databaseName", void 0);
-    TableExplorerNavComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-table-explorer-nav',
-            template: __webpack_require__(/*! ./table-explorer-nav.component.html */ "./src/app/table-explorer-nav/table-explorer-nav.component.html"),
-            styles: [__webpack_require__(/*! ./table-explorer-nav.component.css */ "./src/app/table-explorer-nav/table-explorer-nav.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_database_database_service__WEBPACK_IMPORTED_MODULE_2__["DatabaseService"]])
-    ], TableExplorerNavComponent);
-    return TableExplorerNavComponent;
-}());
-
 
 
 /***/ }),
