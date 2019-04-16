@@ -1,9 +1,13 @@
-<div *ngIf="!tables"><em>Loading...</em></div>
 
-<div *ngIf="tables">
+
+<div *ngIf="tables$ | async as tables; else skeleton">
   <div *ngFor="let table of tables">
-    <div class="table-explorer-nav" *ngIf="table">
+    <div class="table-explorer-nav">
       {{ table.name }}
     </div>
   </div>
 </div>
+
+<ng-template #skeleton>
+  <p><em>Loading...</em></p>
+</ng-template>

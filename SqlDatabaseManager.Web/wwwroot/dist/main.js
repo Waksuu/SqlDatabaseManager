@@ -97,6 +97,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _database_explorer_nav_database_explorer_nav_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./database-explorer-nav/database-explorer-nav.component */ "./src/app/database-explorer-nav/database-explorer-nav.component.ts");
 /* harmony import */ var _table_explorer_nav_table_explorer_nav_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./table-explorer-nav/table-explorer-nav.component */ "./src/app/table-explorer-nav/table-explorer-nav.component.ts");
+/* harmony import */ var _security_security_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./security/security.module */ "./src/app/security/security.module.ts");
+
 
 
 
@@ -122,7 +124,8 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
-                _angular_material_expansion__WEBPACK_IMPORTED_MODULE_5__["MatExpansionModule"]
+                _angular_material_expansion__WEBPACK_IMPORTED_MODULE_5__["MatExpansionModule"],
+                _security_security_module__WEBPACK_IMPORTED_MODULE_10__["SecurityModule"]
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
@@ -153,7 +156,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Databases!</h1>\r\n\r\n<p>This component demonstrates fetching data from the server.</p>\r\n\r\n<p *ngIf=\"!databases\"><em>Loading...</em></p>\r\n\r\n<mat-accordion *ngIf=\"databases\">\r\n  <mat-expansion-panel *ngFor=\"let database of databases\">\r\n    <mat-expansion-panel-header>\r\n      <mat-panel-title>\r\n        {{ database.name }}\r\n      </mat-panel-title>\r\n    </mat-expansion-panel-header>\r\n    <app-table-explorer-nav [databaseName]=\"database.name\"></app-table-explorer-nav>\r\n  </mat-expansion-panel>\r\n</mat-accordion>\r\n"
+module.exports = "<h1>Databases!</h1>\r\n\r\n<p>This component demonstrates fetching data from the server.</p>\r\n\r\n<mat-accordion *ngIf=\"databases$ | async as databases; else skeleton\">\r\n  <mat-expansion-panel *ngFor=\"let database of databases\">\r\n    <mat-expansion-panel-header>\r\n      <mat-panel-title>\r\n        {{ database.name }}\r\n      </mat-panel-title>\r\n    </mat-expansion-panel-header>\r\n      <app-table-explorer-nav [databaseName]=\"database.name\"></app-table-explorer-nav>\r\n  </mat-expansion-panel>\r\n</mat-accordion>\r\n\r\n<ng-template #skeleton>\r\n  <p><em>Loading...</em></p>\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -178,8 +181,7 @@ var DatabaseExplorerNavComponent = /** @class */ (function () {
         this.databaseService = databaseService;
     }
     DatabaseExplorerNavComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.databaseService.getDatabases().subscribe(function (databases) { return _this.databases = databases; });
+        this.databases$ = this.databaseService.getDatabases();
     };
     DatabaseExplorerNavComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -209,30 +211,119 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _shared_api_helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/api.helper */ "./src/app/shared/api.helper.ts");
+
 
 
 
 var DatabaseService = /** @class */ (function () {
-    function DatabaseService(http, baseUrl) {
+    function DatabaseService(http) {
         this.http = http;
-        this.baseUrl = baseUrl;
     }
     DatabaseService.prototype.getDatabases = function () {
-        return this.http.get(this.baseUrl + 'api/Database/GetDatabases');
+        return this.http.get(Object(_shared_api_helper__WEBPACK_IMPORTED_MODULE_3__["apiUrl"])('Database', 'GetDatabases'));
     };
     DatabaseService.prototype.getTables = function (databaseName) {
-        return this.http.get(this.baseUrl + 'api/Database/GetTables?databaseName=' + databaseName);
+        var httpParams = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]().append("databaseName", databaseName);
+        return this.http.get(Object(_shared_api_helper__WEBPACK_IMPORTED_MODULE_3__["apiUrl"])('Database', 'GetTables'), { params: httpParams });
     };
     DatabaseService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Inject"])('BASE_URL')),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], String])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], DatabaseService);
     return DatabaseService;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/app/security/security.module.ts":
+/*!*********************************************!*\
+  !*** ./src/app/security/security.module.ts ***!
+  \*********************************************/
+/*! exports provided: SecurityModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecurityModule", function() { return SecurityModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _security_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./security.service */ "./src/app/security/security.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+
+var SecurityModule = /** @class */ (function () {
+    function SecurityModule() {
+    }
+    SecurityModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
+            providers: [
+                _security_service__WEBPACK_IMPORTED_MODULE_1__["SecurityService"]
+            ]
+        })
+    ], SecurityModule);
+    return SecurityModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/security/security.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/security/security.service.ts ***!
+  \**********************************************/
+/*! exports provided: SecurityService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecurityService", function() { return SecurityService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+var SecurityService = /** @class */ (function () {
+    function SecurityService(http) {
+        this.http = http;
+    }
+    SecurityService.prototype.login = function (loginDto) {
+        return this.http.post("/api/login", loginDto);
+    };
+    SecurityService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({ providedIn: "root" }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], SecurityService);
+    return SecurityService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/api.helper.ts":
+/*!**************************************!*\
+  !*** ./src/app/shared/api.helper.ts ***!
+  \**************************************/
+/*! exports provided: apiUrl */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "apiUrl", function() { return apiUrl; });
+function apiUrl() {
+    var url = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        url[_i] = arguments[_i];
+    }
+    return "/api/" + url.join("/");
+}
 
 
 /***/ }),
@@ -255,7 +346,7 @@ module.exports = ".table-explorer-nav {\r\n  text-indent: 30px;\r\n}\r\n\r\n/*# 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"!tables\"><em>Loading...</em></div>\r\n\r\n<div *ngIf=\"tables\">\r\n  <div *ngFor=\"let table of tables\">\r\n    <div class=\"table-explorer-nav\" *ngIf=\"table\">\r\n      {{ table.name }}\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "\r\n\r\n<div *ngIf=\"tables$ | async as tables; else skeleton\">\r\n  <div *ngFor=\"let table of tables\">\r\n    <div class=\"table-explorer-nav\">\r\n      {{ table.name }}\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #skeleton>\r\n  <p><em>Loading...</em></p>\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -280,8 +371,7 @@ var TableExplorerNavComponent = /** @class */ (function () {
         this.databaseService = databaseService;
     }
     TableExplorerNavComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.databaseService.getTables(this.databaseName).subscribe(function (tables) { return _this.tables = tables; });
+        this.tables$ = this.databaseService.getTables(this.databaseName);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),

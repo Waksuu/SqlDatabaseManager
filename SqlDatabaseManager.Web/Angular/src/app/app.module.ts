@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { DatabaseExplorerNavComponent } from './database-explorer-nav/database-explorer-nav.component';
 import { TableExplorerNavComponent } from './table-explorer-nav/table-explorer-nav.component';
+import { SecurityModule } from './security/security.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { TableExplorerNavComponent } from './table-explorer-nav/table-explorer-n
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    MatExpansionModule
+    MatExpansionModule,
+
+    SecurityModule
   ],
   providers: [],
   bootstrap: [AppComponent]

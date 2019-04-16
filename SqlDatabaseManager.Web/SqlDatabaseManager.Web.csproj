@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <None Remove="Angular\src\app\database\tableDTO.model.ts" />
+    <None Remove="Angular\src\app\shared\api.helper.ts" />
   </ItemGroup>
 
 
@@ -36,6 +37,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Angular\src\app\database\databaseDTO.model.ts" />
     <TypeScriptCompile Include="Angular\src\app\database\tableDTO.model.ts" />
+    <TypeScriptCompile Include="Angular\src\app\shared\api.helper.ts" />
   </ItemGroup>
 
 

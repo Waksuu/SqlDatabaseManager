@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { DatabaseDTO } from '../database/DatabaseDTO.model';
 import { DatabaseService } from '../database/database.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-database-explorer-nav',
@@ -10,11 +11,11 @@ import { DatabaseService } from '../database/database.service';
 })
 
 export class DatabaseExplorerNavComponent implements OnInit {
-  public databases: DatabaseDTO[];
+  databases$: Observable<DatabaseDTO[]>;
 
   constructor(private databaseService: DatabaseService) { }
 
   ngOnInit() {
-    this.databaseService.getDatabases().subscribe(databases => this.databases = databases);
+    this.databases$ = this.databaseService.getDatabases();
   }
 }

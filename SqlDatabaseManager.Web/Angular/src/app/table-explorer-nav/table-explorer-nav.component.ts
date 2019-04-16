@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { DatabaseService } from '../database/database.service';
 import { TableDTO } from '../database/tableDTO.model';
@@ -10,13 +11,13 @@ import { TableDTO } from '../database/tableDTO.model';
 })
 
 export class TableExplorerNavComponent implements OnInit {
-  public tables: TableDTO[];
+  public tables$: Observable<TableDTO[]>;
 
   @Input() databaseName: string;
 
   constructor(private databaseService: DatabaseService) { }
 
   ngOnInit() {
-    this.databaseService.getTables(this.databaseName).subscribe(tables => this.tables = tables);
+    this.tables$ = this.databaseService.getTables(this.databaseName);
   }
 }

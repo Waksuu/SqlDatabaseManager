@@ -2,15 +2,17 @@
 
 <p>This component demonstrates fetching data from the server.</p>
 
-<p *ngIf="!databases"><em>Loading...</em></p>
-
-<mat-accordion *ngIf="databases">
+<mat-accordion *ngIf="databases$ | async as databases; else skeleton">
   <mat-expansion-panel *ngFor="let database of databases">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{ database.name }}
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <app-table-explorer-nav [databaseName]="database.name"></app-table-explorer-nav>
+      <app-table-explorer-nav [databaseName]="database.name"></app-table-explorer-nav>
   </mat-expansion-panel>
 </mat-accordion>
+
+<ng-template #skeleton>
+  <p><em>Loading...</em></p>
+</ng-template>
