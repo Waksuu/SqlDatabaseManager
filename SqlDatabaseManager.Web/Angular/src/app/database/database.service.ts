@@ -1,7 +1,8 @@
-import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DatabaseDTO } from './DatabaseDTO.model';
+import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { DatabaseDTO } from './DatabaseDTO.model';
 
 @Injectable({
   providedIn: 'root'

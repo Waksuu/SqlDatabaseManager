@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { DatabaseDTO } from '../database/DatabaseDTO.model';
 import { DatabaseService } from '../database/database.service';
