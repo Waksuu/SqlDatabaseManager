@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { DatabaseDTO } from "./shared/databaseDTO.model";
-import { DatabaseService } from './shared/database.service';
+
+import { DatabaseDTO } from '../database/DatabaseDTO.model';
+import { DatabaseService } from '../database/database.service';
 
 @Component({
   selector: 'app-database-explorer-nav',

@@ -169,7 +169,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DatabaseExplorerNavComponent", function() { return DatabaseExplorerNavComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _shared_database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared/database.service */ "./src/app/database-explorer-nav/shared/database.service.ts");
+/* harmony import */ var _database_database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../database/database.service */ "./src/app/database/database.service.ts");
 
 
 
@@ -187,7 +187,7 @@ var DatabaseExplorerNavComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./database-explorer-nav.component.html */ "./src/app/database-explorer-nav/database-explorer-nav.component.html"),
             styles: [__webpack_require__(/*! ./database-explorer-nav.component.css */ "./src/app/database-explorer-nav/database-explorer-nav.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_database_service__WEBPACK_IMPORTED_MODULE_2__["DatabaseService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_database_database_service__WEBPACK_IMPORTED_MODULE_2__["DatabaseService"]])
     ], DatabaseExplorerNavComponent);
     return DatabaseExplorerNavComponent;
 }());
@@ -196,10 +196,10 @@ var DatabaseExplorerNavComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/database-explorer-nav/shared/database.service.ts":
-/*!******************************************************************!*\
-  !*** ./src/app/database-explorer-nav/shared/database.service.ts ***!
-  \******************************************************************/
+/***/ "./src/app/database/database.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/database/database.service.ts ***!
+  \**********************************************/
 /*! exports provided: DatabaseService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
