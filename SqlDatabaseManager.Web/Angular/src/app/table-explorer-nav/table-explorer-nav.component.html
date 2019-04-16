@@ -1,3 +1,9 @@
-<p>
-  From table {{ databaseName }}
-</p>
+<div *ngIf="!tables"><em>Loading...</em></div>
+
+<div *ngIf="tables">
+  <div *ngFor="let table of tables">
+    <div class="table-explorer-nav" *ngIf="table">
+      {{ table.name }}
+    </div>
+  </div>
+</div>

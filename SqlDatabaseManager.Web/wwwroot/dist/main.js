@@ -220,6 +220,9 @@ var DatabaseService = /** @class */ (function () {
     DatabaseService.prototype.getDatabases = function () {
         return this.http.get(this.baseUrl + 'api/Database/GetDatabases');
     };
+    DatabaseService.prototype.getTables = function (databaseName) {
+        return this.http.get(this.baseUrl + 'api/Database/GetTables?databaseName=' + databaseName);
+    };
     DatabaseService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
             providedIn: 'root'
@@ -241,7 +244,7 @@ var DatabaseService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RhYmxlLWV4cGxvcmVyLW5hdi90YWJsZS1leHBsb3Jlci1uYXYuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = ".table-explorer-nav {\r\n  text-indent: 30px;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGFibGUtZXhwbG9yZXItbmF2L3RhYmxlLWV4cGxvcmVyLW5hdi5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsaUJBQWlCO0FBQ25CIiwiZmlsZSI6InNyYy9hcHAvdGFibGUtZXhwbG9yZXItbmF2L3RhYmxlLWV4cGxvcmVyLW5hdi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRhYmxlLWV4cGxvcmVyLW5hdiB7XHJcbiAgdGV4dC1pbmRlbnQ6IDMwcHg7XHJcbn1cclxuIl19 */"
 
 /***/ }),
 
@@ -252,7 +255,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  From table {{ databaseName }}\r\n</p>\r\n"
+module.exports = "<div *ngIf=\"!tables\"><em>Loading...</em></div>\r\n\r\n<div *ngIf=\"tables\">\r\n  <div *ngFor=\"let table of tables\">\r\n    <div class=\"table-explorer-nav\" *ngIf=\"table\">\r\n      {{ table.name }}\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -268,12 +271,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TableExplorerNavComponent", function() { return TableExplorerNavComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _database_database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../database/database.service */ "./src/app/database/database.service.ts");
+
 
 
 var TableExplorerNavComponent = /** @class */ (function () {
-    function TableExplorerNavComponent() {
+    function TableExplorerNavComponent(databaseService) {
+        this.databaseService = databaseService;
     }
     TableExplorerNavComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.databaseService.getTables(this.databaseName).subscribe(function (tables) { return _this.tables = tables; });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -285,7 +293,7 @@ var TableExplorerNavComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./table-explorer-nav.component.html */ "./src/app/table-explorer-nav/table-explorer-nav.component.html"),
             styles: [__webpack_require__(/*! ./table-explorer-nav.component.css */ "./src/app/table-explorer-nav/table-explorer-nav.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_database_database_service__WEBPACK_IMPORTED_MODULE_2__["DatabaseService"]])
     ], TableExplorerNavComponent);
     return TableExplorerNavComponent;
 }());

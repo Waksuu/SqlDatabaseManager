@@ -13,6 +13,10 @@
     <None Remove="Scripts\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Angular\src\app\database\tableDTO.model.ts" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.1" />
@@ -31,6 +35,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="Angular\src\app\database\databaseDTO.model.ts" />
+    <TypeScriptCompile Include="Angular\src\app\database\tableDTO.model.ts" />
   </ItemGroup>
 
 
