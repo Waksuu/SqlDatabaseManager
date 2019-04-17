@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { DatabaseDTO } from '../DatabaseDTO.model';
-import { DatabaseService } from '../database.service';
+import { DatabaseDTO } from '../shared/DatabaseDTO.model';
+import { DatabaseService } from '../shared/database.service';
 
 @Component({
   selector: 'app-database-explorer-nav',

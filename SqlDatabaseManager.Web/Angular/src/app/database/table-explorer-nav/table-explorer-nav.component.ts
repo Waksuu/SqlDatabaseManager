@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { DatabaseService } from '../database.service';
-import { TableDTO } from '../tableDTO.model';
+import { DatabaseService } from '../shared/database.service';
+import { TableDTO } from '../shared/tableDTO.model';
+
 
 @Component({
   selector: 'app-table-explorer-nav',

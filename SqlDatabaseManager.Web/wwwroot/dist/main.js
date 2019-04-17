@@ -172,7 +172,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DatabaseExplorerNavComponent", function() { return DatabaseExplorerNavComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../database.service */ "./src/app/database/database.service.ts");
+/* harmony import */ var _shared_database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/database.service */ "./src/app/database/shared/database.service.ts");
 
 
 
@@ -189,7 +189,7 @@ var DatabaseExplorerNavComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./database-explorer-nav.component.html */ "./src/app/database/database-explorer-nav/database-explorer-nav.component.html"),
             styles: [__webpack_require__(/*! ./database-explorer-nav.component.css */ "./src/app/database/database-explorer-nav/database-explorer-nav.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_database_service__WEBPACK_IMPORTED_MODULE_2__["DatabaseService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_database_service__WEBPACK_IMPORTED_MODULE_2__["DatabaseService"]])
     ], DatabaseExplorerNavComponent);
     return DatabaseExplorerNavComponent;
 }());
@@ -198,10 +198,10 @@ var DatabaseExplorerNavComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/database/database.service.ts":
-/*!**********************************************!*\
-  !*** ./src/app/database/database.service.ts ***!
-  \**********************************************/
+/***/ "./src/app/database/shared/database.service.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/database/shared/database.service.ts ***!
+  \*****************************************************/
 /*! exports provided: DatabaseService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -211,7 +211,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _shared_api_helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/api.helper */ "./src/app/shared/api.helper.ts");
+/* harmony import */ var src_app_shared_kernel_api_helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared-kernel/api.helper */ "./src/app/shared-kernel/api.helper.ts");
 
 
 
@@ -221,11 +221,11 @@ var DatabaseService = /** @class */ (function () {
         this.http = http;
     }
     DatabaseService.prototype.getDatabases = function () {
-        return this.http.get(Object(_shared_api_helper__WEBPACK_IMPORTED_MODULE_3__["apiUrl"])('Database', 'GetDatabases'));
+        return this.http.get(Object(src_app_shared_kernel_api_helper__WEBPACK_IMPORTED_MODULE_3__["apiUrl"])('Database', 'GetDatabases'));
     };
     DatabaseService.prototype.getTables = function (databaseName) {
         var httpParams = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]().append("databaseName", databaseName);
-        return this.http.get(Object(_shared_api_helper__WEBPACK_IMPORTED_MODULE_3__["apiUrl"])('Database', 'GetTables'), { params: httpParams });
+        return this.http.get(Object(src_app_shared_kernel_api_helper__WEBPACK_IMPORTED_MODULE_3__["apiUrl"])('Database', 'GetTables'), { params: httpParams });
     };
     DatabaseService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
@@ -274,7 +274,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TableExplorerNavComponent", function() { return TableExplorerNavComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../database.service */ "./src/app/database/database.service.ts");
+/* harmony import */ var _shared_database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/database.service */ "./src/app/database/shared/database.service.ts");
 
 
 
@@ -295,7 +295,7 @@ var TableExplorerNavComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./table-explorer-nav.component.html */ "./src/app/database/table-explorer-nav/table-explorer-nav.component.html"),
             styles: [__webpack_require__(/*! ./table-explorer-nav.component.css */ "./src/app/database/table-explorer-nav/table-explorer-nav.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_database_service__WEBPACK_IMPORTED_MODULE_2__["DatabaseService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_database_service__WEBPACK_IMPORTED_MODULE_2__["DatabaseService"]])
     ], TableExplorerNavComponent);
     return TableExplorerNavComponent;
 }());
@@ -371,10 +371,10 @@ var SecurityService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/shared/api.helper.ts":
-/*!**************************************!*\
-  !*** ./src/app/shared/api.helper.ts ***!
-  \**************************************/
+/***/ "./src/app/shared-kernel/api.helper.ts":
+/*!*********************************************!*\
+  !*** ./src/app/shared-kernel/api.helper.ts ***!
+  \*********************************************/
 /*! exports provided: apiUrl */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

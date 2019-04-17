@@ -2,7 +2,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { apiUrl } from '../shared/api.helper';
+import { apiUrl } from 'src/app/shared-kernel/api.helper';
 import { DatabaseDTO } from './DatabaseDTO.model';
 import { TableDTO } from './tableDTO.model';
 
