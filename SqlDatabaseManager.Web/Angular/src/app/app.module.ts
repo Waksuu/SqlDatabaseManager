@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { DatabaseExplorerNavComponent } from './database/database-explorer-nav/database-explorer-nav.component';
 import { SecurityModule } from './security/security.module';
 import { TableExplorerNavComponent } from './database/table-explorer-nav/table-explorer-nav.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { TableExplorerNavComponent } from './database/table-explorer-nav/table-e
     TableExplorerNavComponent,
   ],
   imports: [
+    AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
