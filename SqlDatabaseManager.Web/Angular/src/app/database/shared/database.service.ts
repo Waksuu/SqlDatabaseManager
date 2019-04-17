@@ -3,8 +3,8 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { apiUrl } from 'src/app/shared-kernel/api.helper';
-import { DatabaseDTO } from './DatabaseDTO.model';
-import { TableDTO } from './tableDTO.model';
+import { Database } from './Database.model';
+import { Table } from './table.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +14,13 @@ export class DatabaseService {
 
   constructor(private http: HttpClient) { }
 
-  public getDatabases(): Observable<DatabaseDTO[]> {
-    return this.http.get<DatabaseDTO[]>(apiUrl('Database', 'GetDatabases'));
+  public getDatabases(): Observable<Database[]> {
+    return this.http.get<Database[]>(apiUrl('Database', 'GetDatabases'));
   }
 
-  public getTables(databaseName: string): Observable<TableDTO[]> {
+  public getTables(databaseName: string): Observable<Table[]> {
     const httpParams: HttpParams = new HttpParams().append("databaseName", databaseName);
 
-    return this.http.get<TableDTO[]>(apiUrl('Database', 'GetTables'), { params: httpParams });
+    return this.http.get<Table[]>(apiUrl('Database', 'GetTables'), { params: httpParams });
   }
 }

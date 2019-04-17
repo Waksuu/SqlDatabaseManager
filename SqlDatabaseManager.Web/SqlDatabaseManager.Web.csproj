@@ -35,8 +35,8 @@
 
 
   <ItemGroup>
-    <TypeScriptCompile Include="Angular\src\app\database\shared\databaseDTO.model.ts" />
-    <TypeScriptCompile Include="Angular\src\app\database\shared\tableDTO.model.ts" />
+    <TypeScriptCompile Include="Angular\src\app\database\shared\database.model.ts" />
+    <TypeScriptCompile Include="Angular\src\app\database\shared\table.model.ts" />
     <TypeScriptCompile Include="Angular\src\app\shared-kernel\api.helper.ts" />
   </ItemGroup>
 

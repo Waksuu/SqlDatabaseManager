@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { DatabaseService } from '../shared/database.service';
-import { TableDTO } from '../shared/tableDTO.model';
+import { Table } from '../shared/table.model';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { TableDTO } from '../shared/tableDTO.model';
 })
 
 export class TableExplorerNavComponent implements OnInit {
-  public tables$: Observable<TableDTO[]>;
+  public tables$: Observable<Table[]>;
 
   @Input() databaseName: string;
 

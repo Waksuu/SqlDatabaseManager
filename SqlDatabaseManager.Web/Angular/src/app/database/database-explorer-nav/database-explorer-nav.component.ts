@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { DatabaseDTO } from '../shared/DatabaseDTO.model';
+import { Database } from '../shared/Database.model';
 import { DatabaseService } from '../shared/database.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { DatabaseService } from '../shared/database.service';
 })
 
 export class DatabaseExplorerNavComponent implements OnInit {
-  databases$: Observable<DatabaseDTO[]>;
+  databases$: Observable<Database[]>;
 
   constructor(private databaseService: DatabaseService) { }
 

@@ -10,12 +10,14 @@ import { DatabaseExplorerNavComponent } from './database/database-explorer-nav/d
 import { SecurityModule } from './security/security.module';
 import { TableExplorerNavComponent } from './database/table-explorer-nav/table-explorer-nav.component';
 import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DatabaseExplorerNavComponent,
     TableExplorerNavComponent,
+    LoginComponent,
   ],
   imports: [
     AppRoutingModule,
