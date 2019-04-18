@@ -7,27 +7,23 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { DatabaseExplorerNavComponent } from './database/database-explorer-nav/database-explorer-nav.component';
 import { LoginComponent } from './login/login.component';
+import { DatabaseModule } from './database/database.module';
 import { SecurityModule } from './security/security.module';
-import { TableExplorerNavComponent } from './database/table-explorer-nav/table-explorer-nav.component';
+import { DatabaseServerExplorerModule } from './database/database-server-explorer/database-server-explorer.module';
+import { DatabaseExplorerComponent } from './database/database-server-explorer/database-explorer/database-explorer.component';
+import { DatabaseComponent } from './database/database.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DatabaseExplorerNavComponent,
-    TableExplorerNavComponent,
-    LoginComponent,
   ],
   imports: [
     AppRoutingModule,
-    BrowserAnimationsModule,
     BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    MatExpansionModule,
 
-    SecurityModule
+    DatabaseModule,
+    //SecurityModule
   ],
   providers: [],
   bootstrap: [AppComponent]

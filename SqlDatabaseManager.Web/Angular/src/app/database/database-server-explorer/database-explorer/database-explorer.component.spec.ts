@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DatabaseExplorerNavComponent } from './database-explorer-nav.component';
+import { DatabaseExplorerComponent } from './database-explorer.component';
 
 describe('DatabaseExplorerNavComponent', () => {
-  let component: DatabaseExplorerNavComponent;
-  let fixture: ComponentFixture<DatabaseExplorerNavComponent>;
+  let component: DatabaseExplorerComponent;
+  let fixture: ComponentFixture<DatabaseExplorerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatabaseExplorerNavComponent ]
+      declarations: [ DatabaseExplorerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DatabaseExplorerNavComponent);
+    fixture = TestBed.createComponent(DatabaseExplorerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
