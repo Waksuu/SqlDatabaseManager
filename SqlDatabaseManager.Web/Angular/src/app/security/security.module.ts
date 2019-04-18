@@ -6,4 +6,5 @@ import { NgModule } from '@angular/core';
     SecurityService
   ]
 })
+
 export class SecurityModule { }
