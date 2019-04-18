@@ -1,24 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { DatabaseExplorerNavComponent } from './database-explorer-nav/database-explorer-nav.component';
+import { AppRoutingModule } from './app-routing.module';
+import { DatabaseModule } from './database/database.module';
+import { LoginModule } from './login/login.module';
+import { DatabaseComponent } from './database/database.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DatabaseExplorerNavComponent,
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    MatExpansionModule,
-    BrowserAnimationsModule
+
+    DatabaseModule,
+    LoginModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

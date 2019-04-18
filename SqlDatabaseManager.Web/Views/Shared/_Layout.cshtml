@@ -36,7 +36,7 @@
 						@if (Context.Session.GetString("logged") == "true")
 						{
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="@nameof(DatabaseController).Replace("Controller","")" asp-action="@nameof(DatabaseController.GetDatabases)">Index</a>
+								<a class="nav-link text-dark" asp-area="" asp-controller="@nameof(DatabaseController).Replace("Controller","")" asp-action="@nameof(DatabaseController.Index)">Index</a>
 							</li>
 
 						}

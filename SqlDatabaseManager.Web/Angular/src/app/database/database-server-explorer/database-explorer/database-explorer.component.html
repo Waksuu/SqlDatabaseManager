@@ -1,0 +1,18 @@
+<h1>Databases!</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<mat-accordion *ngIf="databases$ | async as databases; else skeleton">
+  <mat-expansion-panel *ngFor="let database of databases">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ database.name }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+      <app-table-explorer [databaseName]="database.name"></app-table-explorer>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<ng-template #skeleton>
+  <p><em>Loading...</em></p>
+</ng-template>

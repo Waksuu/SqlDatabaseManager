@@ -99,7 +99,8 @@ namespace SqlDatabaseManager.Web.Controllers
             }
             catch (DbException e)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                //return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return NotFound();
             }
 
             return Ok(databases.ToList());
@@ -118,7 +119,9 @@ namespace SqlDatabaseManager.Web.Controllers
             }
             catch (DbException e)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                //return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return NotFound();
+
             }
 
             return Ok(tables.ToList());
@@ -137,7 +140,9 @@ namespace SqlDatabaseManager.Web.Controllers
             }
             catch (DbException e)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                //return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return NotFound();
+
             }
 
             return Ok(tableDefinition);

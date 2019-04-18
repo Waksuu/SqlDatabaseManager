@@ -13,6 +13,11 @@
     <None Remove="Scripts\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Angular\src\app\database\tableDTO.model.ts" />
+    <None Remove="Angular\src\app\shared-kernel\api.helper.ts" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.1" />
@@ -26,6 +31,13 @@
   <ItemGroup>
     <ProjectReference Include="..\SqlDatabaseManager.Application\SqlDatabaseManager.Application.csproj" />
     <ProjectReference Include="..\SqlDatabaseManager.Domain\SqlDatabaseManager.Domain.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <TypeScriptCompile Include="Angular\src\app\database\database-server-explorer\database-explorer\database-explorer.model.ts" />
+    <TypeScriptCompile Include="Angular\src\app\database\database-server-explorer\database-explorer\table-explorer\table-explorer.model.ts" />
+    <TypeScriptCompile Include="Angular\src\app\shared-kernel\api.helper.ts" />
   </ItemGroup>
 
 
