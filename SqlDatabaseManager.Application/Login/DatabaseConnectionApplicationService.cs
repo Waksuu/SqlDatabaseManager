@@ -16,10 +16,7 @@ namespace SqlDatabaseManager.Application.Login
             this.loginLogic = loginLogic;
             this.session = session;
         }
-
-        public Task<LoginResultDTO> CreateDatabaseConnectionAsync(ConnectionInformationDTO connectionInformation) => Task.Run(() => CreateDatabaseConnection(connectionInformation));
-
-        private LoginResultDTO CreateDatabaseConnection(ConnectionInformationDTO connectionInformation)
+        public LoginResultDTO CreateDatabaseConnection(ConnectionInformationDTO connectionInformation)
         {
             LoginResultDTO loginResult = new LoginResultDTO();
 

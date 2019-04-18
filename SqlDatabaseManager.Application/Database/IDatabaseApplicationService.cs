@@ -7,7 +7,7 @@ namespace SqlDatabaseManager.Application.Database
 {
     public interface IDatabaseApplicationService
     {
-        Task<IEnumerable<DatabaseDTO>> GetDatabasesFromServerAsync(Guid sessionId);
+        IEnumerable<DatabaseDTO> GetDatabasesFromServer(Guid sessionId);
 
         IEnumerable<TableDTO> GetTables(Guid sessionId, string databaseName);
 

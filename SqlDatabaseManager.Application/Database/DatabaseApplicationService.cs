@@ -18,9 +18,7 @@ namespace SqlDatabaseManager.Application.Database
             this.databaseLogic = databaseLogic;
         }
 
-        public Task<IEnumerable<DatabaseDTO>> GetDatabasesFromServerAsync(Guid sessionId) => Task.Run(() => GetDatabasesFromServer(sessionId));
-
-        private IEnumerable<DatabaseDTO> GetDatabasesFromServer(Guid sessionId)
+        public IEnumerable<DatabaseDTO> GetDatabasesFromServer(Guid sessionId)
         {
             ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
 

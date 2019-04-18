@@ -35,32 +35,6 @@ namespace SqlDatabaseManager.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(ConnectionInformationViewModel connectionViewModel)
-        {
-            if (ModelIsIncomplete())
-            {
-                return View();
-            }
-
-            ConnectionInformationDTO connectionInformation = Map(connectionViewModel);
-
-            var loginResult = await databaseConnectionApplicationService.CreateDatabaseConnectionAsync(connectionInformation);
-
-            if (ErrorOccured(loginResult))
-            {
-                ViewBag.LoginError = loginResult.ErrorMessage;
-
-                return View();
-            }
-
-            HttpContext.Session.Set(connection, loginResult.SessionId.ToByteArray());
-            HttpContext.Session.SetString(logged, "true");
-
-            return RedirectToAction(nameof(Index)); // TODO: Redirect to angular page
-        }
-
         public IActionResult Index()
         {
             return View();
@@ -88,14 +62,14 @@ namespace SqlDatabaseManager.Web.Controllers
 
         [HttpGet("[action]")]
         [Route("api/[controller]/[action]")]
-        public async Task<ActionResult<IEnumerable<DatabaseDTO>>> GetDatabases()
+        public ActionResult<IEnumerable<DatabaseDTO>> GetDatabases()
         {
             Guid sessionId = GetSessionId();
             IEnumerable<DatabaseDTO> databases = null;
 
             try
             {
-                databases = await databaseApplicationService.GetDatabasesFromServerAsync(sessionId);
+                databases =  databaseApplicationService.GetDatabasesFromServer(sessionId);
             }
             catch (DbException e)
             {
