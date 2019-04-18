@@ -62,14 +62,14 @@ namespace SqlDatabaseManager.Web.Controllers
 
         [HttpGet("[action]")]
         [Route("api/[controller]/[action]")]
-        public async Task<ActionResult<IEnumerable<DatabaseDTO>>> GetDatabases()
+        public ActionResult<IEnumerable<DatabaseDTO>> GetDatabases()
         {
             Guid sessionId = GetSessionId();
             IEnumerable<DatabaseDTO> databases = null;
 
             try
             {
-                databases = await databaseApplicationService.GetDatabasesFromServerAsync(sessionId);
+                databases =  databaseApplicationService.GetDatabasesFromServer(sessionId);
             }
             catch (DbException e)
             {
