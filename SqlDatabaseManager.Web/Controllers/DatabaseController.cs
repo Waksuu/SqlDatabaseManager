@@ -42,7 +42,7 @@ namespace SqlDatabaseManager.Web.Controllers
             return loginResult;
         }
 
-        [HttpGet("[action]")]
+        [HttpDelete("[action]")]
         public IActionResult Logout(Guid sessionId)
         {
             databaseConnectionApplicationService.LogoutFromDatabase(sessionId);
