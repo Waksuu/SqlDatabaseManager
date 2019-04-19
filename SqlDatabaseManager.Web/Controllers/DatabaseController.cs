@@ -60,6 +60,22 @@ namespace SqlDatabaseManager.Web.Controllers
             return RedirectToAction(nameof(Login));
         }
 
+        [HttpPost]
+        [Route("api/[controller]/[action]")]
+        public ActionResult<LoginResultDTO> Login(ConnectionInformationViewModel connectionInformationViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var connectionInformation = Mapper.Mapper.ConnectionInformationMapper(connectionInformationViewModel);
+            var loginResult = databaseConnectionApplicationService.CreateDatabaseConnection(connectionInformation);
+
+            return loginResult;
+        }
+
+
         [HttpGet("[action]")]
         [Route("api/[controller]/[action]")]
         public ActionResult<IEnumerable<DatabaseDTO>> GetDatabases()
