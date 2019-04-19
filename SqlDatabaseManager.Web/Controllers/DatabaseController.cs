@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SqlDatabaseManager.Application.Database;
 using SqlDatabaseManager.Application.Login;
-using SqlDatabaseManager.Application.Security;
-using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Domain.Login;
 using SqlDatabaseManager.Web.Models;
@@ -14,6 +12,8 @@ using System.Linq;
 
 namespace SqlDatabaseManager.Web.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class DatabaseController : Controller
     {
         private const string connection = "connection";
@@ -28,39 +28,7 @@ namespace SqlDatabaseManager.Web.Controllers
             this.databaseConnectionApplicationService = databaseConnectionApplicationService;
         }
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        #region Login Methods
-
-        private bool ModelIsIncomplete() => !ModelState.IsValid;
-
-        private ConnectionInformationDTO Map(ConnectionInformationViewModel connectionViewModel) => Mapper.Mapper.ConnectionInformationMapper(connectionViewModel);
-
-        private bool ErrorOccured(LoginResultDTO loginResult) => !string.IsNullOrWhiteSpace(loginResult.ErrorMessage);
-
-        #endregion Login Methods
-
-        public IActionResult Logout()
-        {
-            Guid sessionId = GetSessionId();
-            databaseConnectionApplicationService.LogoutFromDatabase(sessionId);
-
-            HttpContext.Session.Clear();
-
-            return RedirectToAction(nameof(Login));
-        }
-
-        [HttpPost]
-        [Route("api/[controller]/[action]")]
+        [HttpPost("[action]")]
         public ActionResult<LoginResultDTO> Login(ConnectionInformationViewModel connectionInformationViewModel)
         {
             if (!ModelState.IsValid)
@@ -75,10 +43,18 @@ namespace SqlDatabaseManager.Web.Controllers
         }
 
         [HttpGet("[action]")]
-        [Route("api/[controller]/[action]")]
-        public ActionResult<IEnumerable<DatabaseDTO>> GetDatabases()
+        public IActionResult Logout(Guid sessionId)
         {
-            Guid sessionId = GetSessionId();
+            databaseConnectionApplicationService.LogoutFromDatabase(sessionId);
+
+            HttpContext.Session.Clear();
+
+            return RedirectToAction(nameof(Login));
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult<IEnumerable<DatabaseDTO>> GetDatabases(Guid sessionId)
+        {
             IEnumerable<DatabaseDTO> databases = null;
 
             try
@@ -95,10 +71,8 @@ namespace SqlDatabaseManager.Web.Controllers
         }
 
         [HttpGet("[action]")]
-        [Route("api/[controller]/[action]")]
-        public ActionResult<IEnumerable<TableDTO>> GetTables(string databaseName)
+        public ActionResult<IEnumerable<TableDTO>> GetTables(Guid sessionId, string databaseName)
         {
-            Guid sessionId = GetSessionId();
             IEnumerable<TableDTO> tables = null;
 
             try
@@ -115,10 +89,8 @@ namespace SqlDatabaseManager.Web.Controllers
         }
 
         [HttpGet("[action]")]
-        [Route("api/[controller]/[action]")]
-        public ActionResult<TableDTO> GetTableContents(string databaseName, string tableName)
+        public ActionResult<TableDTO> GetTableContents(Guid sessionId, string databaseName, string tableName)
         {
-            Guid sessionId = GetSessionId();
             TableDTO tableDefinition = null;
 
             try
@@ -133,27 +105,5 @@ namespace SqlDatabaseManager.Web.Controllers
 
             return Ok(tableDefinition);
         }
-
-        #region Session Methods
-
-        private Guid GetSessionId()
-        {
-            Guid sessionId = Guid.Empty;
-            sessionId = GetSessionCookie();
-            return sessionId;
-        }
-
-        private Guid GetSessionCookie()
-        {
-            byte[] sessionId;
-            if (!HttpContext.Session.TryGetValue(connection, out sessionId))
-            {
-                throw new SessionException(Domain.Properties.Resources.SessionError);
-            }
-
-            return new Guid(sessionId);
-        }
-
-        #endregion Session Methods
     }
 }
