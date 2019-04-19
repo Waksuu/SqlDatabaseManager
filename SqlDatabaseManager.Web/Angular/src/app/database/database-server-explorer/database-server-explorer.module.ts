@@ -1,5 +1,4 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgModule } from '@angular/core';
@@ -19,7 +18,6 @@ import { TableExplorerComponent } from './database-explorer/table-explorer/table
 
   imports: [
     BrowserAnimationsModule,
-    FormsModule,
     HttpClientModule,
     MatExpansionModule,
   ],
