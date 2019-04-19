@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SqlDatabaseManager.Application.Database;
 using SqlDatabaseManager.Application.Login;
-using SqlDatabaseManager.Application.Security;
-using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Domain.Login;
 using SqlDatabaseManager.Web.Models;
@@ -11,10 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Web.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class DatabaseController : Controller
     {
         private const string connection = "connection";
@@ -29,30 +28,23 @@ namespace SqlDatabaseManager.Web.Controllers
             this.databaseConnectionApplicationService = databaseConnectionApplicationService;
         }
 
-        [HttpGet]
-        public IActionResult Login()
+        [HttpPost("[action]")]
+        public ActionResult<LoginResultDTO> Login(ConnectionInformationViewModel connectionInformationViewModel)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var connectionInformation = Mapper.Mapper.ConnectionInformationMapper(connectionInformationViewModel);
+            var loginResult = databaseConnectionApplicationService.CreateDatabaseConnection(connectionInformation);
+
+            return loginResult;
         }
 
-        public IActionResult Index()
+        [HttpGet("[action]")]
+        public IActionResult Logout(Guid sessionId)
         {
-            return View();
-        }
-
-        #region Login Methods
-
-        private bool ModelIsIncomplete() => !ModelState.IsValid;
-
-        private ConnectionInformationDTO Map(ConnectionInformationViewModel connectionViewModel) => Mapper.Mapper.ConnectionInformationMapper(connectionViewModel);
-
-        private bool ErrorOccured(LoginResultDTO loginResult) => !string.IsNullOrWhiteSpace(loginResult.ErrorMessage);
-
-        #endregion Login Methods
-
-        public IActionResult Logout()
-        {
-            Guid sessionId = GetSessionId();
             databaseConnectionApplicationService.LogoutFromDatabase(sessionId);
 
             HttpContext.Session.Clear();
@@ -61,15 +53,13 @@ namespace SqlDatabaseManager.Web.Controllers
         }
 
         [HttpGet("[action]")]
-        [Route("api/[controller]/[action]")]
-        public ActionResult<IEnumerable<DatabaseDTO>> GetDatabases()
+        public ActionResult<IEnumerable<DatabaseDTO>> GetDatabases(Guid sessionId)
         {
-            Guid sessionId = GetSessionId();
             IEnumerable<DatabaseDTO> databases = null;
 
             try
             {
-                databases =  databaseApplicationService.GetDatabasesFromServer(sessionId);
+                databases = databaseApplicationService.GetDatabasesFromServer(sessionId);
             }
             catch (DbException e)
             {
@@ -81,10 +71,8 @@ namespace SqlDatabaseManager.Web.Controllers
         }
 
         [HttpGet("[action]")]
-        [Route("api/[controller]/[action]")]
-        public ActionResult<IEnumerable<TableDTO>> GetTables(string databaseName)
+        public ActionResult<IEnumerable<TableDTO>> GetTables(Guid sessionId, string databaseName)
         {
-            Guid sessionId = GetSessionId();
             IEnumerable<TableDTO> tables = null;
 
             try
@@ -95,17 +83,14 @@ namespace SqlDatabaseManager.Web.Controllers
             {
                 //return StatusCode(StatusCodes.Status400BadRequest, e.Message);
                 return NotFound();
-
             }
 
             return Ok(tables.ToList());
         }
 
         [HttpGet("[action]")]
-        [Route("api/[controller]/[action]")]
-        public ActionResult<TableDTO> GetTableContents(string databaseName, string tableName)
+        public ActionResult<TableDTO> GetTableContents(Guid sessionId, string databaseName, string tableName)
         {
-            Guid sessionId = GetSessionId();
             TableDTO tableDefinition = null;
 
             try
@@ -116,32 +101,9 @@ namespace SqlDatabaseManager.Web.Controllers
             {
                 //return StatusCode(StatusCodes.Status400BadRequest, e.Message);
                 return NotFound();
-
             }
 
             return Ok(tableDefinition);
         }
-
-        #region Session Methods
-
-        private Guid GetSessionId()
-        {
-            Guid sessionId = Guid.Empty;
-            sessionId = GetSessionCookie();
-            return sessionId;
-        }
-
-        private Guid GetSessionCookie()
-        {
-            byte[] sessionId;
-            if (!HttpContext.Session.TryGetValue(connection, out sessionId))
-            {
-                throw new SessionException(Domain.Properties.Resources.SessionError);
-            }
-
-            return new Guid(sessionId);
-        }
-
-        #endregion Session Methods
     }
 }
