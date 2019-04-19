@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Web.Controllers
 {
@@ -75,7 +74,6 @@ namespace SqlDatabaseManager.Web.Controllers
             return loginResult;
         }
 
-
         [HttpGet("[action]")]
         [Route("api/[controller]/[action]")]
         public ActionResult<IEnumerable<DatabaseDTO>> GetDatabases()
@@ -85,7 +83,7 @@ namespace SqlDatabaseManager.Web.Controllers
 
             try
             {
-                databases =  databaseApplicationService.GetDatabasesFromServer(sessionId);
+                databases = databaseApplicationService.GetDatabasesFromServer(sessionId);
             }
             catch (DbException e)
             {
@@ -111,7 +109,6 @@ namespace SqlDatabaseManager.Web.Controllers
             {
                 //return StatusCode(StatusCodes.Status400BadRequest, e.Message);
                 return NotFound();
-
             }
 
             return Ok(tables.ToList());
@@ -132,7 +129,6 @@ namespace SqlDatabaseManager.Web.Controllers
             {
                 //return StatusCode(StatusCodes.Status400BadRequest, e.Message);
                 return NotFound();
-
             }
 
             return Ok(tableDefinition);
