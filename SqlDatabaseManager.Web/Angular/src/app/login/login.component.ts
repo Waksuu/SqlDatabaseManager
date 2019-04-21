@@ -18,6 +18,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     console.log(this.login);
-    this.loginService.login(this.login).pipe(tap)
+    this.loginService.login(this.login).subscribe(x => console.log(x));
   }
 }
