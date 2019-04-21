@@ -1,1 +1,18 @@
 <h2>Login</h2>
+
+<form>
+  <div>ServerAddress</div>
+  <input type="text" [(ngModel)]="login.serverAddress" name="serverAddress"/>
+
+  <div>Login</div>
+  <input type="text" [(ngModel)]="login.login" name="login"/>
+
+  <div>Password</div>
+  <input type="password" [(ngModel)]="login.password" name="password"/>
+
+  <div>DatabaseType</div>
+  <input type="number" [(ngModel)]="login.databaseType" name="databaseType"/>
+  <br />
+  <button type="submit" (click)="onSubmit()">Submit</button>
+
+</form>
