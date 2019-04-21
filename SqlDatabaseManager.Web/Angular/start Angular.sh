@@ -1,2 +1,2 @@
 #!/bin/bash
-ng serve --proxy-config=proxy.json --watch --open
+ng serve --proxy-config=proxy.config.json --watch --open
