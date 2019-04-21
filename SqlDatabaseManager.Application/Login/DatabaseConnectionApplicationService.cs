@@ -2,6 +2,7 @@
 using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Login;
 using System;
+using System.Data.Common;
 using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Application.Login
@@ -16,24 +17,15 @@ namespace SqlDatabaseManager.Application.Login
             this.loginLogic = loginLogic;
             this.session = session;
         }
-        public LoginResultDTO CreateDatabaseConnection(ConnectionInformationDTO connectionInformation)
+        public Guid CreateDatabaseConnection(ConnectionInformationDTO connectionInformation)
         {
             LoginResultDTO loginResult = new LoginResultDTO();
 
-            try
-            {
-                loginLogic.ConnectToDatabase(connectionInformation);
-            }
-            catch (Exception ex)
-            {
-                loginResult.ErrorMessage = ex.Message;
-                return loginResult;
-            }
+            loginLogic.ConnectToDatabase(connectionInformation);
 
             var sessionId = session.CreateSession(connectionInformation);
-            loginResult.SessionId = sessionId;
 
-            return loginResult;
+            return sessionId;
         }
 
         public void LogoutFromDatabase(Guid sessionId)
