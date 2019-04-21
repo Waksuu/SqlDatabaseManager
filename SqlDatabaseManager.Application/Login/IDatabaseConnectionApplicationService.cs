@@ -7,7 +7,7 @@ namespace SqlDatabaseManager.Application.Login
 {
     public interface IDatabaseConnectionApplicationService
     {
-        LoginResultDTO CreateDatabaseConnection(ConnectionInformationDTO connectionInformation);
+        Guid CreateDatabaseConnection(ConnectionInformationDTO connectionInformation);
 
         void LogoutFromDatabase(Guid sessionId);
     }

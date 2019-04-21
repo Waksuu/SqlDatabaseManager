@@ -2,12 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using SqlDatabaseManager.Application.Database;
 using SqlDatabaseManager.Application.Login;
+using SqlDatabaseManager.Application.Security;
 using SqlDatabaseManager.Domain.Database;
-using SqlDatabaseManager.Domain.Login;
 using SqlDatabaseManager.Web.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 
 namespace SqlDatabaseManager.Web.Controllers
@@ -29,27 +28,42 @@ namespace SqlDatabaseManager.Web.Controllers
         }
 
         [HttpPost("[action]")]
-        public ActionResult<LoginResultDTO> Login(ConnectionInformationViewModel connectionInformationViewModel)
+        public ActionResult<Guid> Login(ConnectionInformationViewModel connectionInformationViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var connectionInformation = Mapper.Mapper.ConnectionInformationMapper(connectionInformationViewModel);
-            var loginResult = databaseConnectionApplicationService.CreateDatabaseConnection(connectionInformation);
+            Guid sessionId = Guid.Empty;
 
-            return loginResult;
+            var connectionInformation = Mapper.Mapper.ConnectionInformationMapper(connectionInformationViewModel);
+
+            try
+            {
+                sessionId = databaseConnectionApplicationService.CreateDatabaseConnection(connectionInformation);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(sessionId);
         }
 
         [HttpDelete("[action]")]
-        public IActionResult Logout(Guid sessionId)
+        public ActionResult Logout(Guid sessionId)
         {
-            databaseConnectionApplicationService.LogoutFromDatabase(sessionId);
+            try
+            {
+                databaseConnectionApplicationService.LogoutFromDatabase(sessionId);
+            }
+            catch(SessionException ex)
+            {
+                return NotFound(ex.Message);
+            }
 
-            HttpContext.Session.Clear();
-
-            return RedirectToAction(nameof(Login));
+            return NoContent();
         }
 
         [HttpGet("[action]")]
@@ -61,10 +75,13 @@ namespace SqlDatabaseManager.Web.Controllers
             {
                 databases = databaseApplicationService.GetDatabasesFromServer(sessionId);
             }
-            catch (DbException e)
+            catch (SessionException ex)
             {
-                //return StatusCode(StatusCodes.Status400BadRequest, e.Message);
-                return NotFound();
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
             return Ok(databases.ToList());
@@ -79,10 +96,13 @@ namespace SqlDatabaseManager.Web.Controllers
             {
                 tables = databaseApplicationService.GetTables(sessionId, databaseName);
             }
-            catch (DbException e)
+            catch (SessionException ex)
             {
-                //return StatusCode(StatusCodes.Status400BadRequest, e.Message);
-                return NotFound();
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
             return Ok(tables.ToList());
@@ -97,10 +117,13 @@ namespace SqlDatabaseManager.Web.Controllers
             {
                 tableDefinition = databaseApplicationService.GetTableContents(sessionId, databaseName, tableName);
             }
-            catch (DbException e)
+            catch (SessionException ex)
             {
-                //return StatusCode(StatusCodes.Status400BadRequest, e.Message);
-                return NotFound();
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
             return Ok(tableDefinition);

@@ -18,7 +18,7 @@ namespace SqlDatabaseManager.Application.Security
         private void ValideSessionExistance(Guid sessionId)
         {
             if (!sessions.ContainsKey(sessionId))
-                throw new InvalidOperationException(Domain.Properties.Resources.SessionError);
+                throw new SessionException(Domain.Properties.Resources.SessionError);
         }
 
         public Guid CreateSession(ConnectionInformationDTO connection)
