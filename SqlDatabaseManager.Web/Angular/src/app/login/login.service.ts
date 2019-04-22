@@ -12,7 +12,7 @@ import { apiUrl } from '../shared-kernel/api.helper';
 export class LoginService {
   constructor(protected readonly http: HttpClient) { }
 
-  login(loginDto: Login): Observable<any> {
-    return this.http.post(apiUrl("login"), loginDto);
+  login(login: Login): Observable<string> {
+    return this.http.post<string>(apiUrl("Database","Login"), login);
   }
 }
