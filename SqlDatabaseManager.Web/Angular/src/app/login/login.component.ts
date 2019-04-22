@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { AuthenticationService } from '../authentication/authentication.service';
 import { Login } from './login.model';
 import { LoginService } from './login.service';
 
@@ -11,13 +13,17 @@ import { LoginService } from './login.service';
 export class LoginComponent implements OnInit {
   login: Login = new Login();
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private authenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  onSubmit() {
-    console.log(this.login);
-    this.loginService.login(this.login).subscribe(x => console.log(x));
+  async onSubmit() {
+    let sessionId: string = await this.loginService.login(this.login).toPromise();
+
+    this.authenticationService.saveSession(sessionId);
+
+    this.router.navigate(["/database"]);
   }
+
 }
