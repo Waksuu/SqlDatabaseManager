@@ -1,11 +1,9 @@
 ﻿using SqlDatabaseManager.Application.Security;
 using SqlDatabaseManager.Domain.Connection;
-using SqlDatabaseManager.Domain.Login;
 using System;
-using System.Data.Common;
-using System.Threading.Tasks;
 
-namespace SqlDatabaseManager.Application.Login
+
+namespace SqlDatabaseManager.Application.Connection
 {
     public class DatabaseConnectionApplicationService : IDatabaseConnectionApplicationService
     {

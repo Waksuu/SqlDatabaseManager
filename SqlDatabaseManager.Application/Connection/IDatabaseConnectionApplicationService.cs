@@ -1,9 +1,7 @@
 ﻿using SqlDatabaseManager.Domain.Connection;
-using SqlDatabaseManager.Domain.Login;
 using System;
-using System.Threading.Tasks;
 
-namespace SqlDatabaseManager.Application.Login
+namespace SqlDatabaseManager.Application.Connection
 {
     public interface IDatabaseConnectionApplicationService
     {

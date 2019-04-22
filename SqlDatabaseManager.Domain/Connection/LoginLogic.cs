@@ -3,7 +3,7 @@ using SqlDatabaseManager.Domain.Database;
 using System.Data;
 using System.Data.Common;
 
-namespace SqlDatabaseManager.Domain.Login
+namespace SqlDatabaseManager.Domain.Connection
 {
     public class LoginLogic : ILoginLogic
     {

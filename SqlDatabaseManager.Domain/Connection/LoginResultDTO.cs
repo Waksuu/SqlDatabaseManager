@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SqlDatabaseManager.Domain.Login
+namespace SqlDatabaseManager.Domain.Connection
 {
     public class LoginResultDTO
     {

@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SqlDatabaseManager.Application.Database;
-using SqlDatabaseManager.Application.Login;
+using SqlDatabaseManager.Application.Connection;
 using SqlDatabaseManager.Application.Security;
 using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Web.Models;
