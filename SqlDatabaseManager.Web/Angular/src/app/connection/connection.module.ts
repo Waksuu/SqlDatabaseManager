@@ -4,14 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import { AuthenticationService } from '../authentication/authentication.service';
-import { LoginComponent } from './login.component';
-import { LoginService } from './login.service';
+import { ConnectionService } from './connection.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
   ],
-
 
   imports: [
     BrowserModule,
@@ -25,8 +24,8 @@ import { LoginService } from './login.service';
 
   providers: [
     AuthenticationService,
-    LoginService,
+    ConnectionService,
   ]
 })
 
-export class LoginModule { }
+export class ConnectionModule { }

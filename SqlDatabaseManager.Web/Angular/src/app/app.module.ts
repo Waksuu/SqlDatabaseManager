@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ConnectionModule } from './connection/connection.module';
 import { DatabaseModule } from './database/database.module';
-import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { LoginModule } from './login/login.module';
     BrowserModule,
 
     DatabaseModule,
-    LoginModule,
+    ConnectionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
