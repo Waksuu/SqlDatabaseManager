@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SqlDatabaseManager.Application.Security
+namespace SqlDatabaseManager.Application.Authentication
 {
     public class SessionException : Exception
     {

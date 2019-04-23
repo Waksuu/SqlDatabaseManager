@@ -1,4 +1,4 @@
-﻿using SqlDatabaseManager.Application.Security;
+﻿using SqlDatabaseManager.Application.Authentication;
 using SqlDatabaseManager.Domain.Connection;
 using System;
 
@@ -17,8 +17,6 @@ namespace SqlDatabaseManager.Application.Connection
         }
         public Guid CreateDatabaseConnection(ConnectionInformationDTO connectionInformation)
         {
-            LoginResultDTO loginResult = new LoginResultDTO();
-
             loginLogic.ConnectToDatabase(connectionInformation);
 
             var sessionId = session.CreateSession(connectionInformation);
