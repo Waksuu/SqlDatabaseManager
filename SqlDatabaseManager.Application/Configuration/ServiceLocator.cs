@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using SqlDatabaseManager.Application.Database;
 using SqlDatabaseManager.Application.Connection;
-using SqlDatabaseManager.Application.Security;
+using SqlDatabaseManager.Application.Authentication;
 using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Query;
