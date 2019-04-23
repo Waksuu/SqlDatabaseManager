@@ -1,4 +1,4 @@
-﻿using SqlDatabaseManager.Application.Security;
+﻿using SqlDatabaseManager.Application.Authentication;
 using SqlDatabaseManager.Domain.Connection;
 using System;
 

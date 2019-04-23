@@ -1,7 +1,7 @@
 ﻿using SqlDatabaseManager.Domain.Connection;
 using System;
 
-namespace SqlDatabaseManager.Application.Security
+namespace SqlDatabaseManager.Application.Authentication
 {
     public interface ISession
     {
