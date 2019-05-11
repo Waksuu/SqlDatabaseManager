@@ -31,10 +31,7 @@ import { TableExplorerComponent } from './database-explorer/table-explorer/table
 
   providers: [
     AuthenticationService,
-    {
-      provide: DatabaseServerExplorerService,
-      useClass: serviceDecider(DatabaseServerExplorerService, DatabaseServerExplorerServiceMock),
-    },
+    serviceDecider(DatabaseServerExplorerService, DatabaseServerExplorerServiceMock),
   ]
 })
 
