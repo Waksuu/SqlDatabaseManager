@@ -7,6 +7,8 @@ import { AuthenticationService } from 'src/app/authentication/authentication.ser
 import { DatabaseExplorerComponent } from './database-explorer/database-explorer.component';
 import { DatabaseServerExplorerComponent } from './database-server-explorer.component';
 import { DatabaseServerExplorerService } from './database-server-explorer.service';
+import { DatabaseServerExplorerServiceMock } from './database-server-explorer.service.mock';
+import { serviceDecider } from '../../shared-kernel/service-decider.helper';
 import { TableExplorerComponent } from './database-explorer/table-explorer/table-explorer.component';
 
 
@@ -29,7 +31,10 @@ import { TableExplorerComponent } from './database-explorer/table-explorer/table
 
   providers: [
     AuthenticationService,
-    DatabaseServerExplorerService,
+    {
+      provide: DatabaseServerExplorerService,
+      useClass: serviceDecider(DatabaseServerExplorerService, DatabaseServerExplorerServiceMock),
+    },
   ]
 })
 
