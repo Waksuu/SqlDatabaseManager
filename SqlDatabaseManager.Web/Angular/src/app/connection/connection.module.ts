@@ -6,10 +6,12 @@ import { NgModule } from '@angular/core';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { ConnectionService } from './connection.service';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
+    LogoutComponent,
   ],
 
   imports: [
@@ -20,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 
   exports: [
     LoginComponent,
+    LogoutComponent
   ],
 
   providers: [
