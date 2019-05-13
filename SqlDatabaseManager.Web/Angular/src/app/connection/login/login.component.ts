@@ -18,11 +18,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  async onSubmit() {
-    let sessionId: string = await this.loginService.login(this.login).toPromise();
-
-    this.authenticationService.saveSession(sessionId);
-
+  onSubmit() {
+    this.loginService.login(this.login)
     this.router.navigate(["/database"]);
   }
 

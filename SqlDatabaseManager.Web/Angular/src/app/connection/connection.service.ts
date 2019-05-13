@@ -12,8 +12,13 @@ export class ConnectionService implements OnDestroy {
 
   constructor(private http: HttpClient, private authenticationService: AuthenticationService) { }
 
-  login(login: Login): Observable<string> {
-    return this.http.post<string>(apiUrl("Database","Login"), login); // TODO: Refactor login so it uses authentication serice
+  login(login: Login): void {
+    let sessionId: string;
+
+    let loginRequest: Observable<string> = this.http.post<string>(apiUrl("Database", "Login"), login);
+    this.subscription.add(loginRequest.subscribe(x => sessionId = x));
+
+    this.authenticationService.saveSession(sessionId);
   }
 
   logout(): void {
