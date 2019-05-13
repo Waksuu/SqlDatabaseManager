@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { ConnectionService } from '../connection.service';
@@ -10,20 +12,22 @@ import { Login } from './login.model';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   login: Login = new Login();
+  loginRequest$: Subscription;
 
-  constructor(private loginService: ConnectionService, private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private connectionService: ConnectionService, private authenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  async onSubmit() {
-    let sessionId: string = await this.loginService.login(this.login).toPromise();
-
-    this.authenticationService.saveSession(sessionId);
-
-    this.router.navigate(["/database"]);
+  onSubmit() {
+    this.loginRequest$ = this.connectionService.login(this.login).pipe(
+      tap(() => this.router.navigate(["/database"]))
+    ).subscribe();
   }
 
+  ngOnDestroy(): void {
+    this.loginRequest$.unsubscribe();
+  }
 }
