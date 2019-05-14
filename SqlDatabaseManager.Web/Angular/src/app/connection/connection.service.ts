@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
+import { tap } from "rxjs/operators";
 
 import { apiUrl } from '../shared-kernel/api.helper';
 import { AuthenticationService } from '../authentication/authentication.service';
@@ -12,13 +13,10 @@ export class ConnectionService implements OnDestroy {
 
   constructor(private http: HttpClient, private authenticationService: AuthenticationService) { }
 
-  login(login: Login): void {
-    let sessionId: string;
-
-    let loginRequest: Observable<string> = this.http.post<string>(apiUrl("Database", "Login"), login);
-    this.subscription.add(loginRequest.subscribe(x => sessionId = x));
-
-    this.authenticationService.saveSession(sessionId);
+  login(login: Login): Observable<string> {
+    return this.http.post<string>(apiUrl("Database", "Login"), login).pipe(
+      tap(sessionId => this.authenticationService.saveSession(sessionId))
+    );
   }
 
   logout(): void {
@@ -29,9 +27,5 @@ export class ConnectionService implements OnDestroy {
     this.subscription.add(logoutRequest.subscribe());
 
     this.authenticationService.deleteSession();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }
