@@ -1,7 +1,6 @@
 ﻿using SqlDatabaseManager.Domain.Database;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Application.Database
 {

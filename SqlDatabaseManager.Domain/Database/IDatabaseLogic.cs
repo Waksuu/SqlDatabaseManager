@@ -7,8 +7,6 @@ namespace SqlDatabaseManager.Domain.Database
     {
         IEnumerable<DatabaseDTO> GetDatabases(ConnectionInformationDTO connectionInformation);
 
-        IEnumerable<DatabaseDTO> GetDatabasesWithAccess(ConnectionInformationDTO connectionInformation);
-
         IEnumerable<TableDTO> GetTables(ConnectionInformationDTO connectionInformation, string databaseName);
 
         TableDTO GetTableContents(ConnectionInformationDTO connectionInformation, string databaseName, string tableName);

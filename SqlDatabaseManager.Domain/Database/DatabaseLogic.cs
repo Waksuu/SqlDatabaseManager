@@ -2,7 +2,6 @@
 using SqlDatabaseManager.Domain.Query;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 
 namespace SqlDatabaseManager.Domain.Database
 {
@@ -27,32 +26,6 @@ namespace SqlDatabaseManager.Domain.Database
             {
                 var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
                 IDbCommand command = GenerateCommand(connection, queryCommand.ShowDatabases());
-
-                connection.Open();
-
-                using (IDataReader reader = command.ExecuteReader())
-                {
-                    ValidateAmountOfFieldsReturnedFromQuery(reader, 1);
-                    while (reader.Read())
-                    {
-                        databases.Add(new DatabaseDTO { Name = reader[0].ToString() });
-                    }
-                }
-            }
-
-            return databases;
-        }
-
-        public IEnumerable<DatabaseDTO> GetDatabasesWithAccess(ConnectionInformationDTO connectionInformation)
-        {
-            List<DatabaseDTO> databases = new List<DatabaseDTO>();
-
-            string connectionString = GenerateConnectionString(connectionInformation);
-
-            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
-            {
-                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
-                IDbCommand command = GenerateCommand(connection, queryCommand.ShowDatabasesWithAccess());
 
                 connection.Open();
 
@@ -96,8 +69,6 @@ namespace SqlDatabaseManager.Domain.Database
 
             return tables;
         }
-
-        private bool IsNotEmpty(IDataReader reader) => reader.FieldCount > 0;
 
         public TableDTO GetTableContents(ConnectionInformationDTO connectionInformation, string databaseName, string tableName)
         {
