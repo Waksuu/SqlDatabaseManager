@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { ConnectionService } from '../connection.service';
 
@@ -8,7 +10,8 @@ import { ConnectionService } from '../connection.service';
   templateUrl: './logout.component.html',
   styleUrls: ['./logout.component.css']
 })
-export class LogoutComponent implements OnInit {
+export class LogoutComponent implements OnInit, OnDestroy {
+  logoutRequest$: Subscription;
 
   constructor(private connectionService: ConnectionService, private router: Router) { }
 
@@ -16,7 +19,12 @@ export class LogoutComponent implements OnInit {
   }
 
   onLogoutClick() {
-    this.connectionService.logout();
-    this.router.navigate(["/login"]);
+    this.logoutRequest$ = this.connectionService.logout().pipe(
+      tap(() => this.router.navigate(["/login"]))
+    ).subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.logoutRequest$.unsubscribe();
   }
 }
