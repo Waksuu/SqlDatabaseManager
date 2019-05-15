@@ -8,7 +8,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 import { Login } from './login/login.model';
 
 @Injectable()
-export class ConnectionService implements OnDestroy {
+export class ConnectionService {
   private subscription: Subscription = new Subscription();
 
   constructor(private http: HttpClient, private authenticationService: AuthenticationService) { }

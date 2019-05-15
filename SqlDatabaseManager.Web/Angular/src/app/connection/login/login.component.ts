@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { ConnectionService } from '../connection.service';
 import { Login } from './login.model';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Component({
@@ -12,7 +12,7 @@ import { tap } from 'rxjs/operators';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   login: Login = new Login();
   login$: Subscription;
 
@@ -22,7 +22,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.login$ = this.connectionService.login(this.login).pipe(tap(() => this.router.navigate(["/database"]))).subscribe();
+    this.login$ = this.connectionService.login(this.login).pipe(
+        tap(() => this.router.navigate(["/database"]))
+      ).subscribe();
   }
 
   ngOnDestroy(): void {
