@@ -11,13 +11,22 @@ import { DatabaseServerExplorerService } from '../database-server-explorer.servi
 })
 
 export class DatabaseExplorerComponent implements OnInit {
-  databasesTablesRetrieved: Map<string, boolean>;
   databases$: Observable<DatabaseExplorer[]>;
 
-  constructor(private databaseServerExplorerService: DatabaseServerExplorerService) { }
+  private databaseTablesRetrieved: Map<string, boolean>;
 
-  ngOnInit() {
-    this.databasesTablesRetrieved = new Map<string, boolean>();
+  constructor(private readonly databaseServerExplorerService: DatabaseServerExplorerService) { }
+
+  ngOnInit(): void {
+    this.databaseTablesRetrieved = new Map<string, boolean>();
     this.databases$ = this.databaseServerExplorerService.getDatabases();
+  }
+
+  initializeTablesRetrieved(databaseName: string): void {
+    this.databaseTablesRetrieved.set(databaseName, true);
+  }
+
+  databaseTablesRetrievedInitialized(databaseName: string): boolean {
+    return this.databaseTablesRetrieved.get(databaseName);
   }
 }

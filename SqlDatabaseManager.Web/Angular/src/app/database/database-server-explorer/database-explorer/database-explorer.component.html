@@ -4,14 +4,15 @@
 
 <mat-accordion *ngIf="databases$ | async as databases; else skeleton">
   <mat-expansion-panel *ngFor="let database of databases">
-    <mat-expansion-panel-header (click)="databasesTablesRetrieved.set(database.name, true)">
+    <mat-expansion-panel-header (click)="initializeTablesRetrieved(database.name)">
       <mat-panel-title>
         {{ database.name }}
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div *ngIf="databasesTablesRetrieved.get(database.name)">
+
+    <ng-container *ngIf="databaseTablesRetrievedInitialized(database.name)">
       <app-table-explorer [databaseName]="database.name"></app-table-explorer>
-    </div>
+    </ng-container>
   </mat-expansion-panel>
 </mat-accordion>
 
