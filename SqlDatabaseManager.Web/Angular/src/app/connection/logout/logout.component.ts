@@ -15,10 +15,10 @@ export class LogoutComponent implements OnInit, OnDestroy {
 
   constructor(private connectionService: ConnectionService, private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  onLogoutClick() {
+  onLogoutClick(): void {
     this.logoutRequest$ = this.connectionService.logout().pipe(
       tap(() => this.router.navigate(["/login"]))
     ).subscribe();
