@@ -14,9 +14,6 @@ namespace SqlDatabaseManager.Web.Controllers
     [Route("api/[controller]")]
     public class DatabaseController : Controller
     {
-        private const string connection = "connection";
-        private const string logged = "logged";
-
         private readonly IDatabaseApplicationService databaseApplicationService;
         private readonly IDatabaseConnectionApplicationService databaseConnectionApplicationService;
 
