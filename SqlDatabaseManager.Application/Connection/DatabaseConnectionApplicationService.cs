@@ -7,17 +7,17 @@ namespace SqlDatabaseManager.Application.Connection
 {
     public class DatabaseConnectionApplicationService : IDatabaseConnectionApplicationService
     {
-        private readonly ILoginLogic loginLogic;
+        private readonly IConnectionSerivce connectionSerivce;
         private readonly ISession session;
 
-        public DatabaseConnectionApplicationService(ILoginLogic loginLogic, ISession session)
+        public DatabaseConnectionApplicationService(IConnectionSerivce connectionSerivce, ISession session)
         {
-            this.loginLogic = loginLogic;
+            this.connectionSerivce = connectionSerivce;
             this.session = session;
         }
         public Guid CreateDatabaseConnection(ConnectionInformationDTO connectionInformation)
         {
-            loginLogic.ConnectToDatabase(connectionInformation);
+            connectionSerivce.ConnectToDatabase(connectionInformation);
 
             var sessionId = session.CreateSession(connectionInformation);
 

@@ -11,35 +11,22 @@ namespace SqlDatabaseManager.Application.Configuration
 {
     public static class ServiceLocator
     {
-        private static bool initialized = false;
         private static Lazy<ContainerBuilder> webContainer;
 
         public static ContainerBuilder WebContainer => webContainer.Value;
 
         static ServiceLocator()
         {
-            if (initialized)
-            {
-                return;
-            }
-
             webContainer = new Lazy<ContainerBuilder>(() =>
             {
                 ContainerBuilder container = new ContainerBuilder();
 
-                RegisterLogic(container);
                 RegisterFactories(container);
                 RegisterServices(container);
                 RegisterSecurity(container);
 
                 return container;
             });
-        }
-
-        private static void RegisterLogic(ContainerBuilder container)
-        {
-            container.RegisterType<LoginLogic>().As<ILoginLogic>();
-            container.RegisterType<DatabaseLogic>().As<IDatabaseLogic>();
         }
 
         private static void RegisterFactories(ContainerBuilder container)
@@ -50,6 +37,9 @@ namespace SqlDatabaseManager.Application.Configuration
 
         private static void RegisterServices(ContainerBuilder container)
         {
+            container.RegisterType<ConnectionSerivce>().As<IConnectionSerivce>();
+            container.RegisterType<DatabaseService>().As<IDatabaseService>();
+
             container.RegisterType<DatabaseConnectionApplicationService>().As<IDatabaseConnectionApplicationService>();
             container.RegisterType<DatabaseApplicationService>().As<IDatabaseApplicationService>();
         }

@@ -126,6 +126,9 @@
   <data name="MappingError" xml:space="preserve">
     <value>Could not map {0} because it's value is null</value>
   </data>
+  <data name="NotSupportedDatabase" xml:space="preserve">
+    <value>Database type {0} is not supported</value>
+  </data>
   <data name="SessionError" xml:space="preserve">
     <value>Session doesn't exist</value>
   </data>

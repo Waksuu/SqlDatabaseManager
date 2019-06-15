@@ -2,7 +2,7 @@
 
 namespace SqlDatabaseManager.Domain.Connection
 {
-    public interface ILoginLogic
+    public interface IConnectionSerivce
     {
         void ConnectToDatabase(ConnectionInformationDTO connectionInformation);
     }

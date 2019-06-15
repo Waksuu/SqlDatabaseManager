@@ -19,7 +19,7 @@ namespace SqlDatabaseManager.Domain.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -84,6 +84,15 @@ namespace SqlDatabaseManager.Domain.Properties {
         public static string MappingError {
             get {
                 return ResourceManager.GetString("MappingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database type {0} is not supported.
+        /// </summary>
+        public static string NotSupportedDatabase {
+            get {
+                return ResourceManager.GetString("NotSupportedDatabase", resourceCulture);
             }
         }
         
