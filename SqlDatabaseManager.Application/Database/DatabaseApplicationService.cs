@@ -1,9 +1,9 @@
 ﻿using SqlDatabaseManager.Application.Authentication;
 using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Database;
+using SqlDatabaseManager.Domain.Database.Table;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Application.Database
 {

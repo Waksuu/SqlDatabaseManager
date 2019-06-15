@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SqlDatabaseManager.Application.Database;
-using SqlDatabaseManager.Application.Connection;
 using SqlDatabaseManager.Application.Authentication;
+using SqlDatabaseManager.Application.Connection;
+using SqlDatabaseManager.Application.Database;
 using SqlDatabaseManager.Domain.Database;
+using SqlDatabaseManager.Domain.Database.Table;
 using SqlDatabaseManager.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace SqlDatabaseManager.Web.Controllers
             {
                 databaseConnectionApplicationService.LogoutFromDatabase(sessionId);
             }
-            catch(SessionException ex)
+            catch (SessionException ex)
             {
                 return NotFound(ex.Message);
             }

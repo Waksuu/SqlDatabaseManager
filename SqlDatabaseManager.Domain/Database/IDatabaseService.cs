@@ -1,4 +1,5 @@
 ﻿using SqlDatabaseManager.Domain.Connection;
+using SqlDatabaseManager.Domain.Database.Table;
 using System.Collections.Generic;
 
 namespace SqlDatabaseManager.Domain.Database
