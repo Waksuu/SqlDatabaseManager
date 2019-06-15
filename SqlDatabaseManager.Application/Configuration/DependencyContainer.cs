@@ -1,32 +1,24 @@
 ﻿using Autofac;
-using SqlDatabaseManager.Application.Database;
-using SqlDatabaseManager.Application.Connection;
 using SqlDatabaseManager.Application.Authentication;
-using SqlDatabaseManager.Domain.Database;
+using SqlDatabaseManager.Application.Connection;
+using SqlDatabaseManager.Application.Database;
 using SqlDatabaseManager.Domain.Connection;
+using SqlDatabaseManager.Domain.Database;
 using SqlDatabaseManager.Domain.Query;
-using System;
 
 namespace SqlDatabaseManager.Application.Configuration
 {
-    public static class ServiceLocator
+    public static class DependencyContainer
     {
-        private static Lazy<ContainerBuilder> webContainer;
+        public static ContainerBuilder WebContainer { get; }
 
-        public static ContainerBuilder WebContainer => webContainer.Value;
-
-        static ServiceLocator()
+        static DependencyContainer()
         {
-            webContainer = new Lazy<ContainerBuilder>(() =>
-            {
-                ContainerBuilder container = new ContainerBuilder();
+            WebContainer = new ContainerBuilder();
 
-                RegisterFactories(container);
-                RegisterServices(container);
-                RegisterSecurity(container);
-
-                return container;
-            });
+            RegisterFactories(WebContainer);
+            RegisterServices(WebContainer);
+            RegisterSecurity(WebContainer);
         }
 
         private static void RegisterFactories(ContainerBuilder container)
