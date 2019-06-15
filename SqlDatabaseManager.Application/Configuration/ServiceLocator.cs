@@ -11,19 +11,19 @@ namespace SqlDatabaseManager.Application.Configuration
 {
     public static class ServiceLocator
     {
-        private static bool _initialized = false;
-        private static Lazy<ContainerBuilder> _webContainer;
+        private static bool initialized = false;
+        private static Lazy<ContainerBuilder> webContainer;
 
-        public static ContainerBuilder WebContainer => _webContainer.Value;
+        public static ContainerBuilder WebContainer => webContainer.Value;
 
         static ServiceLocator()
         {
-            if (_initialized)
+            if (initialized)
             {
                 return;
             }
 
-            _webContainer = new Lazy<ContainerBuilder>(() =>
+            webContainer = new Lazy<ContainerBuilder>(() =>
             {
                 ContainerBuilder container = new ContainerBuilder();
 

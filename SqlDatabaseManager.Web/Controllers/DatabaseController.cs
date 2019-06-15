@@ -14,9 +14,6 @@ namespace SqlDatabaseManager.Web.Controllers
     [Route("api/[controller]")]
     public class DatabaseController : Controller
     {
-        private const string connection = "connection";
-        private const string logged = "logged";
-
         private readonly IDatabaseApplicationService databaseApplicationService;
         private readonly IDatabaseConnectionApplicationService databaseConnectionApplicationService;
 
@@ -34,9 +31,8 @@ namespace SqlDatabaseManager.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            Guid sessionId = Guid.Empty;
-
             var connectionInformation = Mapper.Mapper.ConnectionInformationMapper(connectionInformationViewModel);
+            Guid sessionId;
 
             try
             {
@@ -68,8 +64,7 @@ namespace SqlDatabaseManager.Web.Controllers
         [HttpGet("[action]")]
         public ActionResult<IEnumerable<DatabaseDTO>> GetDatabases(Guid sessionId)
         {
-            IEnumerable<DatabaseDTO> databases = null;
-
+            IEnumerable<DatabaseDTO> databases;
             try
             {
                 databases = databaseApplicationService.GetDatabasesFromServer(sessionId);
@@ -89,8 +84,7 @@ namespace SqlDatabaseManager.Web.Controllers
         [HttpGet("[action]")]
         public ActionResult<IEnumerable<TableDTO>> GetTables(Guid sessionId, string databaseName)
         {
-            IEnumerable<TableDTO> tables = null;
-
+            IEnumerable<TableDTO> tables;
             try
             {
                 tables = databaseApplicationService.GetTables(sessionId, databaseName);
@@ -110,8 +104,7 @@ namespace SqlDatabaseManager.Web.Controllers
         [HttpGet("[action]")]
         public ActionResult<TableDTO> GetTableContents(Guid sessionId, string databaseName, string tableName)
         {
-            TableDTO tableDefinition = null;
-
+            TableDTO tableDefinition;
             try
             {
                 tableDefinition = databaseApplicationService.GetTableContents(sessionId, databaseName, tableName);
