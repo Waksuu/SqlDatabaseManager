@@ -27,7 +27,7 @@ namespace SqlDatabaseManager.Web
 
         private IServiceProvider SetupCustomDependencyContainer(IServiceCollection services)
         {
-            var containerBuilder = ServiceLocator.WebContainer;
+            var containerBuilder = DependencyContainer.WebContainer;
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
