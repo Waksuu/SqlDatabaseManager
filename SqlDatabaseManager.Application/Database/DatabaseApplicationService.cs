@@ -1,42 +1,42 @@
 ﻿using SqlDatabaseManager.Application.Authentication;
 using SqlDatabaseManager.Domain.Connection;
 using SqlDatabaseManager.Domain.Database;
+using SqlDatabaseManager.Domain.Database.Table;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SqlDatabaseManager.Application.Database
 {
     public class DatabaseApplicationService : IDatabaseApplicationService
     {
         private readonly ISession session;
-        private readonly IDatabaseLogic databaseLogic;
+        private readonly IDatabaseService databaseService;
 
-        public DatabaseApplicationService(ISession session, IDatabaseLogic databaseLogic)
+        public DatabaseApplicationService(ISession session, IDatabaseService databaseService)
         {
             this.session = session;
-            this.databaseLogic = databaseLogic;
+            this.databaseService = databaseService;
         }
 
         public IEnumerable<DatabaseDTO> GetDatabasesFromServer(Guid sessionId)
         {
             ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
 
-            return databaseLogic.GetDatabases(connectionInformation);
+            return databaseService.GetDatabases(connectionInformation);
         }
 
         public IEnumerable<TableDTO> GetTables(Guid sessionId, string databaseName)
         {
             ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
 
-            return databaseLogic.GetTables(connectionInformation, databaseName);
+            return databaseService.GetTables(connectionInformation, databaseName);
         }
 
         public TableDTO GetTableContents(Guid sessionId, string databaseName, string tableName)
         {
             ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
 
-            return databaseLogic.GetTableContents(connectionInformation, databaseName, tableName);
+            return databaseService.GetTableContents(connectionInformation, databaseName, tableName);
         }
     }
 }

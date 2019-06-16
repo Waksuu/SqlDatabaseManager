@@ -15,7 +15,9 @@ namespace SqlDatabaseManager.Domain.Query
                     return new MySQLQueryCommand();
 
                 default:
-                    return null;
+                    throw new NotSupportedDatabaseException(string.Format(
+                        Properties.Resources.NotSupportedDatabase,
+                        databaseType));
             }
         }
     }

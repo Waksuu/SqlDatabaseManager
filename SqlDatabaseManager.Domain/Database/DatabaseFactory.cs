@@ -31,7 +31,9 @@ namespace SqlDatabaseManager.Domain.Database
                     };
 
                 default:
-                    return null;
+                    throw new NotSupportedDatabaseException(string.Format(
+                        Properties.Resources.NotSupportedDatabase,
+                        connectionInformation.DatabaseType));
             }
         }
 
@@ -46,7 +48,9 @@ namespace SqlDatabaseManager.Domain.Database
                     return new MySqlConnection(connectionString);
 
                 default:
-                    return null;
+                    throw new NotSupportedDatabaseException(string.Format(
+                        Properties.Resources.NotSupportedDatabase,
+                        databaseType));
             }
         }
 
@@ -61,7 +65,9 @@ namespace SqlDatabaseManager.Domain.Database
                     return new MySqlDataAdapter();
 
                 default:
-                    return null;
+                    throw new NotSupportedDatabaseException(string.Format(
+                        Properties.Resources.NotSupportedDatabase,
+                        databaseType));
             }
         }
     }

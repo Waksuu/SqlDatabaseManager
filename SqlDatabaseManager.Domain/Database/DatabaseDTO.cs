@@ -3,17 +3,24 @@ using System.Collections.Generic;
 
 namespace SqlDatabaseManager.Domain.Database
 {
-    public class DatabaseDTO
+    public class DatabaseDTO : IEquatable<DatabaseDTO>
     {
         public string Name { get; set; }
-        public IEnumerable<TableDTO> Tables { get; set; }
 
         public override bool Equals(object obj)
         {
-            return obj is DatabaseDTO definition &&
-                   Name == definition.Name;
+            return Equals(obj as DatabaseDTO);
         }
 
-        public override int GetHashCode() => HashCode.Combine(Name);
+        public bool Equals(DatabaseDTO other)
+        {
+            return other != null &&
+                   Name == other.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name);
+        }
     }
 }

@@ -1,17 +1,17 @@
 ﻿using SqlDatabaseManager.Domain.Connection;
+using SqlDatabaseManager.Domain.Database.Table;
 using SqlDatabaseManager.Domain.Query;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 
 namespace SqlDatabaseManager.Domain.Database
 {
-    public class DatabaseLogic : IDatabaseLogic
+    public class DatabaseService : IDatabaseService
     {
         private readonly IDatabaseFactory databaseFactory;
         private readonly IQueryFactory queryFactory;
 
-        public DatabaseLogic(IDatabaseFactory databaseFactory, IQueryFactory queryFactory)
+        public DatabaseService(IDatabaseFactory databaseFactory, IQueryFactory queryFactory)
         {
             this.databaseFactory = databaseFactory;
             this.queryFactory = queryFactory;
@@ -32,33 +32,7 @@ namespace SqlDatabaseManager.Domain.Database
 
                 using (IDataReader reader = command.ExecuteReader())
                 {
-                    ValidateAmountOfFieldsReturnedFromQuery(reader, 1);
-                    while (reader.Read())
-                    {
-                        databases.Add(new DatabaseDTO { Name = reader[0].ToString() });
-                    }
-                }
-            }
-
-            return databases;
-        }
-
-        public IEnumerable<DatabaseDTO> GetDatabasesWithAccess(ConnectionInformationDTO connectionInformation)
-        {
-            List<DatabaseDTO> databases = new List<DatabaseDTO>();
-
-            string connectionString = GenerateConnectionString(connectionInformation);
-
-            using (IDbConnection connection = ConnectToDatabase(connectionInformation.DatabaseType, connectionString))
-            {
-                var queryCommand = queryFactory.GetQueryCommand(connectionInformation.DatabaseType);
-                IDbCommand command = GenerateCommand(connection, queryCommand.ShowDatabasesWithAccess());
-
-                connection.Open();
-
-                using (IDataReader reader = command.ExecuteReader())
-                {
-                    ValidateAmountOfFieldsReturnedFromQuery(reader, 1);
+                    ValidateAmountOfColumnsReturnedFromQuery(reader, 1);
                     while (reader.Read())
                     {
                         databases.Add(new DatabaseDTO { Name = reader[0].ToString() });
@@ -86,7 +60,7 @@ namespace SqlDatabaseManager.Domain.Database
                 {
                     while (reader.Read())
                     {
-                        ValidateAmountOfFieldsReturnedFromQuery(reader, 1);
+                        ValidateAmountOfColumnsReturnedFromQuery(reader, 1);
                         string tableName = reader[0].ToString();
 
                         tables.Add(new TableDTO { Name = tableName });
@@ -96,8 +70,6 @@ namespace SqlDatabaseManager.Domain.Database
 
             return tables;
         }
-
-        private bool IsNotEmpty(IDataReader reader) => reader.FieldCount > 0;
 
         public TableDTO GetTableContents(ConnectionInformationDTO connectionInformation, string databaseName, string tableName)
         {
@@ -138,7 +110,7 @@ namespace SqlDatabaseManager.Domain.Database
             return command;
         }
 
-        private void ValidateAmountOfFieldsReturnedFromQuery(IDataReader dr, int numberOfFields)
+        private void ValidateAmountOfColumnsReturnedFromQuery(IDataReader dr, int numberOfFields)
         {
             if (dr.FieldCount != numberOfFields)
                 throw new QueryException(string.Format(Domain.Properties.Resources.InvalidFieldCount, numberOfFields));

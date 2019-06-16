@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace SqlDatabaseManager.Domain.Database
+namespace SqlDatabaseManager.Domain.Database.Table
 {
     public class TableDTO
     {

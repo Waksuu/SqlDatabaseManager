@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { ConnectionService } from '../connection.service';
 import { Login } from './login.model';
 
@@ -16,7 +15,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   login: Login = new Login();
   loginRequest$: Subscription;
 
-  constructor(private connectionService: ConnectionService, private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private connectionService: ConnectionService, private router: Router) { }
 
   ngOnInit() {
   }

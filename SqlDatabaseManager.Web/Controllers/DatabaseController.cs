@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SqlDatabaseManager.Application.Database;
-using SqlDatabaseManager.Application.Connection;
 using SqlDatabaseManager.Application.Authentication;
+using SqlDatabaseManager.Application.Connection;
+using SqlDatabaseManager.Application.Database;
 using SqlDatabaseManager.Domain.Database;
+using SqlDatabaseManager.Domain.Database.Table;
 using SqlDatabaseManager.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -31,9 +32,8 @@ namespace SqlDatabaseManager.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            Guid sessionId = Guid.Empty;
-
             var connectionInformation = Mapper.Mapper.ConnectionInformationMapper(connectionInformationViewModel);
+            Guid sessionId;
 
             try
             {
@@ -54,7 +54,7 @@ namespace SqlDatabaseManager.Web.Controllers
             {
                 databaseConnectionApplicationService.LogoutFromDatabase(sessionId);
             }
-            catch(SessionException ex)
+            catch (SessionException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -65,8 +65,7 @@ namespace SqlDatabaseManager.Web.Controllers
         [HttpGet("[action]")]
         public ActionResult<IEnumerable<DatabaseDTO>> GetDatabases(Guid sessionId)
         {
-            IEnumerable<DatabaseDTO> databases = null;
-
+            IEnumerable<DatabaseDTO> databases;
             try
             {
                 databases = databaseApplicationService.GetDatabasesFromServer(sessionId);
@@ -86,8 +85,7 @@ namespace SqlDatabaseManager.Web.Controllers
         [HttpGet("[action]")]
         public ActionResult<IEnumerable<TableDTO>> GetTables(Guid sessionId, string databaseName)
         {
-            IEnumerable<TableDTO> tables = null;
-
+            IEnumerable<TableDTO> tables;
             try
             {
                 tables = databaseApplicationService.GetTables(sessionId, databaseName);
@@ -107,8 +105,7 @@ namespace SqlDatabaseManager.Web.Controllers
         [HttpGet("[action]")]
         public ActionResult<TableDTO> GetTableContents(Guid sessionId, string databaseName, string tableName)
         {
-            TableDTO tableDefinition = null;
-
+            TableDTO tableDefinition;
             try
             {
                 tableDefinition = databaseApplicationService.GetTableContents(sessionId, databaseName, tableName);
