@@ -23,10 +23,10 @@ namespace SqlDatabaseManager.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            return SetupDependencyContainer(services);
+            return SetupCustomDependencyContainer(services);
         }
 
-        private IServiceProvider SetupDependencyContainer(IServiceCollection services)
+        private IServiceProvider SetupCustomDependencyContainer(IServiceCollection services)
         {
             var containerBuilder = ServiceLocator.WebContainer;
             containerBuilder.Populate(services);

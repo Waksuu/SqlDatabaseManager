@@ -80,7 +80,7 @@ namespace SqlDatabaseManager.Web.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return Ok(databases.ToList());
+            return Ok(databases);
         }
 
         [HttpGet("[action]")]
@@ -101,7 +101,7 @@ namespace SqlDatabaseManager.Web.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return Ok(tables.ToList());
+            return Ok(tables);
         }
 
         [HttpGet("[action]")]

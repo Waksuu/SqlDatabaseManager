@@ -5,7 +5,7 @@ namespace SqlDatabaseManager.Web.Models
 {
     public class ConnectionInformationViewModel
     {
-        [Required(ErrorMessage = "Field Database Address is required")]
+        [Required]
         public string ServerAddress { get; set; }
 
         [Required]
@@ -13,7 +13,7 @@ namespace SqlDatabaseManager.Web.Models
 
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Please select Database Type")]
+        [Required]
         public DatabaseType? DatabaseType { get; set; }
     }
 }
