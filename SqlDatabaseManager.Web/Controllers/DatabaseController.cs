@@ -62,7 +62,7 @@ namespace SqlDatabaseManager.Web.Controllers
             return NoContent();
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("")]
         public ActionResult<IEnumerable<DatabaseDTO>> GetDatabases(Guid sessionId)
         {
             IEnumerable<DatabaseDTO> databases;
@@ -82,7 +82,7 @@ namespace SqlDatabaseManager.Web.Controllers
             return Ok(databases);
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("/tables")]
         public ActionResult<IEnumerable<TableDTO>> GetTables(Guid sessionId, string databaseName)
         {
             IEnumerable<TableDTO> tables;
@@ -102,7 +102,7 @@ namespace SqlDatabaseManager.Web.Controllers
             return Ok(tables);
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("/table-contents")]
         public ActionResult<TableDTO> GetTableContents(Guid sessionId, string databaseName, string tableName)
         {
             TableDTO tableDefinition;
