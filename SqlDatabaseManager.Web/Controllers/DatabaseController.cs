@@ -12,7 +12,7 @@ using System.Linq;
 namespace SqlDatabaseManager.Web.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/database")]
     public class DatabaseController : Controller
     {
         private readonly IDatabaseApplicationService databaseApplicationService;
@@ -24,7 +24,7 @@ namespace SqlDatabaseManager.Web.Controllers
             this.databaseConnectionApplicationService = databaseConnectionApplicationService;
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("/login")]
         public ActionResult<Guid> Login(ConnectionInformationViewModel connectionInformationViewModel)
         {
             if (!ModelState.IsValid)
@@ -47,7 +47,7 @@ namespace SqlDatabaseManager.Web.Controllers
             return Ok(sessionId);
         }
 
-        [HttpDelete("[action]")]
+        [HttpDelete("/logout")]
         public ActionResult Logout(Guid sessionId)
         {
             try
