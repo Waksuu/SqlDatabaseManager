@@ -17,7 +17,6 @@ import { DatabaseModule } from './database/database.module';
     DatabaseModule,
     ConnectionModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

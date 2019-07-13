@@ -1,4 +1,4 @@
-enum DatabaseType {
+export enum DatabaseType {
   MsSql,
   MySql,
 }

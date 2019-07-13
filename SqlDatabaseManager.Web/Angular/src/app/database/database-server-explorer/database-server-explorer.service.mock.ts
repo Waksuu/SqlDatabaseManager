@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { DatabaseExplorer } from './database-explorer/database-explorer.model';
+import { DatabaseExplorer } from './database-explorer/database-explorer.dto';
 import { DatabaseServerExplorerService } from './database-server-explorer.service';
-import { TableExplorer } from './database-explorer/table-explorer/table-explorer.model';
+import { TableExplorer } from './database-explorer/table-explorer/table-explorer.dto';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class DatabaseServerExplorerServiceMock extends DatabaseServerExplorerService {
   private databases: DatabaseExplorer[] = [
     { name: "Customer" },

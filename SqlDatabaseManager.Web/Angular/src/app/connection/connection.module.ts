@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
-import { AuthenticationService } from '../authentication/authentication.service';
-import { ConnectionService } from './connection.service';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
+//TODO: Break this module down
 @NgModule({
   declarations: [
     LoginComponent,
@@ -24,11 +23,5 @@ import { LogoutComponent } from './logout/logout.component';
     LoginComponent,
     LogoutComponent
   ],
-
-  providers: [
-    AuthenticationService,
-    ConnectionService,
-  ]
 })
-
 export class ConnectionModule { }

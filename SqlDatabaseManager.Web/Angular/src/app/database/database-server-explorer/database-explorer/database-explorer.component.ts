@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { DatabaseExplorer } from './database-explorer.model';
+import { DatabaseExplorer } from './database-explorer.dto';
 import { DatabaseServerExplorerService } from '../database-server-explorer.service';
 
 @Component({
@@ -9,14 +9,14 @@ import { DatabaseServerExplorerService } from '../database-server-explorer.servi
   templateUrl: './database-explorer.component.html',
   styleUrls: ['./database-explorer.component.css']
 })
-
 export class DatabaseExplorerComponent implements OnInit {
+  //TODO: Hide implementation details from html
   databasesTablesRetrieved: Map<string, boolean>;
   databases$: Observable<DatabaseExplorer[]>;
 
-  constructor(private databaseServerExplorerService: DatabaseServerExplorerService) { }
+  constructor(private readonly databaseServerExplorerService: DatabaseServerExplorerService) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.databasesTablesRetrieved = new Map<string, boolean>();
     this.databases$ = this.databaseServerExplorerService.getDatabases();
   }

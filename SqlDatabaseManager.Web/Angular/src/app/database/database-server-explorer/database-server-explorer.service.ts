@@ -4,17 +4,16 @@ import { Observable } from 'rxjs';
 
 import { apiUrl } from 'src/app/shared-kernel/api.helper';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
-import { DatabaseExplorer } from './database-explorer/database-explorer.model';
+import { DatabaseExplorer } from './database-explorer/database-explorer.dto';
 import { databaseManagerEndpoint as endpoint } from 'src/app/shared-kernel/api-endpoint-constants.helper';
-import { TableExplorer } from './database-explorer/table-explorer/table-explorer.model';
+import { TableExplorer } from './database-explorer/table-explorer/table-explorer.dto';
 
 @Injectable({
   providedIn: 'root'
 })
-
+//TODO: Break this down to application service
 export class DatabaseServerExplorerService {
-
-  constructor(private authenticationService: AuthenticationService, private http: HttpClient) { }
+  constructor(private readonly authenticationService: AuthenticationService, private readonly http: HttpClient) { }
 
   public getDatabases(): Observable<DatabaseExplorer[]> {
     let sessionId: string = this.authenticationService.getSession();

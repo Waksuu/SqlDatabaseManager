@@ -19,5 +19,4 @@ import { DatabaseServerExplorerModule } from './database-server-explorer/databas
     DatabaseComponent
   ]
 })
-
 export class DatabaseModule { }

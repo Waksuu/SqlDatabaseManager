@@ -6,19 +6,21 @@ import { tap } from "rxjs/operators";
 import { apiUrl } from '../shared-kernel/api.helper';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { databaseManagerEndpoint as endpoint } from '../shared-kernel/api-endpoint-constants.helper';
-import { Login } from './login/login.model';
+import { Login } from './login/login.dto';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ConnectionService {
   constructor(private http: HttpClient, private authenticationService: AuthenticationService) { }
 
-  login(login: Login): Observable<string> {
+  public login(login: Login): Observable<string> {
     return this.http.post<string>(apiUrl(endpoint.DatabaseController, endpoint.Login), login).pipe(
       tap(sessionId => this.authenticationService.saveSession(sessionId))
     );
   }
 
-  logout(): Observable<any> {
+  public logout(): Observable<any> {
     const sessionId: string = this.authenticationService.getSession();
     const httpParams: HttpParams = new HttpParams().append("sessionId", sessionId);
 

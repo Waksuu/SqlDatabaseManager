@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { ConnectionService } from '../connection.service';
-import { Login } from './login.model';
+import { Login } from './login.dto';
 
 @Component({
   selector: 'app-login',
@@ -12,21 +12,22 @@ import { Login } from './login.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  login: Login = new Login();
-  loginRequest$: Subscription;
+  public login: Login;
+  public loginRequest$: Subscription;
 
-  constructor(private connectionService: ConnectionService, private router: Router) { }
+  constructor(private readonly connectionService: ConnectionService, private readonly router: Router) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
+    this.login = {} as Login;
   }
 
-  onSubmit() {
+  public onSubmit(): void {
     this.loginRequest$ = this.connectionService.login(this.login).pipe(
       tap(() => this.router.navigate(["/database"]))
     ).subscribe();
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.loginRequest$.unsubscribe();
   }
 }

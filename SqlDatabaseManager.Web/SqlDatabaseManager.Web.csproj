@@ -35,8 +35,8 @@
 
 
   <ItemGroup>
-    <TypeScriptCompile Include="Angular\src\app\database\database-server-explorer\database-explorer\database-explorer.model.ts" />
-    <TypeScriptCompile Include="Angular\src\app\database\database-server-explorer\database-explorer\table-explorer\table-explorer.model.ts" />
+    <TypeScriptCompile Include="Angular\src\app\database\database-server-explorer\database-explorer\database-explorer.dto.ts" />
+    <TypeScriptCompile Include="Angular\src\app\database\database-server-explorer\database-explorer\table-explorer\table-explorer.dto.ts" />
     <TypeScriptCompile Include="Angular\src\app\shared-kernel\api.helper.ts" />
   </ItemGroup>
 
