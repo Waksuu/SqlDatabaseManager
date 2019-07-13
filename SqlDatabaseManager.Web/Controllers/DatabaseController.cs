@@ -7,7 +7,6 @@ using SqlDatabaseManager.Domain.Database.Table;
 using SqlDatabaseManager.Web.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SqlDatabaseManager.Web.Controllers
 {

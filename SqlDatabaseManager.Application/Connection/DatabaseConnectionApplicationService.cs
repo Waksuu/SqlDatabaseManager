@@ -2,7 +2,6 @@
 using SqlDatabaseManager.Domain.Connection;
 using System;
 
-
 namespace SqlDatabaseManager.Application.Connection
 {
     public class DatabaseConnectionApplicationService : IDatabaseConnectionApplicationService
@@ -15,6 +14,7 @@ namespace SqlDatabaseManager.Application.Connection
             this.connectionSerivce = connectionSerivce;
             this.session = session;
         }
+
         public Guid CreateDatabaseConnection(ConnectionInformationDTO connectionInformation)
         {
             connectionSerivce.ConnectToDatabase(connectionInformation);
