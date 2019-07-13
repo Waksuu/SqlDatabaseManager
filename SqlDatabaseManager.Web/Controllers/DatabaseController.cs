@@ -24,7 +24,7 @@ namespace SqlDatabaseManager.Web.Controllers
             this.databaseConnectionApplicationService = databaseConnectionApplicationService;
         }
 
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public ActionResult<Guid> Login(ConnectionInformationViewModel connectionInformationViewModel)
         {
             if (!ModelState.IsValid)
@@ -47,7 +47,7 @@ namespace SqlDatabaseManager.Web.Controllers
             return Ok(sessionId);
         }
 
-        [HttpDelete("/logout")]
+        [HttpDelete("logout")]
         public ActionResult Logout(Guid sessionId)
         {
             try
@@ -82,7 +82,7 @@ namespace SqlDatabaseManager.Web.Controllers
             return Ok(databases);
         }
 
-        [HttpGet("/tables")]
+        [HttpGet("tables")]
         public ActionResult<IEnumerable<TableDTO>> GetTables(Guid sessionId, string databaseName)
         {
             IEnumerable<TableDTO> tables;
@@ -102,7 +102,7 @@ namespace SqlDatabaseManager.Web.Controllers
             return Ok(tables);
         }
 
-        [HttpGet("/table-contents")]
+        [HttpGet("table-contents")]
         public ActionResult<TableDTO> GetTableContents(Guid sessionId, string databaseName, string tableName)
         {
             TableDTO tableDefinition;
