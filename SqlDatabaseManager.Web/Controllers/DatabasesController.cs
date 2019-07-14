@@ -12,12 +12,12 @@ namespace SqlDatabaseManager.Web.Controllers
 {
     [ApiController]
     [Route("api/databases")]
-    public class DatabaseController : Controller
+    public class DatabasesController : Controller
     {
         private readonly IDatabaseApplicationService databaseApplicationService;
         private readonly IDatabaseConnectionApplicationService databaseConnectionApplicationService;
 
-        public DatabaseController(IDatabaseApplicationService databaseApplicationService, IDatabaseConnectionApplicationService databaseConnectionApplicationService)
+        public DatabasesController(IDatabaseApplicationService databaseApplicationService, IDatabaseConnectionApplicationService databaseConnectionApplicationService)
         {
             this.databaseApplicationService = databaseApplicationService;
             this.databaseConnectionApplicationService = databaseConnectionApplicationService;
