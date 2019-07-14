@@ -18,10 +18,7 @@ namespace SqlDatabaseManager.Application.Connection
         public Guid CreateDatabaseConnection(ConnectionInformationDTO connectionInformation)
         {
             connectionSerivce.ConnectToDatabase(connectionInformation);
-
-            var sessionId = session.CreateSession(connectionInformation);
-
-            return sessionId;
+            return session.CreateSession(connectionInformation);
         }
 
         public void LogoutFromDatabase(Guid sessionId)

@@ -21,21 +21,18 @@ namespace SqlDatabaseManager.Application.Database
         public IEnumerable<DatabaseDTO> GetDatabasesFromServer(Guid sessionId)
         {
             ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
-
             return databaseService.GetDatabases(connectionInformation);
         }
 
         public IEnumerable<TableDTO> GetTables(Guid sessionId, string databaseName)
         {
             ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
-
             return databaseService.GetTables(connectionInformation, databaseName);
         }
 
         public TableDTO GetTableContents(Guid sessionId, string databaseName, string tableName)
         {
             ConnectionInformationDTO connectionInformation = session.GetSession(sessionId);
-
             return databaseService.GetTableContents(connectionInformation, databaseName, tableName);
         }
     }
