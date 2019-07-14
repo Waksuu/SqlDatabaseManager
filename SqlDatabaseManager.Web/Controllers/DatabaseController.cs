@@ -24,14 +24,10 @@ namespace SqlDatabaseManager.Web.Controllers
         }
 
         [HttpPost("login")]
+        [MappingExceptionFilter]
         [GenericDatabaseExceptionFilter]
         public ActionResult<Guid> Login(ConnectionInformationViewModel connectionInformationViewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var connectionInformation = Mapper.Mapper.ConnectionInformationMapper(connectionInformationViewModel);
             Guid sessionId = databaseConnectionApplicationService.CreateDatabaseConnection(connectionInformation);
             return Ok(sessionId);

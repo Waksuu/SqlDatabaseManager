@@ -7,11 +7,6 @@ namespace SqlDatabaseManager.Web.Filters
 {
     public class SessionNotFoundFilter : ExceptionFilterAttribute
     {
-        public SessionNotFoundFilter()
-        {
-            Order = 1000;
-        }
-
         public override void OnException(ExceptionContext context)
         {
             if (!(context.Exception is SessionException))

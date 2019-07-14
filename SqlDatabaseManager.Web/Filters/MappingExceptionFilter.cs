@@ -5,18 +5,18 @@ using System;
 
 namespace SqlDatabaseManager.Web.Filters
 {
-    public class GenericDatabaseExceptionFilter : ExceptionFilterAttribute
+    public class MappingExceptionFilter : ExceptionFilterAttribute
     {
         public override void OnException(ExceptionContext context)
         {
-            if (!(context.Exception is Exception))
+            if (!(context.Exception is InvalidOperationException))
             {
                 return;
             }
 
             context.Result = new ObjectResult(context.Exception.Message)
             {
-                StatusCode = StatusCodes.Status400BadRequest
+                StatusCode = StatusCodes.Status500InternalServerError
             };
         }
     }
