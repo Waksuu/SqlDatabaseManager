@@ -16,14 +16,14 @@ export class DatabaseServerExplorerService {
   constructor(private readonly authenticationService: AuthenticationService, private readonly http: HttpClient) { }
 
   public getDatabases(): Observable<DatabaseExplorer[]> {
-    let sessionId: string = this.authenticationService.getSession();
+    const sessionId: string = this.authenticationService.getSession();
     const httpParams: HttpParams = new HttpParams().append("sessionId", sessionId);
 
     return this.http.get<DatabaseExplorer[]>(apiUrl(endpoint.DatabaseController), { params: httpParams });
   }
 
   public getTables(databaseName: string): Observable<TableExplorer[]> {
-    let sessionId: string = this.authenticationService.getSession();
+    const sessionId: string = this.authenticationService.getSession();
     const httpParams: HttpParams = new HttpParams().append("sessionId", sessionId).append("databaseName", databaseName);
 
     return this.http.get<TableExplorer[]>(apiUrl(endpoint.DatabaseController, endpoint.Tables), { params: httpParams });

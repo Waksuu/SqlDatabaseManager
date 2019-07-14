@@ -11,8 +11,8 @@ import { DatabaseServerExplorerService } from '../database-server-explorer.servi
 })
 export class DatabaseExplorerComponent implements OnInit {
   //TODO: Hide implementation details from html
-  databasesTablesRetrieved: Map<string, boolean>;
-  databases$: Observable<DatabaseExplorer[]>;
+  public databasesTablesRetrieved: Map<string, boolean>;
+  public databases$: Observable<DatabaseExplorer[]>;
 
   constructor(private readonly databaseServerExplorerService: DatabaseServerExplorerService) { }
 
