@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace SqlDatabaseManager.Web.Controllers
 {
     [ApiController]
-    [Route("api/database")]
+    [Route("api/databases")]
     public class DatabaseController : Controller
     {
         private readonly IDatabaseApplicationService databaseApplicationService;

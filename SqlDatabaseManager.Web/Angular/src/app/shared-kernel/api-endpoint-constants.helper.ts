@@ -1,5 +1,5 @@
 export const databaseManagerEndpoint = {
-  DatabaseController: "database",
+  DatabaseController: "databases",
   Tables: "tables",
   TableContents: "table-contents",
   Login: "login",
