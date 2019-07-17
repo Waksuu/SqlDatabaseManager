@@ -1,13 +1,9 @@
-import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { DatabaseExplorer } from './database-explorer/database-explorer.dto';
 import { DatabaseServerExplorerService } from './database-server-explorer.service';
 import { TableExplorer } from './database-explorer/table-explorer/table-explorer.dto';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class DatabaseServerExplorerServiceMock extends DatabaseServerExplorerService {
   private databases: DatabaseExplorer[] = [
     { name: "Customer" },
@@ -24,6 +20,10 @@ export class DatabaseServerExplorerServiceMock extends DatabaseServerExplorerSer
     { name: "Mock Table 4" },
     { name: "Mock Table 5" },
   ];
+
+  constructor() {
+    super(null, null);
+  }
 
   public getDatabases(): Observable<DatabaseExplorer[]> {
     return of(this.databases);

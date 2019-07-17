@@ -11,7 +11,6 @@ namespace SqlDatabaseManager.Application.Authentication
         public ConnectionInformationDTO GetSession(Guid sessionId)
         {
             ValideSessionExistance(sessionId);
-
             return sessions[sessionId];
         }
 
@@ -25,7 +24,6 @@ namespace SqlDatabaseManager.Application.Authentication
         {
             Guid sessionId = Guid.NewGuid();
             sessions.Add(sessionId, connection);
-
             return sessionId;
         }
 

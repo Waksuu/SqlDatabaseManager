@@ -1,0 +1,272 @@
+<?xml version="1.0"?>
+<testsuite name="HeadlessChrome 75.0.3770 (Windows 10.0.0)" package="suits" timestamp="2019-07-17T20:42:44" id="0" hostname="DESKTOP-LSQD1GM" tests="11" errors="0" failures="7" time="0.4">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/75.0.3770.142 Safari/537.36"/>
+  </properties>
+  <testcase name="AppComponent should create the app" time="0.051" classname="suits.AppComponent"/>
+  <testcase name="AppComponent should have as title 'Angular'" time="0.015" classname="suits.AppComponent"/>
+  <testcase name="AppComponent should render title in a h1 tag" time="0.082" classname="suits.AppComponent">
+    <failure type="">TypeError: Cannot read property 'textContent' of null
+    at UserContext.&lt;anonymous&gt; (http://localhost:9876/_karma_webpack_/webpack:/src/app/app.component.spec.ts:34:40)
+    at ZoneDelegate.invoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-evergreen.js:359:1)
+    at ProxyZoneSpec.push../node_modules/zone.js/dist/zone-testing.js.ProxyZoneSpec.onInvoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-testing.js:308:1)
+    at ZoneDelegate.invoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-evergreen.js:358:1)
+    at Zone.run (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-evergreen.js:124:1)
+    at runInTestZone (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-testing.js:561:1)
+    at UserContext.&lt;anonymous&gt; (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-testing.js:576:1)
+</failure>
+  </testcase>
+  <testcase name="LoginComponent should create" time="0.019" classname="suits.LoginComponent">
+    <failure type="">Can't bind to 'ngModel' since it isn't a known property of 'input'. ("
+&lt;form&gt;&#xD;
+  &lt;div&gt;ServerAddress&lt;/div&gt;&#xD;
+  &lt;input type="text" [ERROR -&gt;][(ngModel)]="login.serverAddress" name="serverAddress"/&gt;&#xD;
+&#xD;
+  &lt;div&gt;Login&lt;/div&gt;&#xD;
+"): ng:///DynamicTestModule/LoginComponent.html@4:21
+Can't bind to 'ngModel' since it isn't a known property of 'input'. ("
+&#xD;
+  &lt;div&gt;Login&lt;/div&gt;&#xD;
+  &lt;input type="text" [ERROR -&gt;][(ngModel)]="login.login" name="login"/&gt;&#xD;
+&#xD;
+  &lt;div&gt;Password&lt;/div&gt;&#xD;
+"): ng:///DynamicTestModule/LoginComponent.html@7:21
+Can't bind to 'ngModel' since it isn't a known property of 'input'. ("
+&#xD;
+  &lt;div&gt;Password&lt;/div&gt;&#xD;
+  &lt;input type="password" [ERROR -&gt;][(ngModel)]="login.password" name="password"/&gt;&#xD;
+&#xD;
+  &lt;div&gt;DatabaseType&lt;/div&gt;&#xD;
+"): ng:///DynamicTestModule/LoginComponent.html@10:25
+Can't bind to 'ngModel' since it isn't a known property of 'input'. ("
+&#xD;
+  &lt;div&gt;DatabaseType&lt;/div&gt;&#xD;
+  &lt;input type="number" [ERROR -&gt;][(ngModel)]="login.databaseType" name="databaseType"/&gt;&#xD;
+  &lt;br /&gt;&#xD;
+  &lt;button type="submit" (click)="on"): ng:///DynamicTestModule/LoginComponent.html@13:23
+Error: Template parse errors:
+    at syntaxError (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:2175:1)
+    at TemplateParser.parse (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:11169:1)
+    at JitCompiler._parseTemplate (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25541:1)
+    at JitCompiler._compileTemplate (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25529:61)
+    at http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25473:1
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler._compileComponents (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25473:1)
+    at http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25393:1
+    at Object.then (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:2166:27)
+    at JitCompiler._compileModuleAndAllComponents (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25391:1)
+</failure>
+    <failure type="">Error: Template parse errors:
+Can't bind to 'ngModel' since it isn't a known property of 'input'. ("
+&lt;form&gt;&#xD;
+  &lt;div&gt;ServerAddress&lt;/div&gt;&#xD;
+  &lt;input type="text" [ERROR -&gt;][(ngModel)]="login.serverAddress" name="serverAddress"/&gt;&#xD;
+&#xD;
+  &lt;div&gt;Login&lt;/div&gt;&#xD;
+"): ng:///DynamicTestModule/LoginComponent.html@4:21
+Can't bind to 'ngModel' since it isn't a known property of 'input'. ("
+&#xD;
+  &lt;div&gt;Login&lt;/div&gt;&#xD;
+  &lt;input type="text" [ERROR -&gt;][(ngModel)]="login.login" name="login"/&gt;&#xD;
+&#xD;
+  &lt;div&gt;Password&lt;/div&gt;&#xD;
+"): ng:///DynamicTestModule/LoginComponent.html@7:21
+Can't bind to 'ngModel' since it isn't a known property of 'input'. ("
+&#xD;
+  &lt;div&gt;Password&lt;/div&gt;&#xD;
+  &lt;input type="password" [ERROR -&gt;][(ngModel)]="login.password" name="password"/&gt;&#xD;
+&#xD;
+  &lt;div&gt;DatabaseType&lt;/div&gt;&#xD;
+"): ng:///DynamicTestModule/LoginComponent.html@10:25
+Can't bind to 'ngModel' since it isn't a known property of 'input'. ("
+&#xD;
+  &lt;div&gt;DatabaseType&lt;/div&gt;&#xD;
+  &lt;input type="number" [ERROR -&gt;][(ngModel)]="login.databaseType" name="databaseType"/&gt;&#xD;
+  &lt;br /&gt;&#xD;
+  &lt;button type="submit" (click)="on"): ng:///DynamicTestModule/LoginComponent.html@13:23
+    at syntaxError (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:2175:1)
+    at TemplateParser.parse (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:11169:1)
+    at JitCompiler._parseTemplate (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25541:1)
+    at JitCompiler._compileTemplate (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25529:61)
+    at http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25473:1
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler._compileComponents (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25473:1)
+    at http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25393:1
+    at Object.then (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:2166:27)
+    at JitCompiler._compileModuleAndAllComponents (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25391:1)
+</failure>
+    <failure type="">Expected undefined to be truthy.
+    at UserContext.&lt;anonymous&gt; (http://localhost:9876/_karma_webpack_/webpack:/src/app/connection/login/login.component.spec.ts:23:23)
+    at ZoneDelegate.invoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-evergreen.js:359:1)
+    at ProxyZoneSpec.push../node_modules/zone.js/dist/zone-testing.js.ProxyZoneSpec.onInvoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-testing.js:308:1)
+    at ZoneDelegate.invoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-evergreen.js:358:1)
+</failure>
+  </testcase>
+  <testcase name="LogoutComponent should create" time="0.017" classname="suits.LogoutComponent">
+    <failure type="">NullInjectorError: StaticInjectorError(DynamicTestModule)[HttpClient]: 
+  StaticInjectorError(Platform: core)[HttpClient]: 
+    NullInjectorError: No provider for HttpClient!
+    at NullInjector.get (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1354:1)
+    at resolveToken (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1681:1)
+    at tryResolveToken (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1607:1)
+    at StaticInjector.get (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1470:1)
+    at resolveToken (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1681:1)
+    at tryResolveToken (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1607:1)
+    at StaticInjector.get (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1470:1)
+    at resolveNgModuleDep (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:23118:1)
+    at NgModuleRef_.get (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:24206:1)
+    at injectInjectorOnly (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:526:1)
+</failure>
+    <failure type="">Expected undefined to be truthy.
+    at UserContext.&lt;anonymous&gt; (http://localhost:9876/_karma_webpack_/webpack:/src/app/connection/logout/logout.component.spec.ts:23:23)
+    at ZoneDelegate.invoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-evergreen.js:359:1)
+    at ProxyZoneSpec.push../node_modules/zone.js/dist/zone-testing.js.ProxyZoneSpec.onInvoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-testing.js:308:1)
+    at ZoneDelegate.invoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-evergreen.js:358:1)
+</failure>
+  </testcase>
+  <testcase name="DatabaseExplorerComponent should create" time="0.102" classname="suits.DatabaseExplorerComponent"/>
+  <testcase name="DatabaseExplorerComponent should initialize database tables" time="0.071" classname="suits.DatabaseExplorerComponent"/>
+  <testcase name="TableExplorerNavComponent should create" time="0.016" classname="suits.TableExplorerNavComponent">
+    <failure type="">NullInjectorError: StaticInjectorError(DynamicTestModule)[HttpClient]: 
+  StaticInjectorError(Platform: core)[HttpClient]: 
+    NullInjectorError: No provider for HttpClient!
+    at NullInjector.get (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1354:1)
+    at resolveToken (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1681:1)
+    at tryResolveToken (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1607:1)
+    at StaticInjector.get (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1470:1)
+    at resolveToken (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1681:1)
+    at tryResolveToken (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1607:1)
+    at StaticInjector.get (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1470:1)
+    at resolveNgModuleDep (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:23118:1)
+    at NgModuleRef_.get (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:24206:1)
+    at injectInjectorOnly (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:526:1)
+</failure>
+    <failure type="">Expected undefined to be truthy.
+    at UserContext.&lt;anonymous&gt; (http://localhost:9876/_karma_webpack_/webpack:/src/app/datadatabase-server-explorer/database-explorer/table-explorer/table-explorer.component.spec.ts:23:23)
+    at ZoneDelegate.invoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-evergreen.js:359:1)
+    at ProxyZoneSpec.push../node_modules/zone.js/dist/zone-testing.js.ProxyZoneSpec.onInvoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-testing.js:308:1)
+    at ZoneDelegate.invoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-evergreen.js:358:1)
+</failure>
+  </testcase>
+  <testcase name="DatabaseServerExplorerComponent should create" time="0.01" classname="suits.DatabaseServerExplorerComponent">
+    <failure type="">'app-database-explorer' is not a known element:
+1. If 'app-database-explorer' is an Angular component, then verify that it is part of this module.
+2. If 'app-database-explorer' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("&lt;div class="database-server-explorer"&gt;&#xD;
+  [ERROR -&gt;]&lt;app-database-explorer&gt;&lt;/app-database-explorer&gt;&#xD;
+&lt;/div&gt;&#xD;
+"): ng:///DynamicTestModule/DatabaseServerExplorerComponent.html@1:2
+Error: Template parse errors:
+    at syntaxError (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:2175:1)
+    at TemplateParser.parse (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:11169:1)
+    at JitCompiler._parseTemplate (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25541:1)
+    at JitCompiler._compileTemplate (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25529:61)
+    at http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25473:1
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler._compileComponents (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25473:1)
+    at http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25393:1
+    at Object.then (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:2166:27)
+    at JitCompiler._compileModuleAndAllComponents (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25391:1)
+</failure>
+    <failure type="">Error: Template parse errors:
+'app-database-explorer' is not a known element:
+1. If 'app-database-explorer' is an Angular component, then verify that it is part of this module.
+2. If 'app-database-explorer' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("&lt;div class="database-server-explorer"&gt;&#xD;
+  [ERROR -&gt;]&lt;app-database-explorer&gt;&lt;/app-database-explorer&gt;&#xD;
+&lt;/div&gt;&#xD;
+"): ng:///DynamicTestModule/DatabaseServerExplorerComponent.html@1:2
+    at syntaxError (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:2175:1)
+    at TemplateParser.parse (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:11169:1)
+    at JitCompiler._parseTemplate (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25541:1)
+    at JitCompiler._compileTemplate (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25529:61)
+    at http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25473:1
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler._compileComponents (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25473:1)
+    at http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25393:1
+    at Object.then (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:2166:27)
+    at JitCompiler._compileModuleAndAllComponents (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25391:1)
+</failure>
+    <failure type="">Expected undefined to be truthy.
+    at UserContext.&lt;anonymous&gt; (http://localhost:9876/_karma_webpack_/webpack:/src/app/datadatabase-server-explorer/database-server-explorer.component.spec.ts:23:23)
+    at ZoneDelegate.invoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-evergreen.js:359:1)
+    at ProxyZoneSpec.push../node_modules/zone.js/dist/zone-testing.js.ProxyZoneSpec.onInvoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-testing.js:308:1)
+    at ZoneDelegate.invoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-evergreen.js:358:1)
+</failure>
+  </testcase>
+  <testcase name="DatabaseService should be created" time="0.006" classname="suits.DatabaseService">
+    <failure type="">NullInjectorError: StaticInjectorError(DynamicTestModule)[HttpClient]: 
+  StaticInjectorError(Platform: core)[HttpClient]: 
+    NullInjectorError: No provider for HttpClient!
+    at NullInjector.get (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1354:1)
+    at resolveToken (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1681:1)
+    at tryResolveToken (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1607:1)
+    at StaticInjector.get (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1470:1)
+    at resolveToken (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1681:1)
+    at tryResolveToken (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1607:1)
+    at StaticInjector.get (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:1470:1)
+    at resolveNgModuleDep (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:23118:1)
+    at NgModuleRef_.get (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:24206:1)
+    at injectInjectorOnly (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/core/fesm2015/core.js:526:1)
+</failure>
+  </testcase>
+  <testcase name="DatabaseeComponent should create" time="0.011" classname="suits.DatabaseeComponent">
+    <failure type="">'app-logout' is not a known element:
+1. If 'app-logout' is an Angular component, then verify that it is part of this module.
+2. If 'app-logout' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("&lt;div class="welcome"&gt;&lt;h1&gt;Welcome!!!&lt;/h1&gt;&lt;/div&gt;&#xD;
+[ERROR -&gt;]&lt;app-logout&gt;&lt;/app-logout&gt;&#xD;
+&lt;app-database-server-explorer&gt;&lt;/app-database-server-explorer&gt;&#xD;
+"): ng:///DynamicTestModule/DatabaseComponent.html@1:0
+'app-database-server-explorer' is not a known element:
+1. If 'app-database-server-explorer' is an Angular component, then verify that it is part of this module.
+2. If 'app-database-server-explorer' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("&lt;div class="welcome"&gt;&lt;h1&gt;Welcome!!!&lt;/h1&gt;&lt;/div&gt;&#xD;
+&lt;app-logout&gt;&lt;/app-logout&gt;&#xD;
+[ERROR -&gt;]&lt;app-database-server-explorer&gt;&lt;/app-database-server-explorer&gt;&#xD;
+"): ng:///DynamicTestModule/DatabaseComponent.html@2:0
+Error: Template parse errors:
+    at syntaxError (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:2175:1)
+    at TemplateParser.parse (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:11169:1)
+    at JitCompiler._parseTemplate (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25541:1)
+    at JitCompiler._compileTemplate (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25529:61)
+    at http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25473:1
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler._compileComponents (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25473:1)
+    at http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25393:1
+    at Object.then (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:2166:27)
+    at JitCompiler._compileModuleAndAllComponents (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25391:1)
+</failure>
+    <failure type="">Error: Template parse errors:
+'app-logout' is not a known element:
+1. If 'app-logout' is an Angular component, then verify that it is part of this module.
+2. If 'app-logout' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("&lt;div class="welcome"&gt;&lt;h1&gt;Welcome!!!&lt;/h1&gt;&lt;/div&gt;&#xD;
+[ERROR -&gt;]&lt;app-logout&gt;&lt;/app-logout&gt;&#xD;
+&lt;app-database-server-explorer&gt;&lt;/app-database-server-explorer&gt;&#xD;
+"): ng:///DynamicTestModule/DatabaseComponent.html@1:0
+'app-database-server-explorer' is not a known element:
+1. If 'app-database-server-explorer' is an Angular component, then verify that it is part of this module.
+2. If 'app-database-server-explorer' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("&lt;div class="welcome"&gt;&lt;h1&gt;Welcome!!!&lt;/h1&gt;&lt;/div&gt;&#xD;
+&lt;app-logout&gt;&lt;/app-logout&gt;&#xD;
+[ERROR -&gt;]&lt;app-database-server-explorer&gt;&lt;/app-database-server-explorer&gt;&#xD;
+"): ng:///DynamicTestModule/DatabaseComponent.html@2:0
+    at syntaxError (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:2175:1)
+    at TemplateParser.parse (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:11169:1)
+    at JitCompiler._parseTemplate (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25541:1)
+    at JitCompiler._compileTemplate (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25529:61)
+    at http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25473:1
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler._compileComponents (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25473:1)
+    at http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25393:1
+    at Object.then (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:2166:27)
+    at JitCompiler._compileModuleAndAllComponents (http://localhost:9876/_karma_webpack_/webpack:/node_modules/@angular/compiler/fesm2015/compiler.js:25391:1)
+</failure>
+    <failure type="">Expected undefined to be truthy.
+    at UserContext.&lt;anonymous&gt; (http://localhost:9876/_karma_webpack_/webpack:/src/app/datadatabase.component.spec.ts:23:23)
+    at ZoneDelegate.invoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-evergreen.js:359:1)
+    at ProxyZoneSpec.push../node_modules/zone.js/dist/zone-testing.js.ProxyZoneSpec.onInvoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-testing.js:308:1)
+    at ZoneDelegate.invoke (http://localhost:9876/_karma_webpack_/webpack:/node_modules/zone.js/dist/zone-evergreen.js:358:1)
+</failure>
+  </testcase>
+  <system-out>
+    <![CDATA[
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>

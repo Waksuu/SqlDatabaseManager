@@ -3,30 +3,56 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular'],
-    plugins: [
-      require('karma-jasmine'),
-      require('karma-chrome-launcher'),
-      require('karma-jasmine-html-reporter'),
-      require('karma-coverage-istanbul-reporter'),
-      require('@angular-devkit/build-angular/plugins/karma')
-    ],
-    client: {
-      clearContext: false // leave Jasmine Spec Runner output visible in browser
-    },
-    coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, '../coverage/Angular'),
-      reports: ['html', 'lcovonly', 'text-summary'],
-      fixWebpackSourcePaths: true
-    },
-    reporters: ['progress', 'kjhtml'],
+    basePath: "./",
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
-    autoWatch: true,
-    browsers: ['Chrome'],
-    singleRun: false,
-    restartOnFileChange: true
+
+    frameworks: [
+      'jasmine',
+      "jasmine-matchers",
+      '@angular-devkit/build-angular'
+    ],
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-jasmine-matchers'),
+      require('karma-chrome-launcher'),
+      require('karma-coverage-istanbul-reporter'),
+      require('karma-mocha-reporter'),
+      require('karma-junit-reporter'),
+      require('@angular-devkit/build-angular/plugins/karma')
+    ],
+    reporters: [
+      "mocha",
+      "coverage-istanbul",
+      "junit"
+    ],
+    coverageIstanbulReporter: {
+      dir: `.tests/coverage`,
+      reports: [
+        "text-summary",
+        "html",
+        "lcovonly"
+      ]
+    },
+    junitReporter: {
+      outputDir: `.tests/`,
+      outputFile: "test-report.xml",
+      suite: `suits`,
+      useBrowserName: false
+    },
+    browsers: ["ChromeHeadless"],
+    files: [],
+    browserConsoleLogOptions: {
+      terminal: true,
+      level: "log"
+    },
+    mime: {
+      "text/x-typescript": ["ts"]
+    },
+    client: {
+      clearContext: false, // leave Jasmine Spec Runner output visible in browser
+      captureConsole: true
+    },
   });
 };
