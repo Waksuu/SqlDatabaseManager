@@ -29,7 +29,7 @@ namespace SqlDatabaseManager.Web.Controllers
         public ActionResult<Guid> Login(ConnectionInformationViewModel connectionInformationViewModel)
         {
             var connectionInformation = Mapper.Mapper.ConnectionInformationMapper(connectionInformationViewModel);
-            Guid sessionId = databaseConnectionApplicationService.CreateDatabaseConnection(connectionInformation);
+            var sessionId = databaseConnectionApplicationService.CreateDatabaseConnection(connectionInformation);
             return Ok(sessionId);
         }
 
@@ -47,7 +47,7 @@ namespace SqlDatabaseManager.Web.Controllers
         [GenericDatabaseExceptionFilter]
         public ActionResult<IEnumerable<DatabaseDTO>> GetDatabases(Guid sessionId)
         {
-            IEnumerable<DatabaseDTO> databases = databaseApplicationService.GetDatabasesFromServer(sessionId);
+            var databases = databaseApplicationService.GetDatabasesFromServer(sessionId);
             return Ok(databases);
         }
 
@@ -56,7 +56,7 @@ namespace SqlDatabaseManager.Web.Controllers
         [GenericDatabaseExceptionFilter]
         public ActionResult<IEnumerable<TableDTO>> GetTables(Guid sessionId, string databaseName)
         {
-            IEnumerable<TableDTO> tables = databaseApplicationService.GetTables(sessionId, databaseName);
+            var tables = databaseApplicationService.GetTables(sessionId, databaseName);
             return Ok(tables);
         }
 
@@ -65,7 +65,7 @@ namespace SqlDatabaseManager.Web.Controllers
         [GenericDatabaseExceptionFilter]
         public ActionResult<TableDTO> GetTableContents(Guid sessionId, string databaseName, string tableName)
         {
-            TableDTO tableDefinition = databaseApplicationService.GetTableContents(sessionId, databaseName, tableName);
+            var tableDefinition = databaseApplicationService.GetTableContents(sessionId, databaseName, tableName);
             return Ok(tableDefinition);
         }
     }

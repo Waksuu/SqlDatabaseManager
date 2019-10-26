@@ -3,7 +3,7 @@ using System;
 
 namespace SqlDatabaseManager.Application.Authentication
 {
-    public interface ISession
+    internal interface ISession
     {
         ConnectionInformationDTO GetSession(Guid sessionId);
 

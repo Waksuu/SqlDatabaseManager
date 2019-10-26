@@ -4,7 +4,7 @@ using System;
 
 namespace SqlDatabaseManager.Application.Connection
 {
-    public class DatabaseConnectionApplicationService : IDatabaseConnectionApplicationService
+    internal class DatabaseConnectionApplicationService : IDatabaseConnectionApplicationService
     {
         private readonly IConnectionSerivce connectionSerivce;
         private readonly ISession session;

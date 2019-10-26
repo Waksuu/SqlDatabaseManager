@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SqlDatabaseManager.Application.Authentication
 {
-    public class SessionMemory : ISession
+    internal class SessionMemory : ISession
     {
         private Dictionary<Guid, ConnectionInformationDTO> sessions = new Dictionary<Guid, ConnectionInformationDTO>();
 

@@ -3,7 +3,6 @@ using System.Runtime.Serialization;
 
 namespace SqlDatabaseManager.Domain.Database
 {
-    [Serializable]
     internal class NotSupportedDatabaseException : Exception
     {
         public NotSupportedDatabaseException()

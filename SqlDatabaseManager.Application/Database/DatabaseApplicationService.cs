@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace SqlDatabaseManager.Application.Database
 {
-    public class DatabaseApplicationService : IDatabaseApplicationService
+    internal class DatabaseApplicationService : IDatabaseApplicationService
     {
         private readonly ISession session;
         private readonly IDatabaseService databaseService;

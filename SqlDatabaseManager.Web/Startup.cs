@@ -11,12 +11,12 @@ namespace SqlDatabaseManager.Web
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {

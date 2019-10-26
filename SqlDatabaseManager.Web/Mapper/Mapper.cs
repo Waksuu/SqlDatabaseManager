@@ -4,9 +4,9 @@ using System;
 
 namespace SqlDatabaseManager.Web.Mapper
 {
-    public class Mapper
+    internal class Mapper
     {
-        public static ConnectionInformationDTO ConnectionInformationMapper(ConnectionInformationViewModel connectionViewModel)
+        internal static ConnectionInformationDTO ConnectionInformationMapper(ConnectionInformationViewModel connectionViewModel)
         {
             ValidateState(connectionViewModel);
 
